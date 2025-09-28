@@ -1,4 +1,4 @@
-package sistema_gestion_clinica;
+package sistema.gestion.clinica;
 
 public class Main {
 
