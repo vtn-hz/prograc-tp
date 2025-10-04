@@ -2,6 +2,7 @@ package sistema.gestion.clinica.model;
 
 import sistema.gestion.clinica.model.decorator.decoratormedico.*;
 import sistema.gestion.clinica.model.medico.*;
+import sistema.gestion.clinica.modelo.Domicilio;
 
 public class MedicoFactory {
 	
@@ -28,16 +29,17 @@ public class MedicoFactory {
 	 * @return
 	 */
 	public IMedico create ( String numeroMatricula, 
-							String dni, String nombre, 
-							String telefono, String direccion, String ciudad, 
+							String NyA, String dni, 
+							String telefono, String ciudad, String direccion, 
 							String especialidad 
 	) {
 		IMedico medico = null;
+		Domicilio domicilio = new Domicilio(telefono, ciudad, direccion); 
 				
 		switch( especialidad ) {
-			case MEDICO_CLINICO: 	medico = new MedicoClinico(); break;
-			case MEDICO_CIRUJANO:	medico = new MedicoCirujano();break;
-			case MEDICO_PEDIATRA: 	medico = new MedicoPediatra();break;
+			case MEDICO_CLINICO: 	medico = new MedicoClinico(numeroMatricula, NyA, dni, domicilio); break;
+			case MEDICO_CIRUJANO:	medico = new MedicoCirujano(numeroMatricula, NyA, dni, domicilio);break;
+			case MEDICO_PEDIATRA: 	medico = new MedicoPediatra(numeroMatricula, NyA, dni, domicilio);break;
 		}
 		
 		return medico;
@@ -47,45 +49,47 @@ public class MedicoFactory {
 	 * <b>pre:</b> ∀ param_i tipo String param_i != null / la especialidad existe / el tipo contrato existe <br>
 	 * <b>post:</b> devuelve un medico decorado con DecoratorContrato
 	 * @param numeroMatricula
+	 * @param NyA
 	 * @param dni
-	 * @param nombre
 	 * @param telefono
-	 * @param direccion
 	 * @param ciudad
+	 * @param direccion
 	 * @param especialidad
 	 * @param tipoContratacion
 	 * @return
 	 */
 	public IMedico create(
-			String numeroMatricula, String dni, String nombre, 
-			String telefono, String direccion, String ciudad, 
+			String numeroMatricula, 
+			String NyA, String dni, 
+			String telefono, String ciudad, String direccion, 
 			String especialidad, String tipoContratacion
 	) {
-		IMedico medico = this.create(numeroMatricula, dni, nombre, telefono, direccion, ciudad, especialidad);		
+		IMedico medico = this.create(numeroMatricula, NyA, dni, telefono, ciudad, direccion, especialidad);		
 		return this.decorateContratacion(medico, tipoContratacion);
 	}
 	
-	
+		
 	/**
 	 * <b>pre:</b> ∀ param_i tipo String param_i != null / la especialidad existe / el postgrado /  el tipo contrato existe <br>
 	 * <b>post:</b> devuelve un medico decorado con DecoratorContrato
 	 * @param numeroMatricula
+	 * @param NyA
 	 * @param dni
-	 * @param nombre
 	 * @param telefono
-	 * @param direccion
 	 * @param ciudad
+	 * @param direccion
 	 * @param especialidad
-	 * @param postgrado
 	 * @param tipoContratacion
+	 * @param postgrado
 	 * @return
 	 */
 	public IMedico create(
-			String numeroMatricula, String dni, String nombre, 
-			String telefono, String direccion, String ciudad, 
-			String especialidad, String postgrado, String tipoContratacion
+			String numeroMatricula, 
+			String NyA, String dni,  
+			String telefono, String ciudad, String direccion, 
+			String especialidad, String tipoContratacion, String postgrado
 	) {
-		IMedico medico = this.create(numeroMatricula, dni, nombre, telefono, direccion, ciudad, especialidad);		
+		IMedico medico = this.create(numeroMatricula, NyA, dni, telefono, ciudad, direccion, especialidad);		
 		medico = this.decoratePostgrado(medico, postgrado);
 		return this.decorateContratacion(medico, tipoContratacion);
 	}

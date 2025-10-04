@@ -1,21 +1,20 @@
 package sistema.gestion.clinica.model.medico;
 
 import sistema.gestion.clinica.model.Medico;
+import sistema.gestion.clinica.modelo.Domicilio;
 
 public class MedicoPediatra extends Medico 
 {
-	
 	private static final double ESPECIALIDAD_AUMENTO = 0.07;
 	
-	public MedicoPediatra() 
-	{
-		// TODO Auto-generated constructor stub
+	public MedicoPediatra(String numeroMatricula, String NyA, String dni, Domicilio domicilio) {
+		super(numeroMatricula, NyA, dni, domicilio);
 	}
 
 	@Override
 	public String getEspecialidad() 
 	{
-		return "cirujano";
+		return "pediatra";
 	}
 	
 	@Override

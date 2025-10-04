@@ -1,15 +1,14 @@
 package sistema.gestion.clinica.model.medico;
 
 import sistema.gestion.clinica.model.Medico;
+import sistema.gestion.clinica.modelo.Domicilio;
 
 public class MedicoCirujano extends Medico 
 {
-	
 	private static final double ESPECIALIDAD_AUMENTO = 0.10;
 	
-	public MedicoCirujano() 
-	{
-		// TODO Auto-generated constructor stub
+	public MedicoCirujano(String numeroMatricula, String NyA, String dni, Domicilio domicilio) {
+		super(numeroMatricula, NyA, dni, domicilio);
 	}
 
 	@Override
