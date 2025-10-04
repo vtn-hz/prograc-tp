@@ -1,41 +1,52 @@
 package sistema.gestion.clinica.modelo;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 
 public class GestorAtencionPaciente {
-    private ArrayList<Paciente> pacientesEspera;
+    private HashMap<Integer,Paciente> pacientesEspera; //integer para el numero de orden
     private ArrayList<Paciente> pacientesAtencion;
+    private int ultimoNroOrden;
 
     public GestorAtencionPaciente() {
-        this.pacientesEspera = new ArrayList<>();
-        this.pacientesAtencion = new ArrayList<>();
+        this.pacientesEspera = new HashMap<Integer,Paciente>();
+        this.pacientesAtencion = new ArrayList<Paciente>();
+        ultimoNroOrden=0;
     }
 
     public void anunciar(Paciente paciente) {
-        if (this.pacientesEspera == null) {
-            this.pacientesEspera = new ArrayList<>();
-        }
-        this.pacientesEspera.add(paciente);
+        this.pacientesEspera.put(ultimoNroOrden,paciente);
+        ultimoNroOrden+=1;
         SalaEsperaPatio.getInstance().ocupar(paciente);
     }
 
     public void atender(Paciente paciente) {
-        if (this.pacientesAtencion == null) {
-            this.pacientesAtencion = new ArrayList<>();
-        }
         this.pacientesAtencion.add(paciente);
     }
 
     public void egresar(Paciente paciente) {
-        if (this.pacientesAtencion != null) {
+        if (this.pacientesAtencion.contains(paciente))
+        {
             this.pacientesAtencion.remove(paciente);
+        }
+        else{
+            if(this.pacientesEspera.containsValue(paciente))
+            {
+                pacientesEspera.entrySet().removeIf(entry -> entry.getValue().equals(paciente));
+                SalaEsperaPatio.getInstance().desocupar(paciente);
+            }
         }
     }
 
     public Paciente getSigPacienteAtender() {
-        if (this.pacientesEspera != null && !this.pacientesEspera.isEmpty()) {
-            return this.pacientesEspera.remove(0);
+        Paciente paciente = null;
+        if (!this.pacientesEspera.isEmpty())
+        {
+            int menorClave = Collections.min(pacientesEspera.keySet());
+            paciente = pacientesEspera.get(menorClave);
+
         }
-        return null;
+        return paciente;
     }
 }
