@@ -50,9 +50,9 @@ public class Paciente extends Persona {
         return "Paciente{" +
                 "Nombre y Apellido='" + getNyA() + '\'' +
                 ", dni='" + getDni() + '\'' +
-                ", domicilio=" + getDomicilio() +
-                ", ciudad='" + getCiudad() + '\'' +
-                ", telefono='" + getTelefono() + '\'' +
+                ", direccion=" + getDomicilio().getDireccion() +
+                ", ciudad='" + getDomicilio().getCiudad() + '\'' +
+                ", telefono='" + getDomicilio().getTelefono() + '\'' +
                 ", historiaClinica='" + historiaClinica + '\'' +
                 ", numeroOrden=" + numeroOrden +
                 ", fechaIngreso=" + fechaIngreso +
