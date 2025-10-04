@@ -26,10 +26,10 @@ public class SalaEsperaPatio {
         }
     }
 
-    public Paciente getPacienteByNroOrden(int numeroOrden) {
+    public Paciente getPacienteByHistoriaClinica(String historiaClinica) {
         if (this.pacientes != null) {
             for (Paciente paciente : this.pacientes) {
-                if (paciente.getNumeroOrden() == numeroOrden) {
+                if (paciente.getHistoriaClinica().equals(historiaClinica)) {
                     return paciente;
                 }
             }
