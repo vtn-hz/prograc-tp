@@ -2,13 +2,13 @@ package sistema.gestion.clinica.modelo;
 
 public class SalaEsperaPrivada {
     private Paciente paciente;
-    private SalaEsperaPrivada _instancia;
+    private static SalaEsperaPrivada _instancia;
 
-    public SalaEsperaPrivada getInstance() {
-        if (this._instancia == null) {
-            this._instancia = new SalaEsperaPrivada();
+    public static SalaEsperaPrivada getInstance() {
+        if (_instancia == null) {
+            _instancia = new SalaEsperaPrivada();
         }
-        return this._instancia;
+        return _instancia;
     }
 
     public void ocupar(Paciente paciente) {

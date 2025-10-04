@@ -1,8 +1,10 @@
 package sistema.gestion.clinica.modelo;
 
+import sistema.gestion.clinica.Interfaces.IProtocoloOcuparSala;
+
 import java.time.LocalDateTime;
 
-public class Paciente extends Persona {
+public abstract class Paciente extends Persona implements IProtocoloOcuparSala  {
 
     private String historiaClinica;
     private int numeroOrden;
