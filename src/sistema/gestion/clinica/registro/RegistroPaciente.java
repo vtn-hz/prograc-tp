@@ -8,10 +8,10 @@ public class RegistroPaciente {
     private ArrayList<RegistroIngreso> registroIngresos;
     private int ingresoActual;
 
-    public RegistroPaciente(Paciente paciente) {
+    public RegistroPaciente(Paciente paciente,int numeroOrden) {
         this.paciente = paciente;
         this.registroIngresos = new ArrayList<RegistroIngreso>();
-        this.registroIngresos.add(new RegistroIngreso);
+        this.registroIngresos.add(new RegistroIngreso(numeroOrden));
         this.ingresoActual = 0;
     }
 
@@ -50,5 +50,9 @@ public class RegistroPaciente {
 
     public void finalizarIngreso(){
         this.registroIngresos.get(this.ingresoActual).finalizarIngreso();
+    }
+
+    public int getNumeroOrden(){
+        return this.registroIngresos.get(this.ingresoActual).getNumeroOrden();
     }
 }
