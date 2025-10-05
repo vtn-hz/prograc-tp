@@ -9,7 +9,7 @@ import mdp.ingenieria.clinicagestion.model.persona.Paciente;
 import mdp.ingenieria.clinicagestion.model.persona.paciente.PacienteJoven;
 import mdp.ingenieria.clinicagestion.model.persona.paciente.PacienteMayor;
 import mdp.ingenieria.clinicagestion.model.persona.paciente.PacienteNino;
-import mdp.ingenieria.clinicagestion.service.GestorAtencionPaciente;
+import mdp.ingenieria.clinicagestion.service.GestorAtencionPacienteService;
 
 public class TestFuncionalGestorAtencionPaciente {
 
@@ -33,7 +33,7 @@ public class TestFuncionalGestorAtencionPaciente {
         System.out.println("TEST 1: Anunciar paciente único - Sala Privada vacía");
         resetearSalas();
         
-        GestorAtencionPaciente gestor = new GestorAtencionPaciente();
+        GestorAtencionPacienteService gestor = new GestorAtencionPacienteService();
         Paciente nino = crearPacienteNino("Juan Pérez", "12345678", 1);
         
         gestor.anunciar(nino);
@@ -50,7 +50,7 @@ public class TestFuncionalGestorAtencionPaciente {
         System.out.println("TEST 2: Conflicto Niño-Joven");
         resetearSalas();
         
-        GestorAtencionPaciente gestor = new GestorAtencionPaciente();
+        GestorAtencionPacienteService gestor = new GestorAtencionPacienteService();
         Paciente nino = crearPacienteNino("María López", "87654321", 2);
         Paciente joven = crearPacienteJoven("Carlos García", "11223344", 3);
         
@@ -74,7 +74,7 @@ public class TestFuncionalGestorAtencionPaciente {
         System.out.println("TEST 3: Conflicto Joven-Mayor");
         resetearSalas();
         
-        GestorAtencionPaciente gestor = new GestorAtencionPaciente();
+        GestorAtencionPacienteService gestor = new GestorAtencionPacienteService();
         Paciente joven = crearPacienteJoven("Ana Martínez", "55667788", 4);
         Paciente mayor = crearPacienteMayor("Pedro Sánchez", "99887766", 5);
         
@@ -98,7 +98,7 @@ public class TestFuncionalGestorAtencionPaciente {
         System.out.println("TEST 4: Conflicto Mayor-Niño");
         resetearSalas();
         
-        GestorAtencionPaciente gestor = new GestorAtencionPaciente();
+        GestorAtencionPacienteService gestor = new GestorAtencionPacienteService();
         Paciente mayor = crearPacienteMayor("Laura Fernández", "44332211", 6);
         Paciente nino = crearPacienteNino("Diego Ruiz", "66778899", 7);
         
@@ -122,7 +122,7 @@ public class TestFuncionalGestorAtencionPaciente {
         System.out.println("TEST 5: Atender paciente");
         resetearSalas();
         
-        GestorAtencionPaciente gestor = new GestorAtencionPaciente();
+        GestorAtencionPacienteService gestor = new GestorAtencionPacienteService();
         Paciente paciente = crearPacienteJoven("Luis Torres", "12121212", 8);
         
         gestor.anunciar(paciente);
@@ -145,7 +145,7 @@ public class TestFuncionalGestorAtencionPaciente {
         System.out.println("TEST 6: Egresar paciente en atención");
         resetearSalas();
         
-        GestorAtencionPaciente gestor = new GestorAtencionPaciente();
+        GestorAtencionPacienteService gestor = new GestorAtencionPacienteService();
         Paciente paciente = crearPacienteMayor("Rosa Gómez", "34343434", 9);
         
         gestor.anunciar(paciente);
@@ -163,7 +163,7 @@ public class TestFuncionalGestorAtencionPaciente {
         System.out.println("TEST 7: Egresar paciente en espera");
         resetearSalas();
         
-        GestorAtencionPaciente gestor = new GestorAtencionPaciente();
+        GestorAtencionPacienteService gestor = new GestorAtencionPacienteService();
         Paciente paciente = crearPacienteNino("Sofia Morales", "56565656", 10);
         
         gestor.anunciar(paciente);
@@ -186,7 +186,7 @@ public class TestFuncionalGestorAtencionPaciente {
         System.out.println("TEST 8: Obtener siguiente paciente a atender");
         resetearSalas();
         
-        GestorAtencionPaciente gestor = new GestorAtencionPaciente();
+        GestorAtencionPacienteService gestor = new GestorAtencionPacienteService();
         Paciente paciente1 = crearPacienteJoven("Jorge Díaz", "78787878", 11);
         Paciente paciente2 = crearPacienteMayor("Elena Castro", "90909090", 12);
         
@@ -206,7 +206,7 @@ public class TestFuncionalGestorAtencionPaciente {
         System.out.println("TEST 9: Egresar paciente no registrado");
         resetearSalas();
         
-        GestorAtencionPaciente gestor = new GestorAtencionPaciente();
+        GestorAtencionPacienteService gestor = new GestorAtencionPacienteService();
         Paciente pacienteNoRegistrado = crearPacienteNino("Inexistente", "00000000", 99);
         
         try {
