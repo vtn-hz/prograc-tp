@@ -4,28 +4,29 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
+import mdp.ingenieria.clinicagestion.exception.PacienteNoAtendidoException;
 import mdp.ingenieria.clinicagestion.exception.PacienteNoEncontradoException;
 import mdp.ingenieria.clinicagestion.exception.PacienteNoIngresadoException;
 import mdp.ingenieria.clinicagestion.model.clinica.salaespera.SalaEsperaPatio;
 import mdp.ingenieria.clinicagestion.model.clinica.salaespera.SalaEsperaPrivada;
 import mdp.ingenieria.clinicagestion.model.persona.Paciente;
 
-public class GestorAtencionPaciente {
+public class GestorAtencionPacienteService {
     private HashMap<Integer,Paciente> pacientesEspera; //integer para el numero de orden
     private ArrayList<Paciente> pacientesAtencion;
     private int ultimoNroOrden;
 
-    public GestorAtencionPaciente() {
+    public GestorAtencionPacienteService() {
         this.pacientesEspera = new HashMap<Integer,Paciente>();
         this.pacientesAtencion = new ArrayList<Paciente>();
         ultimoNroOrden=0;
     }
 
     public void anunciar(Paciente paciente) {
-        this.pacientesEspera.put(ultimoNroOrden,paciente);
-        ultimoNroOrden+=1;
+        this.pacientesEspera.put(this.ultimoNroOrden++, paciente);
         paciente.ocuparSala();
     }
+    
     public void sacarPacienteSalaEspera(Paciente paciente) throws PacienteNoIngresadoException
     {
         try{
@@ -46,16 +47,28 @@ public class GestorAtencionPaciente {
             sacarPacienteSalaEspera(paciente);
         }
     }
-
-    public void egresar(Paciente paciente) throws PacienteNoEncontradoException //PacienteNoIngresadoException extiende PacienteNoEncontradoException
+    
+    public boolean isAtendido(Paciente paciente)
     {
-        if (this.pacientesAtencion.contains(paciente))
+    	return this.pacientesAtencion.contains(paciente);
+    }
+    
+   
+    /**
+     * LO MODIFIQUE VER MARI, [VALENTINO]
+     * */
+    
+    public void egresar(Paciente paciente) throws PacienteNoIngresadoException, PacienteNoEncontradoException, PacienteNoAtendidoException
+    {
+        if (this.isAtendido( paciente ))
             this.pacientesAtencion.remove(paciente);
         else{
             if(this.pacientesEspera.containsValue(paciente))
             {
                 pacientesEspera.entrySet().removeIf(entry -> entry.getValue().equals(paciente));
                 sacarPacienteSalaEspera(paciente);
+                
+                throw new PacienteNoAtendidoException( paciente ); 
             }
             else
                 throw new PacienteNoEncontradoException(paciente);
