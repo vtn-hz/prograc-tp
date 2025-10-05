@@ -1,29 +1,30 @@
 package mdp.ingenieria.clinicagestion.model.persona;
-import java.util.ArrayList;
 
-import sistema.gestion.clinica.model.persona.Paciente;
+import java.util.Stack;
+
+import mdp.ingenieria.clinicagestion.model.Factura;
+import mdp.ingenieria.clinicagestion.model.clinica.Habitacion;
 
 public class RegistroPaciente {
+	
     private Paciente paciente;
-    private ArrayList<RegistroIngreso> registroIngresos;
-    private int ingresoActual;
-
+    
+    private Stack<RegistroIngreso> registroIngresos;    
+    
     public RegistroPaciente(Paciente paciente) {
         this.paciente = paciente;
-        this.registroIngresos = new ArrayList<RegistroIngreso>();
-        this.ingresoActual = -1;
+        this.registroIngresos = new Stack<>();
     }
 
     public void addRegistroIngreso(){
-        this.registroIngresos.add(new RegistroIngreso);
-        this.ingresoActual+=1;
+        this.registroIngresos.push( new RegistroIngreso() );
     }
 
     public RegistroIngreso getRegistroIngresoActual(){
-        return this.registroIngresos.get(this.ingresoActual);
+        return this.registroIngresos.peek();
     }
 
-    public ArrayList<RegistroIngreso> getRegistroIngresos(){
+    public  Stack<RegistroIngreso>  getRegistroIngresos(){
         return this.registroIngresos;
     }
 
@@ -32,22 +33,22 @@ public class RegistroPaciente {
     }
 
     public void setDias(int dias){
-        this.registroIngresos.get(this.ingresoActual).setDias(dias);
+        this.getRegistroIngresoActual().setDias(dias);
     }
 
     public void setHabitacion(Habitacion habitacion){
-        this.registroIngresos.get(this.ingresoActual).setHabitacion(habitacion);
+        this.getRegistroIngresoActual().setHabitacion(habitacion);
     }
 
     public void addAtendidoPor(IMedico medico){
-        this.registroIngresos.get(this.ingresoActual).addAtendidoPor(medico);
+        this.getRegistroIngresoActual().addAtendidoPor(medico);
     }
 
     public Factura getFactura(){
-        return this.registroIngresos.get(this.ingresoActual).getFactura();
+        return this.getRegistroIngresoActual().getFactura();
     }
 
     public void finalizarIngreso(){
-        this.registroIngresos.get(this.ingresoActual).finalizarIngreso();
+        this.getRegistroIngresoActual().finalizarIngreso( this );
     }
 }
