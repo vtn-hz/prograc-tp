@@ -1,4 +1,4 @@
-package mdp.ingenieria.clinicagestion.excepciones;
+package mdp.ingenieria.clinicagestion.exception;
 
 import mdp.ingenieria.clinicagestion.model.persona.Paciente;
 

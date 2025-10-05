@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-import mdp.ingenieria.clinicagestion.excepciones.PacienteNoEncontradoException;
-import mdp.ingenieria.clinicagestion.excepciones.PacienteNoIngresadoException;
+import mdp.ingenieria.clinicagestion.exception.PacienteNoEncontradoException;
+import mdp.ingenieria.clinicagestion.exception.PacienteNoIngresadoException;
 import mdp.ingenieria.clinicagestion.model.clinica.salaespera.SalaEsperaPatio;
 import mdp.ingenieria.clinicagestion.model.clinica.salaespera.SalaEsperaPrivada;
 import mdp.ingenieria.clinicagestion.model.persona.Paciente;

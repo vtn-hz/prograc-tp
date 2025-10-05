@@ -2,7 +2,7 @@ package mdp.ingenieria.clinicagestion.model.clinica.salaespera;
 
 import java.util.ArrayList;
 
-import mdp.ingenieria.clinicagestion.excepciones.PacienteNoEncontradoException;
+import mdp.ingenieria.clinicagestion.exception.PacienteNoEncontradoException;
 import mdp.ingenieria.clinicagestion.model.persona.Paciente;
 
 public class SalaEsperaPatio {

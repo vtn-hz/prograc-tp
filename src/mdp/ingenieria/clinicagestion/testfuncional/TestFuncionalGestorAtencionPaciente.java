@@ -1,5 +1,7 @@
 package mdp.ingenieria.clinicagestion.testfuncional;
 
+import mdp.ingenieria.clinicagestion.exception.PacienteNoEncontradoException;
+import mdp.ingenieria.clinicagestion.exception.PacienteNoIngresadoException;
 import mdp.ingenieria.clinicagestion.model.clinica.Domicilio;
 import mdp.ingenieria.clinicagestion.model.clinica.salaespera.SalaEsperaPatio;
 import mdp.ingenieria.clinicagestion.model.clinica.salaespera.SalaEsperaPrivada;
@@ -8,8 +10,6 @@ import mdp.ingenieria.clinicagestion.model.persona.paciente.PacienteJoven;
 import mdp.ingenieria.clinicagestion.model.persona.paciente.PacienteMayor;
 import mdp.ingenieria.clinicagestion.model.persona.paciente.PacienteNino;
 import mdp.ingenieria.clinicagestion.service.GestorAtencionPaciente;
-import mdp.ingenieria.clinicagestion.excepciones.PacienteNoEncontradoException;
-import mdp.ingenieria.clinicagestion.excepciones.PacienteNoIngresadoException;
 
 public class TestFuncionalGestorAtencionPaciente {
 
