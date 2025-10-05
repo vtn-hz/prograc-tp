@@ -27,7 +27,7 @@ public class RegistroIngreso {
         this.atendidoPor = new ArrayList<>();
         this.dias = 0;
         this.factura = null;
-        this.facturaFactory = new FacturaFactory();
+        this.facturaFactory = new FacturaFactory(); // maybe agregacion
     }
     
     public LocalDateTime getFechaIngreso() {

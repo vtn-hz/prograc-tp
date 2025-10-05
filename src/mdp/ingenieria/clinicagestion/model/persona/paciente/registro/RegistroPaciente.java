@@ -1,5 +1,6 @@
 package mdp.ingenieria.clinicagestion.model.persona.paciente.registro;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 import mdp.ingenieria.clinicagestion.model.clinica.Habitacion;
@@ -44,6 +45,10 @@ public class RegistroPaciente {
 
     public void addAtendidoPor(IMedico medico){
         this.getRegistroIngresoActual().addAtendidoPor(medico);
+    }
+    
+    public ArrayList<IMedico> getAtendidoPor(){
+        return this.getRegistroIngresoActual().getAtendidoPor();
     }
 
     public Factura getFactura(){
