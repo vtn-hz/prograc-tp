@@ -2,11 +2,14 @@ package mdp.ingenieria.clinicagestion.model.clinica.habitacion;
 
 import mdp.ingenieria.clinicagestion.model.clinica.Habitacion;
 
-public class HabitacionPrivada extends Habitacion{
+public class HabitacionPrivada extends Habitacion
+{
+	
     public HabitacionPrivada(double costoAsignacion, double costoAdicional)
     {
         super(costoAsignacion,costoAdicional);
     }
+    
     @Override
     public double getCostoAdicional(int dias)
     {
@@ -18,4 +21,9 @@ public class HabitacionPrivada extends Habitacion{
                 costo*=2;
         return costo*dias;
     }
+    
+	@Override
+	public String getTipoHabitacion() {
+		return "privada";
+	}
 }
