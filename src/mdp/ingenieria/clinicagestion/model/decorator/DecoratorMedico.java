@@ -27,5 +27,11 @@ public abstract class DecoratorMedico implements IMedico
 	{
 		return this.medico.getEspecialidad();
 	}
+	
+	@Override
+	public String getNyA()
+	{
+		return this.medico.getNyA();
+	}
 
 }
