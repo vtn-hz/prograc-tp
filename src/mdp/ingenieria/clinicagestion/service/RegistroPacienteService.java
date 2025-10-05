@@ -18,8 +18,14 @@ public class RegistroPacienteService {
 	
 	private GestorAtencionPacienteService gestorAtencionService;
 	
-	public RegistroPacienteService( GestorAtencionPacienteService gestorAtencionService ) 
+	private RegistroMedicoService registroMedicoService;
+	
+	public RegistroPacienteService( 
+			GestorAtencionPacienteService gestorAtencionService,
+			RegistroMedicoService registroMedicoService
+	) 
 	{
+		this.registroMedicoService = registroMedicoService;
 		this.gestorAtencionService = gestorAtencionService;
 		this.pacientes = new HashMap<>();
 	}
@@ -60,11 +66,14 @@ public class RegistroPacienteService {
 		this.gestorAtencionService.anunciar( paciente );
 	}
 	
-	public void atiendePaciente( IMedico medico , Paciente paciente ) throws PacienteException
+	public void atiendePaciente( IMedico medico , Paciente paciente ) throws PacienteException, MedicoNoRegistradoException
 	{
 		RegistroPaciente registroPaciente = this.buscarPaciente(paciente);
-		// service de simon isRegistrado( medico )
-		// por el momento asume que esta registrado
+	
+		if (!this.registroMedicoService.isRegistrado(medico)) {
+			throw new MedicoNoRegistradoException( medico.getNumeroMatricula() );
+		}
+		
 		this.gestorAtencionService.atender( registroPaciente.getPaciente() );
 		registroPaciente.addAtendidoPor(medico);
 	}	
@@ -87,10 +96,21 @@ public class RegistroPacienteService {
 		try {
 			this.gestorAtencionService.egresar(paciente);
 			registroPaciente.setDias(dias);
-			registroPaciente.finalizarIngreso();
+			
+			
+			registroPaciente.finalizarIngreso();	
 			factura = registroPaciente.getFactura();
+			
+			this.registroMedicoService.actualizarConsultasMedicos(
+					registroPaciente.getAtendidoPor(), paciente.getNyA(),
+					factura.getFechaEgreso()
+			);
 		}catch(PacienteNoAtendidoException e) {
 			factura = null;
+		} catch (MedicoNoRegistradoException e) {
+			factura = null;
+			// nunca va a suceder, ya que los medicos que se 
+			// agregan a registroPaciente se verifican antes que existan
 		}
 		
 		return factura;
@@ -106,8 +126,17 @@ public class RegistroPacienteService {
 			this.gestorAtencionService.egresar(paciente);
 			registroPaciente.finalizarIngreso();
 			factura = registroPaciente.getFactura();
+			
+			this.registroMedicoService.actualizarConsultasMedicos(
+					registroPaciente.getAtendidoPor(), paciente.getNyA(),
+					factura.getFechaEgreso()
+			);
 		}catch(PacienteNoAtendidoException e) {
 			factura = null;
+		} catch (MedicoNoRegistradoException e) {
+			factura = null;
+			// nunca va a suceder, ya que los medicos que se 
+			// agregan a registroPaciente se verifican antes que existan
 		}
 		
 		return factura;

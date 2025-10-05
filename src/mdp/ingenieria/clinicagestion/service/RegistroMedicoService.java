@@ -3,6 +3,7 @@ package mdp.ingenieria.clinicagestion.service;
 import mdp.ingenieria.clinicagestion.exception.MedicoMatriculaDuplicadaException;
 import mdp.ingenieria.clinicagestion.exception.MedicoNoRegistradoException;
 import mdp.ingenieria.clinicagestion.model.persona.IMedico;
+import mdp.ingenieria.clinicagestion.model.persona.medico.registro.RegistroMedico;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package mdp.ingenieria.clinicagestion.service;
+package mdp.ingenieria.clinicagestion.model.persona.medico.registro;
 
 import mdp.ingenieria.clinicagestion.model.persona.IMedico;
 
