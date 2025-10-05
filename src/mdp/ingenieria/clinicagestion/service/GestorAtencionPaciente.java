@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
+import mdp.ingenieria.clinicagestion.excepciones.PacienteNoEncontradoException;
+import mdp.ingenieria.clinicagestion.excepciones.PacienteNoIngresadoException;
 import mdp.ingenieria.clinicagestion.model.clinica.salaespera.SalaEsperaPatio;
+import mdp.ingenieria.clinicagestion.model.clinica.salaespera.SalaEsperaPrivada;
 import mdp.ingenieria.clinicagestion.model.persona.Paciente;
 
 public class GestorAtencionPaciente {
@@ -21,24 +24,41 @@ public class GestorAtencionPaciente {
     public void anunciar(Paciente paciente) {
         this.pacientesEspera.put(ultimoNroOrden,paciente);
         ultimoNroOrden+=1;
-        SalaEsperaPatio.getInstance().ocupar(paciente);
+        paciente.ocuparSala();
     }
-
-    public void atender(Paciente paciente) {
-        this.pacientesAtencion.add(paciente);
-    }
-
-    public void egresar(Paciente paciente) {
-        if (this.pacientesAtencion.contains(paciente))
-        {
-            this.pacientesAtencion.remove(paciente);
+    public void sacarPacienteSalaEspera(Paciente paciente) throws PacienteNoIngresadoException
+    {
+        try{
+            if(SalaEsperaPrivada.getInstance().getPaciente() == paciente)
+                SalaEsperaPrivada.getInstance().desocupar();
+            else
+                SalaEsperaPatio.getInstance().desocupar(paciente);
+        }catch (PacienteNoEncontradoException e){
+                throw new PacienteNoIngresadoException(paciente);
         }
+    }
+
+    public void atender(Paciente paciente) throws PacienteNoIngresadoException
+    {
+        if(!this.pacientesAtencion.contains(paciente))
+        {
+            this.pacientesAtencion.add(paciente);
+            sacarPacienteSalaEspera(paciente);
+        }
+    }
+
+    public void egresar(Paciente paciente) throws PacienteNoEncontradoException //PacienteNoIngresadoException extiende PacienteNoEncontradoException
+    {
+        if (this.pacientesAtencion.contains(paciente))
+            this.pacientesAtencion.remove(paciente);
         else{
             if(this.pacientesEspera.containsValue(paciente))
             {
                 pacientesEspera.entrySet().removeIf(entry -> entry.getValue().equals(paciente));
-                SalaEsperaPatio.getInstance().desocupar(paciente);
+                sacarPacienteSalaEspera(paciente);
             }
+            else
+                throw new PacienteNoEncontradoException(paciente);
         }
     }
 
@@ -48,7 +68,6 @@ public class GestorAtencionPaciente {
         {
             int menorClave = Collections.min(pacientesEspera.keySet());
             paciente = pacientesEspera.get(menorClave);
-
         }
         return paciente;
     }
