@@ -1,11 +1,12 @@
-package mdp.ingenieria.clinicagestion.model.persona;
+package mdp.ingenieria.clinicagestion.model.persona.paciente.registro;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import mdp.ingenieria.clinicagestion.model.Factura;
-import mdp.ingenieria.clinicagestion.model.FacturaFactory;
 import mdp.ingenieria.clinicagestion.model.clinica.Habitacion;
+import mdp.ingenieria.clinicagestion.model.persona.IMedico;
+import mdp.ingenieria.clinicagestion.model.persona.paciente.factura.Factura;
+import mdp.ingenieria.clinicagestion.model.persona.paciente.factura.FacturaFactory;
 
 public class RegistroIngreso {
 	

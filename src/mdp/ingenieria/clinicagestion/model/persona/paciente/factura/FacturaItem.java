@@ -1,4 +1,4 @@
-package mdp.ingenieria.clinicagestion.model;
+package mdp.ingenieria.clinicagestion.model.persona.paciente.factura;
 
 public class FacturaItem {
 	

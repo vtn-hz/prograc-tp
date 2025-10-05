@@ -3,7 +3,6 @@ package mdp.ingenieria.clinicagestion.testfuncional;
 import java.util.ArrayList;
 import java.util.List;
 
-import mdp.ingenieria.clinicagestion.model.Factura;
 import mdp.ingenieria.clinicagestion.model.clinica.Domicilio;
 import mdp.ingenieria.clinicagestion.model.clinica.Habitacion;
 import mdp.ingenieria.clinicagestion.model.clinica.habitacion.HabitacionPrivada;
@@ -11,8 +10,9 @@ import mdp.ingenieria.clinicagestion.model.clinica.habitacion.HabitacionTerapiaI
 import mdp.ingenieria.clinicagestion.model.persona.IMedico;
 import mdp.ingenieria.clinicagestion.model.persona.MedicoFactory;
 import mdp.ingenieria.clinicagestion.model.persona.Paciente;
-import mdp.ingenieria.clinicagestion.model.persona.RegistroPaciente;
 import mdp.ingenieria.clinicagestion.model.persona.paciente.PacienteMayor;
+import mdp.ingenieria.clinicagestion.model.persona.paciente.factura.Factura;
+import mdp.ingenieria.clinicagestion.model.persona.paciente.registro.RegistroPaciente;
 
 public class TestFacturacion {
     

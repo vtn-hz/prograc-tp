@@ -1,9 +1,11 @@
-package mdp.ingenieria.clinicagestion.model.persona;
+package mdp.ingenieria.clinicagestion.model.persona.paciente.registro;
 
 import java.util.Stack;
 
-import mdp.ingenieria.clinicagestion.model.Factura;
 import mdp.ingenieria.clinicagestion.model.clinica.Habitacion;
+import mdp.ingenieria.clinicagestion.model.persona.IMedico;
+import mdp.ingenieria.clinicagestion.model.persona.Paciente;
+import mdp.ingenieria.clinicagestion.model.persona.paciente.factura.Factura;
 
 public class RegistroPaciente {
 	
