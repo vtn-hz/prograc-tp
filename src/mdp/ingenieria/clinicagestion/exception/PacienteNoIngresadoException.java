@@ -5,7 +5,7 @@ import mdp.ingenieria.clinicagestion.model.persona.Paciente;
 /**
  * Excepción que se lanza cuando un paciente no se encuentra en ninguna sala de espera de la clínica.
  */
-public class PacienteNoIngresadoException extends PacienteNoEncontradoException {
+public class PacienteNoIngresadoException extends PacienteException {
 
     /**
      * Crea una excepción indicando que el paciente no fue encontrado en ninguna sala de espera.
