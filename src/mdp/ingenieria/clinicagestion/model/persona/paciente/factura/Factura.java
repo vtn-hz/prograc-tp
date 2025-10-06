@@ -6,6 +6,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Representa una factura emitida a un paciente por los servicios prestados en la clínica.
+ */
 public class Factura
 {
 	private static int nroFacturaActual = 1;
@@ -25,11 +28,31 @@ public class Factura
     
 	private List<FacturaItem> items;
 
+    /**
+     * Constructor de una nueva factura vacía con número asignado automáticamente.
+     * <b>post:</b> se inicializa una factura con número único y lista vacía de ítems
+     */
     public Factura() {
         this.nroFactura = Factura.nroFacturaActual++;
         this.items = new ArrayList<>();
     }
 
+    /**
+     * Contructor de una factura con la información completa
+     * <b>pre:</b> las fechas no deben ser nulas, el nombre del paciente no debe estar vacío
+     * y la lista de ítems debe estar correctamente inicializada <br>
+     * <b>post:</b> se crea una factura con los datos especificados y número único
+     *
+     * @param nombrePaciente        nombre del paciente
+     * @param fechaIngreso          fecha y hora de ingreso del paciente
+     * @param fechaEgreso           fecha y hora de egreso del paciente
+     * @param utilizoHabitacion     indica si se utilizó habitación
+     * @param cantidadDias          cantidad total de días de internación
+     * @param habitacionDias        cantidad de días en habitación
+     * @param tipoHabitacion        tipo de habitación utilizada
+     * @param costoHabitacion       costo total del uso de la habitación
+     * @param items                 lista de ítems incluidos en la factura
+     */
     public Factura(
     		String nombrePaciente, 
     		LocalDateTime fechaIngreso, LocalDateTime fechaEgreso, 
@@ -48,42 +71,52 @@ public class Factura
     }
 
     // Getters
+    /** @return número identificador único de la factura */
     public int getNroFactura() {
         return nroFactura;
     }
 
+    /** @return nombre del paciente asociado a la factura */
     public String getNombrePaciente() {
         return nombrePaciente;
     }
 
+    /** @return fecha y hora de ingreso del paciente */
     public LocalDateTime getFechaIngreso() {
         return fechaIngreso;
     }
 
+    /** @return fecha y hora de egreso del paciente */
     public LocalDateTime getFechaEgreso() {
         return fechaEgreso;
     }
 
+    /** @return cantidad total de días de internación */
     public int getCantidadDias() {
         return cantidadDias;
     }
 
+    /** @return cantidad de días de uso de la habitación */
     public int getHabitacionDias() {
         return habitacionDias;
     }
-    
+
+    /** @return true si el paciente utilizó habitación durante su internación, false en caso contrario */
     public boolean getUtilizoHabitacion() {
 		return utilizoHabitacion;
 	}
 
+    /** @return tipo de habitación utilizada */
 	public String getTipoHabitacion() {
 		return tipoHabitacion;
 	}
 
+    /** @return costo total de la habitación */
     public double getCostoHabitacion() {
         return costoHabitacion;
     }
 
+    /** @return lista de ítems incluidos en la factura */
     public List<FacturaItem> getItems() {
         return items;
     }
@@ -129,12 +162,26 @@ public class Factura
         this.items = items;
     }
 
-    // Método para agregar items
+    /**
+     * Agrega un nuevo ítem a la factura.
+     *
+     * <b>pre:</b> el ítem no debe ser nulo <br>
+     * <b>post:</b> el ítem queda registrado en la lista de ítems facturados
+     *
+     * @param item objeto FacturaItem a agregar
+     */
     public void addItem(FacturaItem item) {
         this.items.add(item);
     }
 
-    // Método para calcular el total
+    /**
+     * Calcula el monto total de la factura, sumando el costo de habitación
+     *
+     * <b>pre:</b> la factura debe estar correctamente inicializada y los ítems definidos <br>
+     * <b>post:</b> devuelve el valor total a pagar
+     *
+     * @return monto total de la factura
+     */
     private double calcularTotal() {
         double total = costoHabitacion;
         for (FacturaItem item : items) {
@@ -142,8 +189,13 @@ public class Factura
         }
         return total;
     }
-    
-    
+
+    /**
+     * Devuelve una representación textual detallada de la factura.
+     * <b>post:</b> devuelve una cadena formateada con toda la información relevante
+     *
+     * @return descripción en texto de la factura
+     */
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
