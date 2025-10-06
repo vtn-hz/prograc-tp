@@ -17,14 +17,4 @@ public class PacienteNoIngresadoException extends PacienteNoEncontradoException 
     public PacienteNoIngresadoException(Paciente paciente) {
         super("El paciente no fue encontrado en ninguna sala de espera", paciente);
     }
-
-    /**
-     * Variante con mensaje personalizado.
-     *
-     * @param msg      mensaje personalizado de error
-     * @param paciente instancia del paciente que no fue ingresado a la clínica
-     */
-    public PacienteNoIngresadoException(String msg, Paciente paciente) {
-        super(msg, paciente);
-    }
 }
