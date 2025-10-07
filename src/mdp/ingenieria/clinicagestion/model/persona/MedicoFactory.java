@@ -5,7 +5,9 @@ import mdp.ingenieria.clinicagestion.model.decorator.decoratormedico.*;
 import mdp.ingenieria.clinicagestion.model.persona.medico.MedicoCirujano;
 import mdp.ingenieria.clinicagestion.model.persona.medico.MedicoClinico;
 import mdp.ingenieria.clinicagestion.model.persona.medico.MedicoPediatra;
-
+/**
+ * Fábrica de objetos IMedico que además permite aplicar decoradores de contrato y posgrado.
+ */
 public class MedicoFactory {
 	
 	public static final String MEDICO_CLINICO = "clinico";
@@ -17,19 +19,22 @@ public class MedicoFactory {
 	
 	public static final String POSTGRADO_MAGISTER = "postgrado_magister";
 	public static final String POSTGRADO_DOCTORADO = "postgrado_doctorado";
-	
-	/**
-	 * <b>pre:</b> ∀ param_i tipo String param_i != null / la especialidad existe <br>
-	 * <b>post:</b> devuelve un medico sin decoracion de ningun tipo 
-	 * @param numeroMatricula
-	 * @param dni
-	 * @param nombre
-	 * @param telefono
-	 * @param direccion
-	 * @param ciudad
-	 * @param especialidad
-	 * @return
-	 */
+
+    /**
+     * Crea un médico de la especialidad indicada, sin decoraciones.
+     *
+     * <b>pre:</b> todos los parámetros String no deben ser nulos ni vacíos; la especialidad debe existir <br>
+     * <b>post:</b> retorna una instancia de {@link IMedico} sin decoradores
+     *
+     * @param numeroMatricula       número de matrícula profesional
+     * @param NyA                   nombre y apellido del médico
+     * @param dni                   documento de identidad
+     * @param telefono              teléfono de contacto
+     * @param ciudad                ciudad del domicilio
+     * @param direccion             dirección del domicilio
+     * @param especialidad          identificador String de la especialidad
+     * @return instancia base de IMedico correspondiente a la especialidad
+     */
 	public IMedico create ( int numeroMatricula, 
 							String NyA, String dni, 
 							String telefono, String ciudad, String direccion, 
@@ -46,20 +51,23 @@ public class MedicoFactory {
 		
 		return medico;
 	}
-	
-	/**
-	 * <b>pre:</b> ∀ param_i tipo String param_i != null / la especialidad existe / el tipo contrato existe <br>
-	 * <b>post:</b> devuelve un medico decorado con DecoratorContrato
-	 * @param numeroMatricula
-	 * @param NyA
-	 * @param dni
-	 * @param telefono
-	 * @param ciudad
-	 * @param direccion
-	 * @param especialidad
-	 * @param tipoContratacion
-	 * @return
-	 */
+
+    /**
+     * Crea un médico y aplica un decorador de contratación.
+     *
+     * <b>pre:</b> todos los parámetros String no deben ser nulos ni vacíos; el tipo de contratación debe existir <br>
+     * <b>post:</b> retorna un  IMedico decorado con la modalidad de contratación
+     *
+     * @param numeroMatricula       número de matrícula profesional
+     * @param NyA                   nombre y apellido del médico
+     * @param dni                   documento de identidad
+     * @param telefono              teléfono de contacto
+     * @param ciudad                ciudad del domicilio
+     * @param direccion             dirección del domicilio
+     * @param especialidad          identificador textual de la especialidad
+     * @param tipoContratacion      identificador textual del tipo de contratación
+     * @return instancia de IMedico decorada con contratación
+     */
 	public IMedico create(
 			int numeroMatricula, 
 			String NyA, String dni, 
@@ -69,22 +77,25 @@ public class MedicoFactory {
 		IMedico medico = this.create(numeroMatricula, NyA, dni, telefono, ciudad, direccion, especialidad);		
 		return this.decorateContratacion(medico, tipoContratacion);
 	}
-	
-		
-	/**
-	 * <b>pre:</b> ∀ param_i tipo String param_i != null / la especialidad existe / el postgrado /  el tipo contrato existe <br>
-	 * <b>post:</b> devuelve un medico decorado con DecoratorContrato
-	 * @param numeroMatricula
-	 * @param NyA
-	 * @param dni
-	 * @param telefono
-	 * @param ciudad
-	 * @param direccion
-	 * @param especialidad
-	 * @param tipoContratacion
-	 * @param postgrado
-	 * @return
-	 */
+
+
+    /**
+     * Crea un médico y aplica decoradores de posgrado y contratación (en ese orden).
+     *
+     * <b>pre:</b> todos los parámetros String no deben ser nulos ni vacíos; el tipo de contratación y el posgrado deben existir <br>
+     * <b>post:</b> retorna un IMedico decorado con posgrado y contratación
+     *
+     * @param numeroMatricula       número de matrícula profesional
+     * @param NyA                   nombre y apellido del médico
+     * @param dni                   documento de identidad
+     * @param telefono              teléfono de contacto
+     * @param ciudad                ciudad del domicilio
+     * @param direccion             dirección del domicilio
+     * @param especialidad          identificador textual de la especialidad
+     * @param tipoContratacion      identificador textual del tipo de contratación
+     * @param postgrado             identificador textual del posgrado
+     * @return instancia de IMedico decorada con posgrado y contratación
+     */
 	public IMedico create(
 			int numeroMatricula, 
 			String NyA, String dni,  
@@ -95,7 +106,17 @@ public class MedicoFactory {
 		medico = this.decoratePostgrado(medico, postgrado);
 		return this.decorateContratacion(medico, tipoContratacion);
 	}
-	
+
+    /**
+     * Aplica el decorador de contratación según el identificador recibido.
+     *
+     * <b>pre:</b> medico no debe ser null; el tipo de contratación existe <br>
+     * <b>post:</b> retorna el médico decorado.
+     *
+     * @param medico                instancia base o ya decorada de IMedico
+     * @param tipoContratacion      identificador textual del tipo de contratación
+     * @return médico decorado con contratación (o el mismo si no coincide ningún tipo)
+     */
 	private IMedico decorateContratacion( IMedico medico,  String tipoContratacion)
 	{
 		
@@ -107,7 +128,17 @@ public class MedicoFactory {
 	
 		return medico;
 	}
-	
+
+    /**
+     * Aplica el decorador de posgrado según el identificador recibido.
+     *
+     * <b>pre:</b> medico no debe ser null; el posgrado existe <br>
+     * <b>post:</b> retorna el médico decorado
+     *
+     * @param medico            instancia base o ya decorada de IMedico
+     * @param postgrado         identificador textual del posgrado
+     * @return médico decorado con posgrado (o el mismo si no coincide ningún tipo)
+     */
 	private IMedico decoratePostgrado( IMedico medico,  String postgrado)
 	{
 		
