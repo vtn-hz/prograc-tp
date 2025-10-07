@@ -10,23 +10,46 @@ import mdp.ingenieria.clinicagestion.exception.PacienteNoIngresadoException;
 import mdp.ingenieria.clinicagestion.model.clinica.salaespera.SalaEsperaPatio;
 import mdp.ingenieria.clinicagestion.model.clinica.salaespera.SalaEsperaPrivada;
 import mdp.ingenieria.clinicagestion.model.persona.Paciente;
-
+/**
+ * Servicio que gestiona el flujo de pacientes entre la sala de espera y la atención.
+ */
 public class GestorAtencionPacienteService {
     private HashMap<Integer,Paciente> pacientesEspera; //integer para el numero de orden
     private ArrayList<Paciente> pacientesAtencion;
     private int ultimoNroOrden;
 
+    /**
+     * Constructor del gestor con estructuras vacías y contador de orden en cero.
+     * <b>post:</b> lista de atención y mapa de espera inicializados; ultimoNroOrden = 0
+     */
     public GestorAtencionPacienteService() {
         this.pacientesEspera = new HashMap<Integer,Paciente>();
         this.pacientesAtencion = new ArrayList<Paciente>();
         ultimoNroOrden=0;
     }
 
+    /**
+     * Anuncia un paciente para sala de espera: se le asigna número de orden y se lo ubica.
+     *
+     * <b>pre:</b> paciente no debe ser null <br>
+     * <b>post:</b> el paciente queda en pacientesEspera y se invoca paciente.ocuparSala()
+     *
+     * @param paciente paciente a anunciar
+     */
     public void anunciar(Paciente paciente) {
         this.pacientesEspera.put(this.ultimoNroOrden++, paciente);
         paciente.ocuparSala();
     }
-    
+
+    /**
+     * Retira a un paciente de la sala de espera (privada o patio)
+     *
+     * <b>pre:</b> paciente no es null <br>
+     * <b>post:</b> el paciente queda desocupado de su sala de espera
+     *
+     * @param paciente paciente a retirar
+     * @throws PacienteNoIngresadoException si el paciente no se encuentra en ninguna sala
+     */
     public void sacarPacienteSalaEspera(Paciente paciente) throws PacienteNoIngresadoException
     {
         try{
@@ -39,6 +62,15 @@ public class GestorAtencionPacienteService {
         }
     }
 
+    /**
+     * Pasa un paciente a atención y lo retira de la sala de espera.
+     *
+     * <b>pre:</b> paciente no es null y fue anunciado previamente <br>
+     * <b>post:</b> el paciente figura en pacientesAtencion y ya no ocupa sala de espera
+     *
+     * @param paciente paciente a atender
+     * @throws PacienteNoIngresadoException si no estaba en ninguna sala de espera
+     */
     public void atender(Paciente paciente) throws PacienteNoIngresadoException
     {
         if(!this.pacientesAtencion.contains(paciente))
@@ -47,17 +79,35 @@ public class GestorAtencionPacienteService {
             sacarPacienteSalaEspera(paciente);
         }
     }
-    
+
+    /**
+     * Indica si un paciente ya fue pasado a atención.
+     * <b>post:</b> retorna true si está en pacientesAtencion
+     *
+     * @param paciente paciente a consultar
+     * @return true si el paciente está en atención; caso contrario duevuelve false
+     */
     public boolean isAtendido(Paciente paciente)
     {
     	return this.pacientesAtencion.contains(paciente);
     }
-    
-   
+
+
+
     /**
      * LO MODIFIQUE VER MARI, [VALENTINO]
      * */
-    
+    /**
+     * Egresar a un paciente del sistema de espera/atención.
+     *
+     * <b>pre:</b>  paciente no es null <br>
+     * <b>post:</b> el paciente ya no figura en las estructuras; puede lanzarse excepción según el caso
+     *
+     * @param paciente paciente a egresar
+     * @throws PacienteNoIngresadoException si no estaba en sala de espera al intentar retirarlo
+     * @throws PacienteNoEncontradoException si no figura ni en atención ni en espera
+     * @throws PacienteNoAtendidoException si estaba esperando (egreso sin haber sido atendido)
+     */
     public void egresar(Paciente paciente) throws PacienteNoIngresadoException, PacienteNoEncontradoException, PacienteNoAtendidoException
     {
         if (this.isAtendido( paciente ))
@@ -75,6 +125,12 @@ public class GestorAtencionPacienteService {
         }
     }
 
+    /**
+     * Obtiene el siguiente paciente a atender (según el menor número de orden)
+     * <b>post:</b> retorna el paciente con menor orden o null si no hay
+     *
+     * @return próximo paciente o null si no hay anunciados
+     */
     public Paciente getSigPacienteAtender() {
         Paciente paciente = null;
         if (!this.pacientesEspera.isEmpty())
