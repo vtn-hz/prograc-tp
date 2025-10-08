@@ -1,6 +1,8 @@
-package mdp.ingenieria.clinicagestion.model.clinica.habitacion;
+package mdp.ingenieria.clinicagestion.model.clinica;
 
-import mdp.ingenieria.clinicagestion.model.clinica.Habitacion;
+import mdp.ingenieria.clinicagestion.model.clinica.habitacion.HabitacionCompartida;
+import mdp.ingenieria.clinicagestion.model.clinica.habitacion.HabitacionPrivada;
+import mdp.ingenieria.clinicagestion.model.clinica.habitacion.HabitacionTerapiaIntensiva;
 
 /**
  * Fábrica de objetos Habitacion.
