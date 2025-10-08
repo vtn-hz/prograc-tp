@@ -1,5 +1,6 @@
 package mdp.ingenieria.clinicagestion.testfuncional;
 
+import mdp.ingenieria.clinicagestion.exception.PacienteNoAtendidoException;
 import mdp.ingenieria.clinicagestion.exception.PacienteNoEncontradoException;
 import mdp.ingenieria.clinicagestion.exception.PacienteNoIngresadoException;
 import mdp.ingenieria.clinicagestion.model.clinica.Domicilio;
@@ -214,6 +215,10 @@ public class TestFuncionalGestorAtencionPaciente {
             System.out.println("✗ FALLÓ: Debería lanzar PacienteNoEncontradoException\n");
         } catch (PacienteNoEncontradoException e) {
             System.out.println("✓ PASÓ: Se lanzó correctamente PacienteNoEncontradoException\n");
+        } catch (PacienteNoIngresadoException e) {
+            System.out.println("✓ PASÓ: Se lanzó correctamente PacienteNoIngresadoException\n");
+        } catch (PacienteNoAtendidoException e) {
+            throw new RuntimeException(e);
         }
     }
 

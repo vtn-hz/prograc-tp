@@ -14,8 +14,8 @@
     <description>Sistema de gestión para una clínica privada - TP Programación 3</description>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.10.0</junit.version>
     </properties>
@@ -47,8 +47,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
-                    <source>17</source>
-                    <target>17</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
 
@@ -89,7 +89,7 @@
                 <version>3.11.0</version>
                 <configuration>
                     <!-- Cambiar de source/target a release -->
-                    <release>17</release>  <!-- ← Usar esto en lugar de source y target -->
+                    <release>1.8</release>  <!-- ← Usar esto en lugar de source y target -->
                 </configuration>
             </plugin>
         </plugins>

@@ -60,7 +60,7 @@ public class TestFacturacion {
         // PACIENTE 1: Juan Carlos Rodríguez - DOS INGRESOS
         // ============================================================
         System.out.println("╔════════════════════════════════════════════════════════════╗");
-        System.out.println("║  PACIENTE 1: Juan Carlos Rodríguez - Múltiples Ingresos   ║");
+        System.out.println("║  PACIENTE 1: Juan Carlos Rodríguez - Múltiples Ingresos    ║");
         System.out.println("╚════════════════════════════════════════════════════════════╝\n");
         
         Domicilio domicilio1 = new Domicilio("223-555-1001", "Mar del Plata", "Av. Colón 1234");
@@ -107,7 +107,7 @@ public class TestFacturacion {
         // PACIENTE 2: Ana María López - HABITACIÓN PRIVADA EXTENDIDA
         // ============================================================
         System.out.println("╔════════════════════════════════════════════════════════════╗");
-        System.out.println("║  PACIENTE 2: Ana María López - Internación Extendida      ║");
+        System.out.println("║  PACIENTE 2: Ana María López - Internación Extendida       ║");
         System.out.println("╚════════════════════════════════════════════════════════════╝\n");
         
         Domicilio domicilio2 = new Domicilio("223-555-1002", "Mar del Plata", "Calle San Martín 567");
@@ -138,7 +138,7 @@ public class TestFacturacion {
         // PACIENTE 3: Roberto Fernández - TERAPIA INTENSIVA
         // ============================================================
         System.out.println("╔════════════════════════════════════════════════════════════╗");
-        System.out.println("║  PACIENTE 3: Roberto Fernández - Terapia Intensiva        ║");
+        System.out.println("║  PACIENTE 3: Roberto Fernández - Terapia Intensiva         ║");
         System.out.println("╚════════════════════════════════════════════════════════════╝\n");
         
         Domicilio domicilio3 = new Domicilio("223-555-1003", "Mar del Plata", "Av. Libertad 999");
@@ -184,7 +184,7 @@ public class TestFacturacion {
         // PACIENTE 4: Carmen Suárez - HABITACIÓN PRIVADA CORTA
         // ============================================================
         System.out.println("╔════════════════════════════════════════════════════════════╗");
-        System.out.println("║  PACIENTE 4: Carmen Suárez - Hab. Privada Rango Medio     ║");
+        System.out.println("║  PACIENTE 4: Carmen Suárez - Hab. Privada Rango Medio      ║");
         System.out.println("╚════════════════════════════════════════════════════════════╝\n");
         
         Habitacion habPrivada3 = new HabitacionPrivada(5000.0, 2000.0);
@@ -241,13 +241,10 @@ public class TestFacturacion {
         
         for (int i = 0; i < todasLasFacturas.size(); i++) {
             Factura factura = todasLasFacturas.get(i);
-            System.out.println("┌─────────────────────────────────────────────────────────────┐");
-            System.out.println("│  FACTURA " + (i + 1) + " de " + todasLasFacturas.size() + 
-                             " ".repeat(Math.max(0, 48 - String.valueOf(i+1).length() - 
-                                       String.valueOf(todasLasFacturas.size()).length())) + "│");
-            System.out.println("└─────────────────────────────────────────────────────────────┘\n");
+            System.out.println("───────────────────────────────────────────────────────────────");
+            System.out.println("  FACTURA " + (i + 1) + " de " + todasLasFacturas.size());
+            System.out.println("───────────────────────────────────────────────────────────────\n");
             System.out.println(factura.toString());
-            System.out.println("\n" + "=".repeat(65) + "\n");
         }
     }
     
@@ -288,6 +285,5 @@ public class TestFacturacion {
         }
         
         System.out.println("\n✅ PRUEBAS COMPLETADAS EXITOSAMENTE");
-        System.out.println("=".repeat(60));
     }
 }

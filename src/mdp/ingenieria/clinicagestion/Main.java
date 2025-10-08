@@ -6,8 +6,6 @@ import mdp.ingenieria.clinicagestion.testfuncional.TestRegistroMedico;
 
 public class Main {
 
-    private static TestRegistroMedico TestFacturacion;
-
     public static void main(String[] args) {
         System.out.println("╔═══════════════════════════════════════════════════════╗");
         System.out.println("║         SISTEMA DE GESTIÓN DE CLÍNICA - TESTS         ║");
@@ -22,6 +20,6 @@ public class Main {
         // TestFacturacion.ejecutarTests();
 
         // Ejecutar tests de registro
-        // TestFacturacion.ejecutarTests();
+        // TestRegistroMedico.ejecutarTests();
     }
 }
