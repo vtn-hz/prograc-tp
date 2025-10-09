@@ -2,6 +2,8 @@ package mdp.ingenieria.clinicagestion.model.persona;
 
 import mdp.ingenieria.clinicagestion.model.clinica.Domicilio;
 
+import java.util.Objects;
+
 /**
  * Clase base abstracta para pacientes de la clinica
  */
@@ -36,11 +38,33 @@ public abstract class Paciente extends Persona implements IProtocoloOcuparSala  
     }
 
     /**
+     * Verifica si un paciente es el buscado por su numero de historia clinia
+     * @param o  la referencia al objeto con el cual comparar.
+     * @return true si el numero de historia clinica es el mismo, o si es el mismo objeto. False en cualquier otro caso.
+     */
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o)
+            return true;
+        if (!(o instanceof Paciente))
+            return false;
+        Paciente paciente = (Paciente) o;
+        return nroHistoriaClinica == paciente.nroHistoriaClinica;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(nroHistoriaClinica);
+    }
+
+    /**
      * Devuelve una representación textual del paciente.
      * <b>post:</b> retorna una cadena descriptiva con los campos principales
      *
      * @return String con los datos del paciente
      */
+
     @Override
     public String toString() {
         return "Paciente{" +
