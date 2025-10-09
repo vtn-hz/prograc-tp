@@ -1,8 +1,7 @@
 package mdp.ingenieria.clinicagestion.service;
+import java.util.LinkedList;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 
 import mdp.ingenieria.clinicagestion.exception.PacienteNoAtendidoException;
 import mdp.ingenieria.clinicagestion.exception.PacienteNoEncontradoException;
@@ -14,7 +13,7 @@ import mdp.ingenieria.clinicagestion.model.persona.Paciente;
  * Servicio que gestiona el flujo de pacientes entre la sala de espera y la atención.
  */
 public class GestorAtencionPacienteService {
-    private HashMap<Integer,Paciente> pacientesEspera; //integer para el numero de orden
+    private LinkedList<Paciente> pacientesEspera; //integer para el numero de orden
     private ArrayList<Paciente> pacientesAtencion;
     private int ultimoNroOrden;
 
@@ -23,7 +22,7 @@ public class GestorAtencionPacienteService {
      * <b>post:</b> lista de atención y mapa de espera inicializados; ultimoNroOrden = 0
      */
     public GestorAtencionPacienteService() {
-        this.pacientesEspera = new HashMap<Integer,Paciente>();
+        this.pacientesEspera = new LinkedList<Paciente>();
         this.pacientesAtencion = new ArrayList<Paciente>();
         ultimoNroOrden=0;
     }
@@ -37,7 +36,7 @@ public class GestorAtencionPacienteService {
      * @param paciente paciente a anunciar
      */
     public void anunciar(Paciente paciente) {
-        this.pacientesEspera.put(this.ultimoNroOrden++, paciente);
+        this.pacientesEspera.add(paciente);
         paciente.ocuparSala();
     }
 
@@ -93,10 +92,6 @@ public class GestorAtencionPacienteService {
     }
 
 
-
-    /**
-     * LO MODIFIQUE VER MARI, [VALENTINO]
-     * */
     /**
      * Egresar a un paciente del sistema de espera/atención.
      *
@@ -113,9 +108,9 @@ public class GestorAtencionPacienteService {
         if (this.isAtendido( paciente ))
             this.pacientesAtencion.remove(paciente);
         else{
-            if(this.pacientesEspera.containsValue(paciente))
+            if(this.pacientesEspera.contains(paciente))
             {
-                pacientesEspera.entrySet().removeIf(entry -> entry.getValue().equals(paciente));
+                pacientesEspera.remove(paciente);
                 sacarPacienteSalaEspera(paciente);
                 
                 throw new PacienteNoAtendidoException( paciente ); 
@@ -135,8 +130,7 @@ public class GestorAtencionPacienteService {
         Paciente paciente = null;
         if (!this.pacientesEspera.isEmpty())
         {
-            int menorClave = Collections.min(pacientesEspera.keySet());
-            paciente = pacientesEspera.get(menorClave);
+            paciente = pacientesEspera.removeFirst();
         }
         return paciente;
     }
