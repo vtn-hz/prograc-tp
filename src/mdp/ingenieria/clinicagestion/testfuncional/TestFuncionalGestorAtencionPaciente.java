@@ -14,7 +14,7 @@ import mdp.ingenieria.clinicagestion.service.GestorAtencionPacienteService;
 
 public class TestFuncionalGestorAtencionPaciente {
 
-    public static void main(String[] args) {
+    public static void ejecutarTests(String[] args) {
         System.out.println("=== INICIO DE PRUEBAS FUNCIONALES ===\n");
         
         testAnunciarPacienteUnico();
