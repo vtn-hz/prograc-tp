@@ -13,9 +13,10 @@ import mdp.ingenieria.clinicagestion.model.persona.Paciente;
  * Servicio que gestiona el flujo de pacientes entre la sala de espera y la atención.
  */
 public class GestorAtencionPacienteService {
-    private LinkedList<Paciente> pacientesEspera; //integer para el numero de orden
+	
+    private LinkedList<Paciente> pacientesEspera;
+    
     private ArrayList<Paciente> pacientesAtencion;
-    private int ultimoNroOrden;
 
     /**
      * Constructor del gestor con estructuras vacías y contador de orden en cero.
@@ -24,7 +25,6 @@ public class GestorAtencionPacienteService {
     public GestorAtencionPacienteService() {
         this.pacientesEspera = new LinkedList<Paciente>();
         this.pacientesAtencion = new ArrayList<Paciente>();
-        ultimoNroOrden=0;
     }
 
     /**
@@ -64,7 +64,7 @@ public class GestorAtencionPacienteService {
     /**
      * Pasa un paciente a atención y lo retira de la sala de espera.
      *
-     * <b>pre:</b> paciente no es null y fue anunciado previamente <br>
+     * <b>pre:</b> paciente no es null <br>
      * <b>post:</b> el paciente figura en pacientesAtencion y ya no ocupa sala de espera
      *
      * @param paciente paciente a atender
@@ -74,8 +74,8 @@ public class GestorAtencionPacienteService {
     {
         if(!this.pacientesAtencion.contains(paciente))
         {
+        	this.sacarPacienteSalaEspera(paciente);
             this.pacientesAtencion.add(paciente);
-            sacarPacienteSalaEspera(paciente);
         }
     }
 
@@ -104,14 +104,16 @@ public class GestorAtencionPacienteService {
      * @throws PacienteNoAtendidoException si estaba esperando (egreso sin haber sido atendido)
      */
     public void egresar(Paciente paciente) throws PacienteNoIngresadoException, PacienteNoEncontradoException, PacienteNoAtendidoException
-    {
+    {    	
+    	
         if (this.isAtendido( paciente ))
             this.pacientesAtencion.remove(paciente);
-        else{
+        else 
+        {
             if(this.pacientesEspera.contains(paciente))
             {
-                pacientesEspera.remove(paciente);
-                sacarPacienteSalaEspera(paciente);
+                this.pacientesEspera.remove(paciente);
+                this.sacarPacienteSalaEspera(paciente);
                 
                 throw new PacienteNoAtendidoException( paciente ); 
             }
@@ -130,7 +132,7 @@ public class GestorAtencionPacienteService {
         Paciente paciente = null;
         if (!this.pacientesEspera.isEmpty())
         {
-            paciente = pacientesEspera.removeFirst();
+            paciente = this.pacientesEspera.removeFirst();
         }
         return paciente;
     }
