@@ -1,6 +1,7 @@
 package mdp.ingenieria.clinicagestion.model;
 
 import mdp.ingenieria.clinicagestion.exception.*;
+import mdp.ingenieria.clinicagestion.model.clinica.Clinica;
 import mdp.ingenieria.clinicagestion.model.clinica.Habitacion;
 import mdp.ingenieria.clinicagestion.model.persona.IMedico;
 import mdp.ingenieria.clinicagestion.model.persona.Paciente;
@@ -17,9 +18,13 @@ import java.util.ArrayList;
  * Fachada del sistema patrones Singleton y Facade que coordinan los servicios de registro y atención de pacientes y médicos.
  */
 public class Sistema {
+	
     private static Sistema _instancia;
+    
     private GestorAtencionPacienteService gestorAtencionPacienteService;
+    
     private RegistroMedicoService registroMedicoService;
+    
     private RegistroPacienteService registroPacienteService;
 
     /**
@@ -27,9 +32,9 @@ public class Sistema {
      * <b>post:</b> se crean los servicios de atención, médicos y pacientes
      */
     private Sistema() {
-        gestorAtencionPacienteService = new GestorAtencionPacienteService();
-        registroMedicoService = new RegistroMedicoService();
-        registroPacienteService = new RegistroPacienteService(gestorAtencionPacienteService, registroMedicoService);
+        this.gestorAtencionPacienteService 	= new GestorAtencionPacienteService();
+        this.registroMedicoService			= new RegistroMedicoService();
+        this.registroPacienteService		= new RegistroPacienteService(this.gestorAtencionPacienteService, this.registroMedicoService);
     }
 
     /**
@@ -44,11 +49,35 @@ public class Sistema {
         }
         return _instancia;
     }
+   
+    /**
+     * <b>post: </b> inicia la clinica 
+     * 
+     * @param nombre
+     * @param telefono
+     * @param ciudad
+     * @param direccion
+     * @return Sistema
+     */
+    public Sistema initializeClinica(String nombre, String telefono, String ciudad, String direccion) 
+    {
+    	Clinica.initialize(nombre, telefono, ciudad, direccion);
+    	return this;
+    }
+    
+    /**
+     * @return Clinica
+     */
+    public Clinica getClinica() 
+    {
+    	return Clinica.getInstance();
+    }
+
 
     /**
      * Registra un médico en el sistema.
      *
-     * <b>pre:</b> medico no debe ser null; su matrícula no debe existir previamente <br>
+     * <b>pre:</b> medico no debe ser null <br>
      * <b>post:</b> el médico queda registrado en RegistroMedicoService
      *
      * @param medico profesional a registrar
@@ -63,7 +92,7 @@ public class Sistema {
     /**
      * Registra un paciente en el sistema.
      *
-     * <b>pre:</b> paciente no debe ser null; su nro. de historia clínica no debe existir previamente <br>
+     * <b>pre:</b> paciente no debe ser null <br>
      * <b>post:</b> el paciente queda registrado en RegistroPacienteService
      *
      * @param paciente paciente a registrar
@@ -74,11 +103,21 @@ public class Sistema {
         this.registroPacienteService.registrarPaciente(paciente);
         return this;
     }
+    
+    
+    /**
+     * Devuelve el siguiente paciente | null
+     * 
+     * @return Paciente|null
+     */
+    public Paciente siguientePaciente() {
+    	return this.gestorAtencionPacienteService.getSigPacienteAtender();
+    }
 
     /**
      * Inicia el ingreso de un paciente.
      *
-     * <b>pre:</b> paciente no debe ser null y debe estar previamente registrado <br>
+     * <b>pre:</b> paciente no debe ser null <br>
      * <b>post:</b> el paciente queda con un ingreso activo
      *
      * @param paciente paciente a ingresar
@@ -93,7 +132,7 @@ public class Sistema {
     /**
      * Registra que un médico atiende a un paciente.
      *
-     * <b>pre:</b> medico y paciente existen; el paciente debe tener un ingreso activo <br>
+     * <b>pre:</b> medico != null ; paciente != null <br>
      * <b>post:</b> se agrega la atención al registro del ingreso del paciente
      *
      * @param medico        médico que atiende
@@ -126,8 +165,8 @@ public class Sistema {
     /**
      * Egreso de un paciente indicando la cantidad de días, generando su factura.
      *
-     * <b>pre:</b> paciente tiene ingreso activo; dias ≥ 0 <br>
-     * <b>post:</b> se cierra el ingreso y se retorna la factura correspondiente
+     * <b>pre:</b> paciente != null ; dias ≥ 0 <br>
+     * <b>post:</b> se cierra el ingreso y (se retorna la factura correspondiente | null si estaba en sala de espera)
      *
      * @param paciente      paciente a egresar
      * @param dias          cantidad de días a facturar
@@ -137,14 +176,47 @@ public class Sistema {
     public Factura egresaPaciente(Paciente paciente, int dias) throws PacienteException {
         return this.registroPacienteService.egresaPaciente(paciente, dias);
     }
+    
+    /**
+     * Egreso de un paciente indicando la cantidad de días, generando su factura.
+     *
+     * <b>pre:</b> paciente != null <br>
+     * <b>post:</b> se cierra el ingreso y (se retorna la factura correspondiente | null si estaba en sala de espera)
+     *
+     * @param paciente
+     * @return
+     * @throws PacienteException si no hay ingreso activo
+     */
     public Factura egresaPaciente(Paciente paciente) throws PacienteException {
         return this.registroPacienteService.egresaPaciente(paciente);
     }
 
+    /**
+     * Devuelve reporte medico en una fecha especifica
+     * 
+     * <b>pre:</b> medico != null ; fechaInicio != null ; fechaFin != null<br>
+     * 
+     * @param medico
+     * @param fechaInicio
+     * @param fechaFin
+     * @return
+     * @throws MedicoNoRegistradoException
+     */
     public ArrayList<MedicoConsulta> reporteMedico(IMedico medico, LocalDateTime fechaInicio, LocalDateTime fechaFin) throws MedicoNoRegistradoException {
         return registroMedicoService.buscarMedico(medico).getConsultasEfectuadasByFecha(fechaInicio, fechaFin);
     }
 
+    /**
+     * Devuelve reporte medico en una fecha especifica en String
+     * 
+     * <b>pre:</b> medico != null ; fechaInicio != null ; fechaFin != null<br>
+     * 
+     * @param medico
+     * @param fechaInicio
+     * @param fechaFin
+     * @return
+     * @throws MedicoNoRegistradoException
+     */
     public String reporteMedicoString(IMedico medico, LocalDateTime fechaInicio, LocalDateTime fechaFin) throws MedicoNoRegistradoException {
         ArrayList<MedicoConsulta> reporte = reporteMedico(medico, fechaInicio, fechaFin);
 

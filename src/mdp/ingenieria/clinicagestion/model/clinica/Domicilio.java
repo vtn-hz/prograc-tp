@@ -5,8 +5,11 @@ package mdp.ingenieria.clinicagestion.model.clinica;
  * Contiene los datos básicos de contacto y ubicación.
  */
 public class Domicilio {
+	
     private String telefono;
+    
     private String ciudad;
+    
     private String direccion;
 
     /**
@@ -19,7 +22,8 @@ public class Domicilio {
      * @param ciudad            ciudad donde se ubica el domicilio
      * @param direccion         dirección física completa
      */
-    public Domicilio(String telefono, String ciudad, String direccion) {
+    public Domicilio(String telefono, String ciudad, String direccion)
+    {
         this.telefono = telefono;
         this.ciudad = ciudad;
         this.direccion = direccion;

@@ -5,41 +5,53 @@ package mdp.ingenieria.clinicagestion.model.clinica;
  * Implementa el patrón Singleton para garantizar que solo exista una instancia
  */
 public class Clinica {
-    private Clinica _instancia;
+	
+    private static Clinica _instance;
+    
     private Domicilio domicilio;
+    
     private String nombre;
 
-    /**
+	/**
      * Constructor privado
      * Solo puede ser invocado internamente por el metodo getInstancia
-     *
-     * <b>pre:</b> domicilio y nombre no deben ser nulos ni vacíos <br>
+  	 *
      * <b>post:</b> inicializa la clínica con los valores indicados
-     *
-     * @param domicilio         domicilio de la clínica
-     * @param nombre            nombre de la clínica
-     */
-    private Clinica(Domicilio domicilio, String nombre) {
-        this.domicilio = domicilio;
+     * 
+	 * @param nombre
+	 * @param telefono
+	 * @param ciudad
+	 * @param direccion
+	 */
+    private Clinica(String nombre, String telefono, String ciudad, String direccion)
+    {
+        this.domicilio = new Domicilio(telefono, ciudad, direccion);
         this.nombre = nombre;
+    }
+    
+    /**
+     * <b>post: </b> inicia clinica singleton
+     * 
+     * @param nombre
+     * @param telefono
+     * @param ciudad
+     * @param direccion
+     */
+    public static void initialize(String nombre, String telefono, String ciudad, String direccion)
+    {
+    	Clinica._instance = new Clinica(nombre, telefono, ciudad, direccion);
     }
 
     /**
      * Retorna la única instancia de Clinica
-     * Si aún no existe, la crea con los datos proporcionados.
      *
-     * <b>pre:</b> domicilio y nombre no deben ser nulos ni vacíos <br>
-     * <b>post:</b> garantiza que siempre haya una única instancia
-     *
-     * @param domicilio         domicilio físico de la clínica
-     * @param nombre            nombre de la clínica
+     * <b>pre:</b> la clinica se encuentra inicializada <br>
+     * 
      * @return instancia única de Clinica
      */
-    public Clinica getInstancia(Domicilio domicilio, String nombre) {
-        if (_instancia == null) {
-            _instancia = new Clinica(domicilio, nombre);
-        }
-        return _instancia;
+    public static Clinica getInstance()
+    {
+        return _instance;
     }
 
     /**
