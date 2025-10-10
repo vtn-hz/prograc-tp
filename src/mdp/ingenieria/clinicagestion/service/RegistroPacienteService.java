@@ -11,6 +11,7 @@ import mdp.ingenieria.clinicagestion.model.persona.IMedico;
 import mdp.ingenieria.clinicagestion.model.persona.Paciente;
 import mdp.ingenieria.clinicagestion.model.persona.paciente.factura.Factura;
 import mdp.ingenieria.clinicagestion.model.persona.paciente.registro.RegistroPaciente;
+
 /**
  * Servicio que administra el registro y ciclo de vida de los pacientes:
  * alta, ingreso, atención, internación y egreso con generación de factura.
@@ -43,7 +44,7 @@ public class RegistroPacienteService {
     /**
      * Busca y retorna el RegistroPaciente asociado al paciente.
      *
-     * <b>pre:</b> paciente no es null y debe estar registrado <br>
+     * <b>pre:</b> paciente no es null <br>
      * <b>post:</b> devuelve el registro correspondiente
      *
      * @param paciente paciente a buscar
@@ -75,7 +76,7 @@ public class RegistroPacienteService {
     /**
      * Registra un nuevo paciente en el sistema.
      *
-     * <b>pre:</b> paciente no es null y su número de historia clínica no debe existir <br>
+     * <b>pre:</b> paciente no es null <br>
      * <b>post:</b> se crea un RegistroPaciente
      *
      * @param paciente paciente a registrar
@@ -92,7 +93,7 @@ public class RegistroPacienteService {
 
     /**
      * Inicia un ingreso para el paciente y lo anuncia en la sala de espera.
-     * <b>pre:</b> el paciente debe estar registrado previamente <br>
+     * <b>pre:</b> paciente != null <br>
      * <b>post:</b> se agrega un nuevo ingreso al RegistroPaciente y se anuncia en la sala de espera
      *
      * @param paciente paciente que ingresa
@@ -100,20 +101,14 @@ public class RegistroPacienteService {
      */
 	public void ingresaPaciente( Paciente paciente ) throws PacienteNoRegistradoException
 	{
-		this.buscarPaciente(paciente).addRegistroIngreso(); // asume cliclo de vida 
-		/**
-		 * anuncio -> atiendo -> salgo
-		 * si spameas que te anuncias te quedan todos incompletas
-		 * agregamos control para que no te deje crear hasta que no termines
-		 * la que estas haciendo?
-		 */
+		this.buscarPaciente(paciente).addRegistroIngreso();
 		this.gestorAtencionService.anunciar( paciente );
 	}
 
     /**
      * Registra que un médico atiende al paciente.
      *
-     * <b>pre:</b> el paciente está registrado y con ingreso activo; el médico está registrado <br>
+     * <b>pre:</b> paciente != null ; medico != null <br>
      * <b>post:</b> el paciente pasa a atención (sale de la sala) y se agrega el médico al ingreso
      *
      * @param medico        médico que atiende
@@ -207,12 +202,14 @@ public class RegistroPacienteService {
 					registroPaciente.getAtendidoPor(), paciente.getNyA(),
 					factura.getFechaEgreso()
 			);
-		}catch(PacienteNoAtendidoException e) {
+		} catch(PacienteNoAtendidoException e) {
 			factura = null;
 		} catch (MedicoNoRegistradoException e) {
 			factura = null;
-			// nunca va a suceder, ya que los medicos que se 
-			// agregan a registroPaciente se verifican antes que existan
+			/* 
+				nunca va a suceder, ya que los medicos que se 
+				agregan a registroPaciente se verifican antes que existan
+			*/
 		}
 		
 		return factura;

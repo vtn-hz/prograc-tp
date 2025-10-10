@@ -26,7 +26,7 @@ public class RegistroMedicoService {
     /**
      * Registra un médico nuevo en el sistema.
      *
-     * <b>pre:</b> medico no debe ser null; su matrícula no debe existir previamente <br>
+     * <b>pre:</b> medico no debe ser null <br>
      * <b>post:</b> se crea y almacena un RegistroMedico asociado a la matrícula
      *
      * @param medico profesional a registrar
