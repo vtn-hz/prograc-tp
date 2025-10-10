@@ -82,4 +82,14 @@ public class SalaEsperaPatio {
         }
         return null;
     }
+    
+    /**
+     * Devuelve la totalidad de los pacientes en el patio
+     * 
+     * @return
+     */
+    public ArrayList<Paciente> getPacientes() 
+    {
+    	return this.pacientes;
+    }
 }
