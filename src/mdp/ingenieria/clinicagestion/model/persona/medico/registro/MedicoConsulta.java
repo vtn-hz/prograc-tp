@@ -55,4 +55,11 @@ public class MedicoConsulta {
     public double getHonorario() {
         return honorario;
     }
+
+    @Override
+    public String toString() {
+        return  "Fecha: " + fecha +
+                ", Nombre: " + nombrePaciente +
+                ", Honorario: " + honorario;
+    }
 }

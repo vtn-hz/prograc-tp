@@ -4,12 +4,15 @@ import mdp.ingenieria.clinicagestion.exception.*;
 import mdp.ingenieria.clinicagestion.model.clinica.Habitacion;
 import mdp.ingenieria.clinicagestion.model.persona.IMedico;
 import mdp.ingenieria.clinicagestion.model.persona.Paciente;
+import mdp.ingenieria.clinicagestion.model.persona.medico.registro.MedicoConsulta;
 import mdp.ingenieria.clinicagestion.model.persona.paciente.factura.Factura;
 import mdp.ingenieria.clinicagestion.service.GestorAtencionPacienteService;
 import mdp.ingenieria.clinicagestion.service.RegistroMedicoService;
 import mdp.ingenieria.clinicagestion.service.RegistroPacienteService;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+
 /**
  * Fachada del sistema patrones Singleton y Facade que coordinan los servicios de registro y atención de pacientes y médicos.
  */
@@ -138,7 +141,17 @@ public class Sistema {
         return this.registroPacienteService.egresaPaciente(paciente);
     }
 
-    public void reporteMedico(IMedico medico, LocalDateTime fechaInicio, LocalDateTime fechaFin) {
-        // to-do
+    public ArrayList<MedicoConsulta> reporteMedico(IMedico medico, LocalDateTime fechaInicio, LocalDateTime fechaFin) throws MedicoNoRegistradoException {
+        return registroMedicoService.buscarMedico(medico).getConsultasEfectuadasByFecha(fechaInicio, fechaFin);
+    }
+
+    public String reporteMedicoString(IMedico medico, LocalDateTime fechaInicio, LocalDateTime fechaFin) throws MedicoNoRegistradoException {
+        ArrayList<MedicoConsulta> reporte = reporteMedico(medico, fechaInicio, fechaFin);
+
+        StringBuilder s = new StringBuilder();
+        for (MedicoConsulta medicoConsulta : reporte) {
+            s.append(medicoConsulta).append("\n");
+        }
+        return s.toString();
     }
 }
