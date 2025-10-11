@@ -3,25 +3,19 @@ package mdp.ingenieria.clinicagestion;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import mdp.ingenieria.clinicagestion.exception.MedicoMatriculaDuplicadaException;
-import mdp.ingenieria.clinicagestion.exception.MedicoNoRegistradoException;
-import mdp.ingenieria.clinicagestion.exception.PacienteException;
-import mdp.ingenieria.clinicagestion.exception.PacienteNoRegistradoException;
-import mdp.ingenieria.clinicagestion.exception.PacienteNroHistoriaClinicaDuplicadoException;
+import mdp.ingenieria.clinicagestion.exception.*;
+import mdp.ingenieria.clinicagestion.facade.Sistema;
 
-import mdp.ingenieria.clinicagestion.model.Sistema;
+import mdp.ingenieria.clinicagestion.model.persona.*;
 
-import mdp.ingenieria.clinicagestion.model.persona.Paciente;
-import mdp.ingenieria.clinicagestion.model.persona.PacienteFactory;
 import mdp.ingenieria.clinicagestion.model.persona.medico.registro.MedicoConsulta;
 import mdp.ingenieria.clinicagestion.model.persona.paciente.factura.Factura;
+
 import mdp.ingenieria.clinicagestion.view.Printer;
-import mdp.ingenieria.clinicagestion.model.persona.IMedico;
-import mdp.ingenieria.clinicagestion.model.persona.MedicoFactory;
-import mdp.ingenieria.clinicagestion.model.clinica.Habitacion;
-import mdp.ingenieria.clinicagestion.model.clinica.HabitacionFactory;
-import mdp.ingenieria.clinicagestion.model.clinica.salaespera.SalaEsperaPatio;
-import mdp.ingenieria.clinicagestion.model.clinica.salaespera.SalaEsperaPrivada;
+
+import mdp.ingenieria.clinicagestion.model.clinica.*;
+import mdp.ingenieria.clinicagestion.model.clinica.salaespera.*;
+
 
 public class Main
 {
@@ -144,7 +138,5 @@ public class Main
 			System.out.println( " - " +  e.getMessage() );
 		}
         // exception cases
-        
-        
     }
 }
