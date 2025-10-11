@@ -14,7 +14,7 @@ import mdp.ingenieria.clinicagestion.service.GestorAtencionPacienteService;
 
 public class TestFuncionalGestorAtencionPaciente {
 
-    public static void ejecutarTests(String[] args) {
+    public static void ejecutarTests() {
         System.out.println("=== INICIO DE PRUEBAS FUNCIONALES ===\n");
         
         testAnunciarPacienteUnico();
@@ -170,14 +170,15 @@ public class TestFuncionalGestorAtencionPaciente {
         gestor.anunciar(paciente);
         
         try {
-            gestor.egresar(paciente);
-            SalaEsperaPrivada salaPrivada = SalaEsperaPrivada.getInstance();
-            
-            if (salaPrivada.getPaciente() != paciente) {
-                System.out.println("✓ PASÓ: Paciente egresado de sala de espera\n");
-            } else {
-                System.out.println("✗ FALLÓ: Paciente no fue retirado de sala de espera\n");
-            }
+            gestor.egresar(paciente);  
+        } catch( PacienteNoAtendidoException e ) {
+    		SalaEsperaPrivada salaPrivada = SalaEsperaPrivada.getInstance();
+
+        	 if (salaPrivada.getPaciente() != paciente) {
+                 System.out.println("✓ PASÓ: Paciente egresado de sala de espera\n");
+             } else {
+                 System.out.println("✗ FALLÓ: Paciente no fue retirado de sala de espera\n");
+             }
         } catch (Exception e) {
             System.out.println("✗ FALLÓ: Error al egresar paciente - " + e.getMessage() + "\n");
         }
