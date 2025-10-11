@@ -1,6 +1,6 @@
 package mdp.ingenieria.clinicagestion.model.persona;
 
-import mdp.ingenieria.clinicagestion.model.clinica.Domicilio;
+import mdp.ingenieria.clinicagestion.model.Domicilio;
 
 /**
  * Clase base abstracta para representar a una persona de la clinica.

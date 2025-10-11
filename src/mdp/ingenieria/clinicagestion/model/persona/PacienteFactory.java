@@ -1,8 +1,8 @@
 package mdp.ingenieria.clinicagestion.model.persona;
 
-import mdp.ingenieria.clinicagestion.model.clinica.Domicilio;
 import mdp.ingenieria.clinicagestion.model.persona.paciente.PacienteMayor;
 import mdp.ingenieria.clinicagestion.model.persona.paciente.PacienteNino;
+import mdp.ingenieria.clinicagestion.model.Domicilio;
 import mdp.ingenieria.clinicagestion.model.persona.paciente.PacienteJoven;
 /**
  * Fábrica de objetos Paciente de distintos tipos (Niño, Joven, Mayor).

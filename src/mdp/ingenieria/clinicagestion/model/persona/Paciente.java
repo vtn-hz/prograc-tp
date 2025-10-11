@@ -1,8 +1,8 @@
 package mdp.ingenieria.clinicagestion.model.persona;
 
-import mdp.ingenieria.clinicagestion.model.clinica.Domicilio;
-
 import java.util.Objects;
+
+import mdp.ingenieria.clinicagestion.model.Domicilio;
 
 /**
  * Clase base abstracta para pacientes de la clinica

@@ -1,6 +1,6 @@
 package mdp.ingenieria.clinicagestion.model.persona.paciente;
 
-import mdp.ingenieria.clinicagestion.model.clinica.Domicilio;
+import mdp.ingenieria.clinicagestion.model.Domicilio;
 import mdp.ingenieria.clinicagestion.model.clinica.salaespera.SalaEsperaPatio;
 import mdp.ingenieria.clinicagestion.model.clinica.salaespera.SalaEsperaPrivada;
 import mdp.ingenieria.clinicagestion.model.persona.IProtocoloOcuparSala;

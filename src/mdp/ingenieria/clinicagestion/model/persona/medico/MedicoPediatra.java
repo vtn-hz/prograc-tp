@@ -1,6 +1,6 @@
 package mdp.ingenieria.clinicagestion.model.persona.medico;
 
-import mdp.ingenieria.clinicagestion.model.clinica.Domicilio;
+import mdp.ingenieria.clinicagestion.model.Domicilio;
 import mdp.ingenieria.clinicagestion.model.persona.Medico;
 
 /**

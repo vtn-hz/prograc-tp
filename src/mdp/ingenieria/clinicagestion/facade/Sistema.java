@@ -1,4 +1,4 @@
-package mdp.ingenieria.clinicagestion.model;
+package mdp.ingenieria.clinicagestion.facade;
 
 import mdp.ingenieria.clinicagestion.exception.*;
 import mdp.ingenieria.clinicagestion.model.clinica.Clinica;

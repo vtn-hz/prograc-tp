@@ -1,4 +1,4 @@
-package mdp.ingenieria.clinicagestion.model.clinica;
+package mdp.ingenieria.clinicagestion.model;
 
 /**
  * Representa la información de domicilio asociada a una clínica o paciente.

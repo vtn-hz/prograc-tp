@@ -1,6 +1,6 @@
 package mdp.ingenieria.clinicagestion.testfuncional;
 
-import mdp.ingenieria.clinicagestion.model.clinica.Domicilio;
+import mdp.ingenieria.clinicagestion.model.Domicilio;
 import mdp.ingenieria.clinicagestion.model.persona.medico.MedicoCirujano;
 import mdp.ingenieria.clinicagestion.model.persona.medico.registro.MedicoConsulta;
 import mdp.ingenieria.clinicagestion.model.persona.medico.registro.RegistroMedico;

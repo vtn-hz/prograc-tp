@@ -3,7 +3,7 @@ package mdp.ingenieria.clinicagestion.testfuncional;
 import java.util.ArrayList;
 import java.util.List;
 
-import mdp.ingenieria.clinicagestion.model.clinica.Domicilio;
+import mdp.ingenieria.clinicagestion.model.Domicilio;
 import mdp.ingenieria.clinicagestion.model.clinica.Habitacion;
 import mdp.ingenieria.clinicagestion.model.clinica.habitacion.HabitacionPrivada;
 import mdp.ingenieria.clinicagestion.model.clinica.habitacion.HabitacionTerapiaIntensiva;

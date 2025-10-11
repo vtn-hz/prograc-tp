@@ -1,5 +1,7 @@
 package mdp.ingenieria.clinicagestion.model.clinica;
 
+import mdp.ingenieria.clinicagestion.model.Domicilio;
+
 /**
  * Representa la clínica principal del sistema
  * Implementa el patrón Singleton para garantizar que solo exista una instancia
