@@ -9,6 +9,7 @@ import mdp.ingenieria.clinicagestion.exception.PacienteNoIngresadoException;
 import mdp.ingenieria.clinicagestion.model.clinica.salaespera.SalaEsperaPatio;
 import mdp.ingenieria.clinicagestion.model.clinica.salaespera.SalaEsperaPrivada;
 import mdp.ingenieria.clinicagestion.model.persona.Paciente;
+
 /**
  * Servicio que gestiona el flujo de pacientes entre la sala de espera y la atención.
  */
@@ -51,11 +52,13 @@ public class GestorAtencionPacienteService {
      */
     public void sacarPacienteSalaEspera(Paciente paciente) throws PacienteNoIngresadoException
     {
-        try{
-            if(SalaEsperaPrivada.getInstance().getPaciente() == paciente)
+        try 
+        {
+        	if(SalaEsperaPrivada.getInstance().getPaciente() == paciente)
                 SalaEsperaPrivada.getInstance().desocupar();
             else
                 SalaEsperaPatio.getInstance().desocupar(paciente);
+       
         }catch (PacienteNoEncontradoException e){
                 throw new PacienteNoIngresadoException(paciente);
         }
@@ -74,6 +77,7 @@ public class GestorAtencionPacienteService {
     {
         if(!this.pacientesAtencion.contains(paciente))
         {
+        	this.pacientesEspera.remove(paciente);
         	this.sacarPacienteSalaEspera(paciente);
             this.pacientesAtencion.add(paciente);
         }
@@ -132,7 +136,7 @@ public class GestorAtencionPacienteService {
         Paciente paciente = null;
         if (!this.pacientesEspera.isEmpty())
         {
-            paciente = this.pacientesEspera.removeFirst();
+            paciente = this.pacientesEspera.getFirst();
         }
         return paciente;
     }

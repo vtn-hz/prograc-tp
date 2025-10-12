@@ -10,9 +10,16 @@ import mdp.ingenieria.clinicagestion.model.persona.Paciente;
  * Almacena los pacientes que esperan ser atendidos.
  * Implementa el patrón Singleton para garantizar una única instancia.
  */
-public class SalaEsperaPatio {
-    private ArrayList<Paciente> pacientes;
+public class SalaEsperaPatio
+{
+    
+	private ArrayList<Paciente> pacientes;
+    
     private static SalaEsperaPatio _instancia;
+    
+    private SalaEsperaPatio() {
+    	this.pacientes = new ArrayList<Paciente>();
+    }
 
     /**
      * Retorna la única instancia de SalaEsperaPatio.
@@ -23,10 +30,12 @@ public class SalaEsperaPatio {
      *
      * @return instancia única de SalaEsperaPatio
      */
-    public static SalaEsperaPatio getInstance() {
+    public static SalaEsperaPatio getInstance()
+    {
         if (_instancia == null) {
             _instancia = new SalaEsperaPatio();
         }
+        
         return _instancia;
     }
 
@@ -39,9 +48,6 @@ public class SalaEsperaPatio {
      * @param paciente      paciente que ingresa a la sala de espera
      */
     public void ocupar(Paciente paciente) {
-        if (this.pacientes == null) {
-            this.pacientes = new ArrayList<>();
-        }
         this.pacientes.add(paciente);
     }
 
@@ -57,9 +63,9 @@ public class SalaEsperaPatio {
      */
     public void desocupar(Paciente paciente) throws PacienteNoEncontradoException
     {
-        if (this.pacientes != null) {
-            if(!this.pacientes.remove(paciente))
-                throw new PacienteNoEncontradoException(paciente);
+        if(!this.pacientes.remove(paciente))
+        {
+        	throw new PacienteNoEncontradoException(paciente);
         }
     }
 
@@ -72,14 +78,14 @@ public class SalaEsperaPatio {
      * @param nroHistoriaClinica        número de historia clínica del paciente buscado
      * @return el Paciente correspondiente, o null si no está en la sala
      */
-    public Paciente getPacienteByHistoriaClinica(int nroHistoriaClinica) {
-        if (this.pacientes != null) {
-            for (Paciente paciente : this.pacientes) {
-                if (paciente.getNroHistoriaClinica() == nroHistoriaClinica) {
-                    return paciente;
-                }
+    public Paciente getPacienteByHistoriaClinica(int nroHistoriaClinica)
+    {
+        for (Paciente paciente : this.pacientes) {
+            if (paciente.getNroHistoriaClinica() == nroHistoriaClinica) {
+                return paciente;
             }
         }
+        
         return null;
     }
     

@@ -4,9 +4,11 @@ package mdp.ingenieria.clinicagestion.model.clinica;
  * Clase abstracta que representa una habitación dentro de la clínica.
  * Define los atributos y comportamientos comunes a todas las habitaciones.
  */
-public abstract class Habitacion {
+public abstract class Habitacion
+{
     
 	protected double costoAsignacion;
+	
 	protected double costoAdicional;
 
     /**

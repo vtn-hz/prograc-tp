@@ -7,8 +7,11 @@ import mdp.ingenieria.clinicagestion.model.persona.Paciente;
  * Solo puede estar ocupada por un paciente a la vez.
  * Implementa el patrón Singleton para asegurar una única instancia en el sistema.
  */
-public class SalaEsperaPrivada {
+public class SalaEsperaPrivada
+{
+	
     private Paciente paciente;
+    
     private static SalaEsperaPrivada _instancia;
 
     /**
