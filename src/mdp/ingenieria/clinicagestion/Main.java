@@ -116,27 +116,93 @@ public class Main
 			e.printStackTrace();
 		} 
         
+        ejecutarCasosDeExcepcion(sistema);
+    }
 
-       
-        
-        // exception cases
+    private static void ejecutarCasosDeExcepcion(Sistema sistema){
+        PacienteFactory pacienteFactory = new PacienteFactory();
+        MedicoFactory medicoFactory = new MedicoFactory();
+        HabitacionFactory habitacionFactory = new HabitacionFactory();
+
+        Paciente pacienteJoven = pacienteFactory.create("María González", "38567890", "223-5678901", "Mar del Plata", "Calle Mitre 5678", 1002, PacienteFactory.PACIENTE_JOVEN);
+        IMedico medicoCirujanoPermanente = medicoFactory.create(23456, "Dra. Ana Martínez", "27234567", "223-2222222", "Mar del Plata", "Av. Luro 200", MedicoFactory.MEDICO_CIRUJANO, MedicoFactory.CONTRATACION_PERMANENTE);
+
+
+        // 1) MedicoMatriculaDuplicadaException
         try {
-			sistema.atiendePaciente(medicoCirujanoPermanente, pacienteNino);
-		} catch (PacienteException | MedicoNoRegistradoException e) {
-			System.out.println( " - " +  e.getMessage() );
-		}
-        
+            IMedico medico1 = medicoFactory.create(11111, "Dr. Perez", "20123456", "223-1111111", "Mar del Plata", "Calle Castelli 3567", MedicoFactory.MEDICO_CLINICO);
+            IMedico medico2 = medicoFactory.create(11111, "Dr. Gomez", "20222222", "223-2222222", "Mar del Plata", "Calle Guemes 2373", MedicoFactory.MEDICO_CLINICO);
+
+            sistema.registraMedico(medico1);
+            sistema.registraMedico(medico2);
+
+        } catch (MedicoMatriculaDuplicadaException e) {
+            System.out.println( " - " +  e.getMessage() );
+        }
+
+
+        // 2) MedicoNoRegistradoException
         try {
-			sistema.atiendePaciente(medicoPediatraResidente, pacienteJoven);
-		} catch (PacienteException | MedicoNoRegistradoException e) {
-			System.out.println( " - " +  e.getMessage() );
-		}
-     
+            IMedico medico1 = medicoFactory.create(99999, "Dr. Gomez", "20123456", "223-0000000", "Mar del Plata", "Calle Guemes 2373", MedicoFactory.MEDICO_CIRUJANO);
+            Paciente paciente1 = pacienteFactory.create("Juan Gutierrez", "55555555", "223-5555555", "Mar del Plata", "Av.Independencia 555", 2005, PacienteFactory.PACIENTE_JOVEN);
+
+            sistema.registraPaciente(paciente1);
+            sistema.atiendePaciente(medico1, paciente1);
+
+        } catch (MedicoNoRegistradoException e) {
+            System.out.println( " - " +  e.getMessage() );
+        } catch (PacienteException e) {
+            System.out.println( " - " +  e.getMessage() );
+        }
+
+        // 3) PacienteNroHistoriaClinicaDuplicadoException
         try {
-			sistema.egresaPaciente(pacienteNino, 4);
-		} catch (PacienteException e) {
-			System.out.println( " - " +  e.getMessage() );
-		}
-        // exception cases
+            Paciente paciente1 = pacienteFactory.create("Juan Pérez", "45123456", "223-4567890", "Mar del Plata", "Calle 1", 5001, PacienteFactory.PACIENTE_JOVEN);
+            Paciente paciente2 = pacienteFactory.create("Juan Pérez (duplicado)", "45123456", "223-4567890", "Mar del Plata", "Calle 2", 5001, PacienteFactory.PACIENTE_JOVEN);
+
+            sistema.registraPaciente(paciente1);
+            sistema.registraPaciente(paciente2);
+        } catch (PacienteNroHistoriaClinicaDuplicadoException e) {
+            System.out.println( " - " +  e.getMessage() );
+        }
+
+        // 4) PacienteNoRegistradoException
+        try {
+            Paciente paciente = pacienteFactory.create("Maria Rodriguez", "18673209", "223-9999999", "Mar del Plata", "Calle Brown 1239", 9001, PacienteFactory.PACIENTE_JOVEN);
+            sistema.ingresaPaciente(paciente);
+
+        } catch (PacienteNoRegistradoException e) {
+            System.out.println( " - " +  e.getMessage() );
+        }
+
+        // 5) PacienteNoIngresadoException
+        try{
+            Paciente paciente = pacienteFactory.create("Maria Rodriguez", "18673209", "223-9999999", "Mar del Plata", "Calle Brown 1239", 9001, PacienteFactory.PACIENTE_JOVEN);
+            sistema.registraPaciente(paciente);
+            IMedico medico = medicoFactory.create(11188, "Dr. Perez", "20123456", "223-1111111", "Mar del Plata", "Calle Castelli 3567", MedicoFactory.MEDICO_CLINICO);
+            sistema.registraMedico(medico);
+
+            sistema.atiendePaciente(medico, paciente);
+        } catch (PacienteNoIngresadoException e) {
+            System.out.println( " - " +  e.getMessage() );
+        } catch (PacienteException | MedicoNoRegistradoException e) {
+            System.out.println( " - " +  e.getMessage() );
+        } catch (MedicoMatriculaDuplicadaException e) {
+            System.out.println( " - " +  e.getMessage() );
+        }
+
+        // 6) PacienteNoAtendidoException
+        try {
+            Paciente paciente = pacienteFactory.create("Rodolfo Martinez", "40123456", "223-7777777", "Mar del Plata", "Av. Libertad 1738", 2001, PacienteFactory.PACIENTE_MAYOR);
+            sistema.registraPaciente(paciente);
+            sistema.ingresaPaciente(paciente);
+
+            sistema.egresaPaciente(paciente, 2);
+
+        } catch (PacienteNoAtendidoException e) {
+            System.out.println( " - " +  e.getMessage() );
+        } catch (PacienteException e) {
+            System.out.println( " - " +  e.getMessage() );
+        }
     }
 }
