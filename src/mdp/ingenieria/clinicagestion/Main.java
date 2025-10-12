@@ -16,7 +16,6 @@ import mdp.ingenieria.clinicagestion.view.Printer;
 import mdp.ingenieria.clinicagestion.model.clinica.*;
 import mdp.ingenieria.clinicagestion.model.clinica.salaespera.*;
 
-
 public class Main
 {
 
@@ -115,7 +114,18 @@ public class Main
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
+		
         
+		Paciente paciente = sistema.siguientePaciente();
+        try {
+			Factura factura = sistema.egresaPaciente(paciente);
+			if (factura == null) {
+				System.out.println(" - " + paciente.getNyA() + " egreso sin factura " );
+			} 
+		} catch (PacienteException e) {
+			e.printStackTrace();
+		}
+
         ejecutarCasosDeExcepcion(sistema);
     }
 
@@ -181,27 +191,13 @@ public class Main
             sistema.registraPaciente(paciente);
             IMedico medico = medicoFactory.create(11188, "Dr. Perez", "20123456", "223-1111111", "Mar del Plata", "Calle Castelli 3567", MedicoFactory.MEDICO_CLINICO);
             sistema.registraMedico(medico);
-
+            
             sistema.atiendePaciente(medico, paciente);
         } catch (PacienteNoIngresadoException e) {
             System.out.println( " - " +  e.getMessage() );
         } catch (PacienteException | MedicoNoRegistradoException e) {
             System.out.println( " - " +  e.getMessage() );
         } catch (MedicoMatriculaDuplicadaException e) {
-            System.out.println( " - " +  e.getMessage() );
-        }
-
-        // 6) PacienteNoAtendidoException
-        try {
-            Paciente paciente = pacienteFactory.create("Rodolfo Martinez", "40123456", "223-7777777", "Mar del Plata", "Av. Libertad 1738", 2001, PacienteFactory.PACIENTE_MAYOR);
-            sistema.registraPaciente(paciente);
-            sistema.ingresaPaciente(paciente);
-
-            sistema.egresaPaciente(paciente, 2);
-
-        } catch (PacienteNoAtendidoException e) {
-            System.out.println( " - " +  e.getMessage() );
-        } catch (PacienteException e) {
             System.out.println( " - " +  e.getMessage() );
         }
     }
