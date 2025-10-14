@@ -16,7 +16,7 @@ public class MedicoNoRegistradoException extends Exception {
      * @param matricula número de matrícula del médico que no fue encontrado
      */
     public MedicoNoRegistradoException(int matricula) {
-        super("No se encontró un médico registrado con matrícula: " + matricula);
+        super("No se encontro un medico registrado con matricula: " + matricula);
         this.matricula = matricula;
     }
 

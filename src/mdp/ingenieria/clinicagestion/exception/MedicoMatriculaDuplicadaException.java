@@ -16,7 +16,7 @@ public class MedicoMatriculaDuplicadaException extends Exception {
      * @param matricula     número de matrícula duplicado que causó la excepción
      */
     public MedicoMatriculaDuplicadaException(int matricula) {
-        super("Ya existe un médico registrado con la matrícula: " + matricula);
+        super("Ya existe un medico registrado con la matricula: " + matricula);
         this.matricula = matricula;
     }
 
