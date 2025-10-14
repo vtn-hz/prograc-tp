@@ -14,6 +14,6 @@ public class PacienteNoEncontradoException extends PacienteException {
      * @param paciente instancia del paciente que no fue encontrada
      */
     public PacienteNoEncontradoException(Paciente paciente) {
-        super("El paciente no se encuentra en las instalaciones de la clínica", paciente);
+        super("El paciente no se encuentra en las instalaciones de la clinica", paciente);
     }
 }

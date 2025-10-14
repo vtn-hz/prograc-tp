@@ -22,7 +22,7 @@ public class Main
     public static void main(String[] args) 
     {
         Sistema sistema = Sistema.getInstance();   
-        sistema.initializeClinica("Clínica Maguvisi", "0223 481-6600", "Mar del plata", "Av. Juan B. Justo 4302");
+        sistema.initializeClinica("Clinica Maguvisi", "0223 481-6600", "Mar del plata", "Av. Juan B. Justo 4302");
         
         Printer.printClinica( sistema.getClinica() );
         
@@ -30,14 +30,14 @@ public class Main
         MedicoFactory medicoFactory = new MedicoFactory();
         HabitacionFactory habitacionFactory = new HabitacionFactory();
         
-        Paciente pacienteNino = pacienteFactory.create("Juan Pérez", "45123456", "223-4567890", "Mar del Plata", "Av. Independencia 1234", 1001, PacienteFactory.PACIENTE_NINO);
-        Paciente pacienteJoven = pacienteFactory.create("María González", "38567890", "223-5678901", "Mar del Plata", "Calle Mitre 5678", 1002, PacienteFactory.PACIENTE_JOVEN);
-        Paciente pacienteMayor = pacienteFactory.create("Roberto Fernández", "12345678", "223-6789012", "Mar del Plata", "Av. Colón 9101", 1003, PacienteFactory.PACIENTE_MAYOR);
+        Paciente pacienteNino = pacienteFactory.create("Juan Perez", "45123456", "223-4567890", "Mar del Plata", "Av. Independencia 1234", 1001, PacienteFactory.PACIENTE_NINO);
+        Paciente pacienteJoven = pacienteFactory.create("Maria Gonzalez", "38567890", "223-5678901", "Mar del Plata", "Calle Mitre 5678", 1002, PacienteFactory.PACIENTE_JOVEN);
+        Paciente pacienteMayor = pacienteFactory.create("Roberto Fernandez", "12345678", "223-6789012", "Mar del Plata", "Av. Colón 9101", 1003, PacienteFactory.PACIENTE_MAYOR);
         
-        IMedico medicoClinicoSinDecorador = medicoFactory.create(12345, "Dr. Carlos López", "20123456", "223-1111111", "Mar del Plata", "Calle San Martín 100", MedicoFactory.MEDICO_CLINICO);
-        IMedico medicoCirujanoPermanente = medicoFactory.create(23456, "Dra. Ana Martínez", "27234567", "223-2222222", "Mar del Plata", "Av. Luro 200", MedicoFactory.MEDICO_CIRUJANO, MedicoFactory.CONTRATACION_PERMANENTE);
-        IMedico medicoPediatraResidente = medicoFactory.create(34567, "Dr. Luis Rodríguez", "30345678", "223-3333333", "Mar del Plata", "Calle Córdoba 300", MedicoFactory.MEDICO_PEDIATRA, MedicoFactory.CONTRATACION_RESIDENTE);
-        IMedico medicoClinicoMagisterPermanente = medicoFactory.create(45678, "Dra. Laura Sánchez", "33456789", "223-4444444", "Mar del Plata", "Av. Constitución 400", MedicoFactory.MEDICO_CLINICO, MedicoFactory.CONTRATACION_PERMANENTE, MedicoFactory.POSTGRADO_MAGISTER);
+        IMedico medicoClinicoSinDecorador = medicoFactory.create(12345, "Dr. Carlos Lopez", "20123456", "223-1111111", "Mar del Plata", "Calle San Martín 100", MedicoFactory.MEDICO_CLINICO);
+        IMedico medicoCirujanoPermanente = medicoFactory.create(23456, "Dra. Ana Martinez", "27234567", "223-2222222", "Mar del Plata", "Av. Luro 200", MedicoFactory.MEDICO_CIRUJANO, MedicoFactory.CONTRATACION_PERMANENTE);
+        IMedico medicoPediatraResidente = medicoFactory.create(34567, "Dr. Luis Rodriguez", "30345678", "223-3333333", "Mar del Plata", "Calle Córdoba 300", MedicoFactory.MEDICO_PEDIATRA, MedicoFactory.CONTRATACION_RESIDENTE);
+        IMedico medicoClinicoMagisterPermanente = medicoFactory.create(45678, "Dra. Laura Sanchez", "33456789", "223-4444444", "Mar del Plata", "Av. Constitución 400", MedicoFactory.MEDICO_CLINICO, MedicoFactory.CONTRATACION_PERMANENTE, MedicoFactory.POSTGRADO_MAGISTER);
         IMedico medicoCirujanoDoctoradoResidente = medicoFactory.create(56789, "Dr. Miguel Torres", "35567890", "223-5555555", "Mar del Plata", "Calle Belgrano 500", MedicoFactory.MEDICO_CIRUJANO, MedicoFactory.CONTRATACION_RESIDENTE, MedicoFactory.POSTGRADO_DOCTORADO);
         
         Habitacion habitacionPrivada    = habitacionFactory.create(HabitacionFactory.HABITACION_PRIVADA, 5000.0, 500.0);
@@ -134,8 +134,8 @@ public class Main
         MedicoFactory medicoFactory = new MedicoFactory();
         HabitacionFactory habitacionFactory = new HabitacionFactory();
 
-        Paciente pacienteJoven = pacienteFactory.create("María González", "38567890", "223-5678901", "Mar del Plata", "Calle Mitre 5678", 1002, PacienteFactory.PACIENTE_JOVEN);
-        IMedico medicoCirujanoPermanente = medicoFactory.create(23456, "Dra. Ana Martínez", "27234567", "223-2222222", "Mar del Plata", "Av. Luro 200", MedicoFactory.MEDICO_CIRUJANO, MedicoFactory.CONTRATACION_PERMANENTE);
+        Paciente pacienteJoven = pacienteFactory.create("Maria Gonzalez", "38567890", "223-5678901", "Mar del Plata", "Calle Mitre 5678", 1002, PacienteFactory.PACIENTE_JOVEN);
+        IMedico medicoCirujanoPermanente = medicoFactory.create(23456, "Dra. Ana Martinez", "27234567", "223-2222222", "Mar del Plata", "Av. Luro 200", MedicoFactory.MEDICO_CIRUJANO, MedicoFactory.CONTRATACION_PERMANENTE);
 
 
         // 1) MedicoMatriculaDuplicadaException
@@ -167,8 +167,8 @@ public class Main
 
         // 3) PacienteNroHistoriaClinicaDuplicadoException
         try {
-            Paciente paciente1 = pacienteFactory.create("Juan Pérez", "45123456", "223-4567890", "Mar del Plata", "Calle 1", 5001, PacienteFactory.PACIENTE_JOVEN);
-            Paciente paciente2 = pacienteFactory.create("Juan Pérez (duplicado)", "45123456", "223-4567890", "Mar del Plata", "Calle 2", 5001, PacienteFactory.PACIENTE_JOVEN);
+            Paciente paciente1 = pacienteFactory.create("Juan Perez", "45123456", "223-4567890", "Mar del Plata", "Calle 1", 5001, PacienteFactory.PACIENTE_JOVEN);
+            Paciente paciente2 = pacienteFactory.create("Juan Perez (duplicado)", "45123456", "223-4567890", "Mar del Plata", "Calle 2", 5001, PacienteFactory.PACIENTE_JOVEN);
 
             sistema.registraPaciente(paciente1);
             sistema.registraPaciente(paciente2);

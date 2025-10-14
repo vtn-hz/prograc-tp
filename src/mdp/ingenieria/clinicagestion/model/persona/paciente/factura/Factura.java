@@ -201,17 +201,17 @@ public class Factura
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         StringBuilder sb = new StringBuilder();
         
-        sb.append("Nº Factura: ").append(nroFactura).append("\n");
+        sb.append("Nro Factura: ").append(nroFactura).append("\n");
         sb.append("Nombre Paciente: ").append(nombrePaciente).append("\n");
         sb.append("Fecha Ingreso: ").append(fechaIngreso.format(formatter)).append("\n");
         sb.append("Fecha Egreso: ").append(fechaEgreso.format(formatter)).append("\n");
-        sb.append("Cantidad de días: ").append(cantidadDias).append("\n");
+        sb.append("Cantidad de dias: ").append(cantidadDias).append("\n");
         
         if (this.utilizoHabitacion) {
             sb.append(
                 String.format(
                     "%-35s %-15s %10s %8s",
-                    "Habitación tipo: " + this.tipoHabitacion,
+                    "Habitacion tipo: " + this.tipoHabitacion,
                     "",
                     "Costo:",
                     String.format("$ %.2f", costoHabitacion)
@@ -219,7 +219,7 @@ public class Factura
             ).append("\n");
         }
         
-        sb.append("\nConsultas Médicas:\n\n");
+        sb.append("\nConsultas Medicas:\n\n");
         
         for (FacturaItem item : items) {
             sb.append(item.toString()).append("\n");

@@ -22,12 +22,12 @@ public class Printer {
      * @param clinica
      */
     public static void printClinica(Clinica clinica) {
-        printCabecera("CLÍNICA");
+        printCabecera("CLINICA");
         
         System.out.println("Nombre: " + clinica.getNombre());
-        System.out.println("Teléfono: " + clinica.getDomicilio().getTelefono());
+        System.out.println("Telefono: " + clinica.getDomicilio().getTelefono());
         System.out.println("Ciudad: " + clinica.getDomicilio().getCiudad());
-        System.out.println("Dirección: " + clinica.getDomicilio().getDireccion());
+        System.out.println("Direccion: " + clinica.getDomicilio().getDireccion());
         
         printPie();
     }
@@ -37,7 +37,7 @@ public class Printer {
      * @param factura
      */
     public static void printFactura(Factura factura) {
-        printCabecera("FACTURA CLÍNICA");
+        printCabecera("FACTURA CLINICA");
         
         System.out.println(factura);
         
@@ -86,12 +86,12 @@ public class Printer {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         double total = 0;
         
-        printCabecera("REPORTE MÉDICO");
+        printCabecera("REPORTE MEDICO");
         
 
         
-        System.out.println("Reporte de consultas para el médico: " + medico.getNyA());
-        System.out.println("Período: " + fechaInicio.format(formatter) + " a " + fechaFin.format(formatter));
+        System.out.println("Reporte de consultas para el medico: " + medico.getNyA());
+        System.out.println("Periodo: " + fechaInicio.format(formatter) + " a " + fechaFin.format(formatter));
         System.out.println("Total de consultas: " + consultas.size());
         System.out.println("\nDetalles de las consultas:");
         for (MedicoConsulta consulta : consultas) {
