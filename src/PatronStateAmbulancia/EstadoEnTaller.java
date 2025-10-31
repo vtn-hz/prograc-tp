@@ -4,6 +4,10 @@ public class EstadoEnTaller extends EstadoAbstracto{
     public EstadoEnTaller(Ambulancia ambulancia) {
         super(ambulancia);
     }
+
+    @Override
+    public boolean puedeMantenimiento(){ return true; }
+
     @Override
     public void solicitarAtencionDomicilio() {
         // permanece en este estado
