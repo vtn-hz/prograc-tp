@@ -1,27 +1,56 @@
 package mdp.ingenieria.clinicagestion.model.actor;
 
+import java.util.Queue;
+
+import mdp.ingenieria.clinicagestion.model.actor.actoraction.AsociadoActorAction;
 import mdp.ingenieria.clinicagestion.model.persona.Asociado;
 
 public class AsociadoActor extends Thread {
 
 	private Asociado asociado;
 	
+	private Queue<AsociadoActorAction> actionQueue;
+	
+	public AsociadoActor(Asociado asociado, Queue<AsociadoActorAction> actionQueue) {
+		assert asociado != null;
+		assert actionQueue != null;
+		this.asociado = asociado;
+		this.actionQueue = actionQueue;
+	}
+
+	
 	/**
-	 * se podria agregar otro parametro para implementar 
-	 * el patron observer observable, y que los asociados observen la simulacion,
-	 * cuando esta termina les envia un mensaje a todos que la simulacion termino
+	 * cuando el usuario interactua con la simulacion, se deberia crear otro AsociadoActor con
+	 * la implementacion actual, ya que los hilos viven hasta que se completen sus tareas.
 	 */
 	
-	public AsociadoActor( Asociado asocidado ) { // may add mode()
-		assert asociado != null;
-		this.asociado = asociado;
-	}
-
+	/**
+	 * nov1 15:30
+	 * como podemos solucionar si se queda para siempre esperando
+	 * el estado de un translado por ejemplo que no va a llegar
+	 * (como podemos solucionar los deadlock de la simulacion?)
+	 */
+	
+	/**
+	 * nov1 16:47
+	 * Retorno automático a la clínica (evento temporal del sistema).
+	 * creo que esto podria solucionarlo 
+	 */
+	
 	@Override
 	public void run() {
-		// ...
+		while (!actionQueue.isEmpty())
+		{	
+			AsociadoActorAction action = this.actionQueue.poll();
+			action.execute( this.asociado );
+		}
 	}
 	
+	public void addActorAction (AsociadoActorAction action) {
+		this.actionQueue.add(action);
+	}
 	
-
+	public void clearActions () {
+		this.actionQueue.clear();
+	}
 }
