@@ -17,7 +17,13 @@ public class ThreadUtil {
 	
 	public static void simulateTime ( int millis ) {
 		try {
-			Thread.sleep( random.nextInt( millis ) );
+			Thread.sleep( millis  );
+		} catch (InterruptedException e) {}
+	}
+	
+	public static void simulateTimeRandom ( int millis ) {
+		try {
+			Thread.sleep( random.nextInt(millis) );
 		} catch (InterruptedException e) {}
 	}
 
