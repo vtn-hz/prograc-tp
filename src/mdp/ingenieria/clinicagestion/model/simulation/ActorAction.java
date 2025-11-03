@@ -1,4 +1,4 @@
-package mdp.ingenieria.clinicagestion.model.actor;
+package mdp.ingenieria.clinicagestion.model.simulation;
 
 public abstract class ActorAction<T> {
 		

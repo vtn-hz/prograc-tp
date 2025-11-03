@@ -1,8 +1,7 @@
-package mdp.ingenieria.clinicagestion.model.actor.actoraction;
+package mdp.ingenieria.clinicagestion.model.simulation.actoraction;
 
-import mdp.ingenieria.clinicagestion.model.actor.ActorAction;
 import mdp.ingenieria.clinicagestion.model.persona.Operario;
-
+import mdp.ingenieria.clinicagestion.model.simulation.ActorAction;
 import mdp.ingenieria.clinicagestion.util.ThreadUtil;
 
 public class OperarioActorAction extends ActorAction<Operario> {

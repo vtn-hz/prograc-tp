@@ -1,11 +1,12 @@
-package mdp.ingenieria.clinicagestion.model.actor;
+package mdp.ingenieria.clinicagestion.model.simulation.actor;
 
 import java.util.Queue;
 
-import mdp.ingenieria.clinicagestion.model.actor.actoraction.OperarioActorAction;
 import mdp.ingenieria.clinicagestion.model.persona.Operario;
+import mdp.ingenieria.clinicagestion.model.simulation.Actor;
+import mdp.ingenieria.clinicagestion.model.simulation.actoraction.OperarioActorAction;
 
-public class OperarioActor extends Thread {
+public class OperarioActor extends Actor {
 
 	private Operario operario;
 	
@@ -18,15 +19,9 @@ public class OperarioActor extends Thread {
 		this.actionQueue = actionQueue;
 	}
 	
-	/**
-	 * cuando el usuario interactua con la simulacion, se deberia crear otro AsociadoActor con
-	 * la implementacion actual, ya que los hilos viven hasta que se completen sus tareas.
-	 */
-	
-	
 	@Override
 	public void run() {
-		while (!actionQueue.isEmpty())
+		while (!actionQueue.isEmpty() && this.isSimulationRunning())
 		{	
 			OperarioActorAction action = this.actionQueue.poll();
 			action.execute( this.operario );
@@ -40,4 +35,9 @@ public class OperarioActor extends Thread {
 	public void clearActions () {
 		this.actionQueue.clear();
 	}
+	
+	/**
+	 * cuando el usuario interactua con la simulacion, se deberia crear otro AsociadoActor con
+	 * la implementacion actual, ya que los hilos viven hasta que se completen sus tareas.
+	 */
 }
