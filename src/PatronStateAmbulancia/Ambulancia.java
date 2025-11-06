@@ -5,13 +5,6 @@ import java.util.Observable;
 public class Ambulancia extends Observable {
     private IEstadoAmbulancia estado = new EstadoDisponible(this);
     public synchronized void solicitarAtencionDomicilio(){
-        while (!estado.puedeAtencionDomicilio()) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
         this.estado.solicitarAtencionDomicilio();
         setChanged();
         notifyObservers("Se solicito atencion domicilio");

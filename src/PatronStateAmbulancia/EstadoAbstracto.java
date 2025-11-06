@@ -5,8 +5,6 @@ public abstract class EstadoAbstracto implements IEstadoAmbulancia{
     public EstadoAbstracto(Ambulancia ambulancia){
         this.ambulancia = ambulancia;
     }
-
-    public boolean puedeAtencionDomicilio(){ return false; }
     public boolean puedeTraslado(){ return false; }
     public boolean puedeMantenimiento(){ return false; }
 }

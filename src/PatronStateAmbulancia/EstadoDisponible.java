@@ -6,8 +6,6 @@ public class EstadoDisponible extends EstadoAbstracto {
     }
 
     @Override
-    public boolean puedeAtencionDomicilio(){ return true; }
-    @Override
     public boolean puedeTraslado(){ return true; }
     @Override
     public boolean puedeMantenimiento(){ return true; }
