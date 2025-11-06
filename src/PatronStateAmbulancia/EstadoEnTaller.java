@@ -19,12 +19,14 @@ public class EstadoEnTaller extends EstadoAbstracto{
     }
 
     @Override
+    public void retornoAutomatico() {
+        // permanece en este estado
+    }
+
+    @Override
     public void solicitarMantenimiento() {
         this.ambulancia.setEstado(new EstadoRegresandoTaller(this.ambulancia));
     }
 
-    @Override
-    public void retornoAutomatico() {
-        // permanece en este estado
-    }
+
 }

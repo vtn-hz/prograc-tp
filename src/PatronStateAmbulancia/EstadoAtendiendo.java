@@ -14,14 +14,13 @@ public class EstadoAtendiendo extends EstadoAbstracto{
     public void solicitarTraslado() {
         // informa que no puede
     }
+    @Override
+    public void retornoAutomatico() {
+        this.ambulancia.setEstado(new EstadoRegresando(this.ambulancia));
+    }
 
     @Override
     public void solicitarMantenimiento() {
         // informa que no puede
-    }
-
-    @Override
-    public void retornoAutomatico() {
-        this.ambulancia.setEstado(new EstadoRegresando(this.ambulancia));
     }
 }

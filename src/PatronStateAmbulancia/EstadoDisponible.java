@@ -23,12 +23,13 @@ public class EstadoDisponible extends EstadoAbstracto {
     }
 
     @Override
+    public void retornoAutomatico() {
+        // permanece en este estado
+    }
+    @Override
     public void solicitarMantenimiento() {
         this.ambulancia.setEstado(new EstadoEnTaller(this.ambulancia));
     }
 
-    @Override
-    public void retornoAutomatico() {
-        // permanece en este estado
-    }
+
 }

@@ -15,12 +15,12 @@ public class EstadoTrasladando extends EstadoAbstracto{
     }
 
     @Override
-    public void solicitarMantenimiento() {
-        // infroma que no puede
+    public void retornoAutomatico() {
+        this.ambulancia.setEstado(new EstadoDisponible(this.ambulancia));
     }
 
     @Override
-    public void retornoAutomatico() {
-        // permanece en este estado
+    public void solicitarMantenimiento() {
+        // infroma que no puede
     }
 }
