@@ -14,6 +14,7 @@ public class Ambulancia extends Observable {
     public synchronized void solicitarTraslado(){
         while (!estado.puedeTraslado()) {
             try {
+                this.notifyObservers("No se puede realizar el traslado en este momento");
                 wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -28,6 +29,7 @@ public class Ambulancia extends Observable {
     public synchronized void solicitarMantenimiento(){
         while (!estado.puedeMantenimiento()) {
             try {
+                this.notifyObservers("No se puede realizar el mantenimiento en este momento");
                 wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
