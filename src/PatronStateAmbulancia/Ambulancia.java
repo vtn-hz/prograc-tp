@@ -7,7 +7,7 @@ public class Ambulancia extends Observable {
     public synchronized void solicitarAtencionDomicilio(){
         this.estado.solicitarAtencionDomicilio();
         setChanged();
-        notifyObservers("Se solicito atencion domicilio");
+        notifyObservers("Se solicito atencion a domicilio");
         notifyAll();
     }
 
