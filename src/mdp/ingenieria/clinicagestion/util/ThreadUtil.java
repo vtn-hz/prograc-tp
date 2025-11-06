@@ -16,15 +16,26 @@ public class ThreadUtil {
 	public static int LONG 		= 10000;
 	
 	public static void simulateTime ( int millis ) {
+		assert millis > 0;
 		try {
 			Thread.sleep( millis  );
 		} catch (InterruptedException e) {}
 	}
 	
 	public static void simulateTimeRandom ( int millis ) {
+		assert millis > 0;
 		try {
 			Thread.sleep( random.nextInt(millis) );
 		} catch (InterruptedException e) {}
 	}
+	
+	public static void simulateTimeMedio ( int millis ) {
+		assert millis > 0;
+		try {
+			Thread.sleep( millis + random.nextInt(millis) );
+		} catch (InterruptedException e) {}
+	}
+	
+	
 
 }
