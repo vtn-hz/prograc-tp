@@ -17,12 +17,12 @@ public class AmbulanciaActor extends Actor {
 	
 	@Override
 	public void run() {
-		while (Simulation.getInstance().hasTemporalActorsWorking())
+		while (Simulation.getInstance().hasTemporalThreadWorking())
 		{	
 			this.runTask();
 		}
 		
-		Simulation.getInstance().setRunning(false);
+		Simulation.getInstance().setStatus( Simulation.STATE_TERMINATED );
 	}
 
 	@Override	

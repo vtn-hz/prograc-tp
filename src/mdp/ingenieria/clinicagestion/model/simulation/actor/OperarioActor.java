@@ -34,7 +34,7 @@ public class OperarioActor extends Actor {
             this.interactionCount--;
         }
         
-		Simulation.getInstance().temporalActorFinalize();
+        Simulation.getInstance().temporalThreadFinalized();
     }
 
     @Override

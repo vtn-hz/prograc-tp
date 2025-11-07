@@ -12,15 +12,21 @@ import mdp.ingenieria.clinicagestion.util.ThreadUtil;
 
 public class Simulation {
 	
+	public static final String STATE_RUNNING = "running";
+	
+	public static final String STATE_FINALIZING = "finalizing";
+	
+	public static final String STATE_TERMINATED =  "terminated";
+	
 	private static Simulation _instance;
 	
-	private boolean isRunning;
+	private String status; 
 	
-	private int temporalActorsWorkingCount;
+	private int temporalThreadWorkingCount;
 	
 	private Simulation () {
-		this.isRunning = false;
-		this.temporalActorsWorkingCount = 0;
+		this.status = Simulation.STATE_TERMINATED;
+		this.temporalThreadWorkingCount = 0;
 	}
 	
 	public static Simulation getInstance() 
@@ -30,37 +36,57 @@ public class Simulation {
 		
 		return _instance;
 	}
-
+	
+	/**
+	 * <b>pre: </b> solo se deberian utilizar estados que existan
+	 * @param status
+	 */
+	public void setStatus ( String status ) {
+		this.status = status;
+	}
+	
 	public boolean isRunning() {
-		return isRunning;
+		return this.status == Simulation.STATE_RUNNING;
+	}
+	
+	public boolean isFinalizing() {
+		return this.status == Simulation.STATE_FINALIZING;
 	}
 
-	public void setRunning(boolean isRunning) {
-		this.isRunning = isRunning;
+	/**
+	 * <b>pre:</b> la unica entidad que deberia llamar a terminated es un persistentthread, <br>
+	 * en este caso seria la ambulancia
+	 * @return boolean
+	 */
+	public boolean isTerminated() {
+		return this.status == Simulation.STATE_TERMINATED;
 	}
 	
-	public void setTemporalActorWorkingCount( int count )
+	public void setThreadWorkingCount( int count )
 	{
-		this.temporalActorsWorkingCount = count;
+		this.temporalThreadWorkingCount = count;
 	}
 	
-	public synchronized boolean hasTemporalActorsWorking()
+	public synchronized boolean hasTemporalThreadWorking()
 	{
-		return this.temporalActorsWorkingCount > 0;
+		return this.temporalThreadWorkingCount > 0;
 	}
 	
-	public synchronized void temporalActorFinalize() 
+	public synchronized void temporalThreadFinalized() 
 	{
-		this.temporalActorsWorkingCount--;
+		this.temporalThreadWorkingCount--;
 	}
 	
-	public void start(ActorDTO[] asociadosDto, ActorDTO operarioDto) {
+	public synchronized void temporalThreadStarted() 
+	{
+		this.temporalThreadWorkingCount++;
+	}
+	
+	public void start(ActorDTO[] asociadosDto, ActorDTO operarioDto, AmbulanciaMock ambulancia, int taskTime)
+	{
 	    ArrayList<Actor> asociadosActores = new ArrayList<>();
 	    Actor operarioActor = null;
 	    Actor ambulanciaActor = null;
-
-	  
-	    AmbulanciaMock ambulancia = new AmbulanciaMock();
 
 	    for (ActorDTO dto : asociadosDto) {
 	        Persona asociado = AmbulanciaInteractorFactory.create(
@@ -72,11 +98,10 @@ public class Simulation {
 	            dto.getDireccion(),
 	            ambulancia
 	        );
-
-	        // Crear el actor asociado
+	        
 	        Actor actor = ActorFactory.createTemporallActor(
 	            ActorFactory.ASOCIADO_ACTOR,
-	            ThreadUtil.MEDIUM,
+	            taskTime,
 	            dto.getInteractionCount(),
 	            asociado
 	        );
@@ -96,23 +121,29 @@ public class Simulation {
 
 	    operarioActor = ActorFactory.createTemporallActor(
 	        ActorFactory.OPERARIO_ACTOR,
-            ThreadUtil.MEDIUM,
+	        taskTime,
             operarioDto.getInteractionCount(),
             operario
 	    );
 
-	    // Crear la ambulancia persistente
 	    ambulanciaActor = ActorFactory.createPersistentActor(
 	        ActorFactory.AMBULANCIA_ACTOR,
-	        ThreadUtil.MEDIUM,
+	        taskTime,
 	        ambulancia
 	    );
 
-	    this.setTemporalActorWorkingCount(asociadosActores.size() + 1);
-	    this.setRunning(true);
+	    this.setThreadWorkingCount(asociadosActores.size() + 1);
+	    this.setStatus( Simulation.STATE_RUNNING );
 
 	    ambulanciaActor.start();
 	    operarioActor.start();
 	    asociadosActores.forEach(Actor::start);
 	}
+	
+	public void start(ActorDTO[] asociadosDto, ActorDTO operarioDto, AmbulanciaMock ambulancia)
+	{
+		this.start(asociadosDto, operarioDto, ambulancia, ThreadUtil.MEDIUM);
+	}
+	
+	
 }
