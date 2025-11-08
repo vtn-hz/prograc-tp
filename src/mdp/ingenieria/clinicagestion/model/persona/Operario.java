@@ -12,6 +12,15 @@ public class Operario extends Persona {
 		this.ambulancia = ambulancia;
 	}
 	
+	public Operario(String NyA, String dni, Domicilio domicilio) {
+		super(NyA, dni, domicilio);
+	}
+	
+	public void setAmbulancia(AmbulanciaMock ambulancia)
+	{
+		this.ambulancia = ambulancia;
+	}
+	
 	public void solicitaMantenimiento() {
 		this.ambulancia.solicitarMantenimiento();
 	}
