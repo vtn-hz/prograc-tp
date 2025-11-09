@@ -2,19 +2,18 @@ package mdp.ingenieria.clinicagestion.model.simulation;
 
 public abstract class Actor extends Thread {
 
-	private volatile boolean simulationRunning;
+	private int averageTaskTime;
 	
-	public Actor(){}
+	public Actor( int averageTaskTime ){
+		this.averageTaskTime = averageTaskTime;
+	}
 	
 	@Override
 	public abstract void run() ;
-
-	public boolean isSimulationRunning() {
-		return simulationRunning;
-	}
-
-	public void setSimulationRunning(boolean simulationRunning) {
-		this.simulationRunning = simulationRunning;
-	}
 	
+	public abstract void runTask() ;
+
+	public int getAverageTaskTime() {
+		return averageTaskTime;
+	}
 }
