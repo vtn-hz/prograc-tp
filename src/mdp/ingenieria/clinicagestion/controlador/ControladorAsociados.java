@@ -1,5 +1,6 @@
 package mdp.ingenieria.clinicagestion.controlador;
 
+import mdp.ingenieria.clinicagestion.model.persona.Asociado;
 import mdp.ingenieria.clinicagestion.vista.VistaAsociados;
 import mdp.ingenieria.clinicagestion.vista.VistaBase;
 
@@ -9,11 +10,17 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
-public class ControladorAsociados implements ActionListener {
+public class ControladorAsociados extends Controlador implements ActionListener {
     private VistaAsociados vista;
+    private ArrayList<Asociado> asociados;  // TODO revise asociados class (meant to be the model, probably from the bd)
 
     private static int MAX_ASOC = 10;
+
+    public ControladorAsociados(ArrayList<Asociado> asociados, VistaAsociados vista){
+        super(asociados, vista);
+    }
 
     public void setVista(VistaAsociados vista) {
         this.vista = vista;

@@ -5,8 +5,11 @@ import mdp.ingenieria.clinicagestion.vista.VistaBase;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ControladorNavegacion implements ActionListener {
+public class ControladorNavegacion extends Controlador {
     private VistaBase vista;
+    // TODO: will this controller have any model? what does it supervise (class-wise)?
+    public ControladorNavegacion() {
+    }
 
     public void setVista(VistaBase vista) {
         this.vista = vista;

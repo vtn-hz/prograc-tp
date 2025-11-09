@@ -1,11 +1,13 @@
 package mdp.ingenieria.clinicagestion.vista;
 
+import mdp.ingenieria.clinicagestion.controlador.IVista;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
 import java.util.Random;
 
-public class VistaAsociados {
+public class VistaAsociados implements IVista {
     private JPanel mainPanel;
     private JTextField textField1;
     private JButton addButton;

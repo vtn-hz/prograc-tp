@@ -1,5 +1,6 @@
 package mdp.ingenieria.clinicagestion.controlador;
 
+import mdp.ingenieria.clinicagestion.model.simulation.Simulation;
 import mdp.ingenieria.clinicagestion.vista.VistaBase;
 import mdp.ingenieria.clinicagestion.vista.VistaConfiguracion;
 import mdp.ingenieria.clinicagestion.vista.VistaSimulacion;
@@ -8,13 +9,26 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ControladorSimulacion implements ActionListener {
+public class ControladorSimulacion extends Controlador {
     private VistaConfiguracion vistaConfig;
     private VistaSimulacion vistaSim;
     private VistaBase vistaNav;
+    private Simulation modelo;
 
     private int numAsoc;
     private int numReq;
+
+    public ControladorSimulacion(Simulation modelo, VistaConfiguracion vistaConfig, VistaSimulacion vistaSim, VistaBase vistaNav){
+        this.modelo = modelo;
+        this.vistaConfig = vistaConfig;
+        this.vistaConfig.setActionListener(this);
+
+        this.vistaSim = vistaSim;
+        this.vistaSim.setActionListener(this);
+
+        this.vistaNav = vistaNav;
+        this.vistaNav.setActionListener(this);
+    }
 
     public void setVistaConfig(VistaConfiguracion vista) {
         this.vistaConfig = vista;
@@ -31,6 +45,10 @@ public class ControladorSimulacion implements ActionListener {
     public void setVistaNav(VistaBase vista) {
         this.vistaNav = vista;
         vista.setActionListener(this);
+    }
+
+    public Simulation getSimulacion(){
+        return modelo;
     }
 
     @Override

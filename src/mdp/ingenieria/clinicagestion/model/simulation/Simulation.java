@@ -1,7 +1,5 @@
 package mdp.ingenieria.clinicagestion.model.simulation;
 
-
-
 import java.util.ArrayList;
 
 import mdp.ingenieria.clinicagestion.model.AmbulanciaMock;
