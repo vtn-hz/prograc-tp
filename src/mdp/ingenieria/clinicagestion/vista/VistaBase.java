@@ -69,7 +69,6 @@ public class VistaBase {
         page1Btn.addActionListener(actionListener);
         page2Btn.addActionListener(actionListener);
 
-        vista2.getStartBtn().addActionListener(actionListener);
         vista3.getStopBtn().addActionListener(actionListener);
     }
 
