@@ -1,6 +1,6 @@
 package mdp.ingenieria.clinicagestion.model.simulation;
 
-import mdp.ingenieria.clinicagestion.model.AmbulanciaMock;
+import mdp.ingenieria.clinicagestion.model.Ambulancia;
 
 import mdp.ingenieria.clinicagestion.model.persona.Asociado;
 import mdp.ingenieria.clinicagestion.model.persona.Operario;
@@ -49,8 +49,8 @@ public class ActorFactory {
 		switch(actorType)
 		{
 			case AMBULANCIA_ACTOR:
-				assert wrapped instanceof AmbulanciaMock;
-				actor = new AmbulanciaActor(averageTaskTime, (AmbulanciaMock) wrapped);
+				assert wrapped instanceof Ambulancia;
+				actor = new AmbulanciaActor(averageTaskTime, (Ambulancia) wrapped);
 				break;
 		}
 

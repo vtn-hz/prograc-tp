@@ -1,5 +1,8 @@
-package mdp.ingenieria.clinicagestion.model.ambulancia;
+package mdp.ingenieria.clinicagestion.model;
 
+import mdp.ingenieria.clinicagestion.model.ambulancia.AmbulanceStateMessage;
+import mdp.ingenieria.clinicagestion.model.ambulancia.EstadoAbstracto;
+import mdp.ingenieria.clinicagestion.model.ambulancia.EstadoDisponible;
 import mdp.ingenieria.clinicagestion.model.persona.Asociado;
 import mdp.ingenieria.clinicagestion.model.persona.Operario;
 
@@ -9,12 +12,13 @@ public class Ambulancia extends Observable {
     private EstadoAbstracto estado;
 
     public Ambulancia(){
-         this.estado = new EstadoDisponible(this);
+        this.estado = new EstadoDisponible(this);
     }
 
     public synchronized void solicitarAtencionDomicilio(Asociado asociado){
         while( !estado.puedeAtencionDomicilio() ){
             try{
+
                 this.notifyObservers(new AmbulanceStateMessage("No se puede atender a domicilio en este momento", asociado) );
                 wait();
 

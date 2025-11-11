@@ -1,6 +1,6 @@
 package mdp.ingenieria.clinicagestion.model.simulation.actor;
 
-import mdp.ingenieria.clinicagestion.model.AmbulanciaMock;
+import mdp.ingenieria.clinicagestion.model.Ambulancia;
 import mdp.ingenieria.clinicagestion.model.simulation.Actor;
 import mdp.ingenieria.clinicagestion.model.simulation.Simulation;
 import mdp.ingenieria.clinicagestion.util.ThreadUtil;
@@ -8,9 +8,9 @@ import mdp.ingenieria.clinicagestion.util.ThreadUtil;
 
 public class AmbulanciaActor extends Actor {
 	
-	private AmbulanciaMock ambulancia;
+	private Ambulancia ambulancia;
 
-	public AmbulanciaActor(int averageTaskTime, AmbulanciaMock ambulancia) {
+	public AmbulanciaActor(int averageTaskTime, Ambulancia ambulancia) {
 		super(averageTaskTime);
 		this.ambulancia = ambulancia;
 	}

@@ -1,6 +1,6 @@
 package mdp.ingenieria.clinicagestion.model.simulation;
 
-import mdp.ingenieria.clinicagestion.model.AmbulanciaMock;
+import mdp.ingenieria.clinicagestion.model.Ambulancia;
 import mdp.ingenieria.clinicagestion.util.ThreadUtil;
 
 public class TaskInteraction extends Thread {
@@ -15,9 +15,9 @@ public class TaskInteraction extends Thread {
 	
 	private int averageTaskTime;
 	
-	private AmbulanciaMock ambulancia;
+	private Ambulancia ambulancia;
 
-	public TaskInteraction(int actionTagTask, int averageTaskTime, AmbulanciaMock ambulancia)
+	public TaskInteraction(int actionTagTask, int averageTaskTime, Ambulancia ambulancia)
 	{
 		super();
 		this.actionTagTask = actionTagTask;
@@ -27,7 +27,8 @@ public class TaskInteraction extends Thread {
 		Simulation.getInstance().temporalThreadStarted();
 		this.start();
 	}
-	
+
+    //TODO: add person param to send to ambulance methods
 	@Override
 	public void run () {
 		ThreadUtil.simulateTimeMedio( averageTaskTime );
@@ -40,15 +41,15 @@ public class TaskInteraction extends Thread {
 		
 		switch( this.actionTagTask ) {
 			case TaskInteraction.TASK_SOLICITA_AMBULANCIA: 
-				this.ambulancia.solicitarTraslado();
+				this.ambulancia.solicitarTraslado(null);
 			break;
 			
 			case TaskInteraction.TASK_SOLICITA_DOMICILIO:
-				this.ambulancia.solicitarAtencionDomicilio();
+				this.ambulancia.solicitarAtencionDomicilio(null);
 			break;
 			
 			case TaskInteraction.TASK_SOLICITAR_MANTENIMIENTO:
-				this.ambulancia.solicitarMantenimiento();
+				this.ambulancia.solicitarMantenimiento(null);
 			break;
 		}
 	}

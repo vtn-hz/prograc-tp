@@ -1,5 +1,7 @@
 package mdp.ingenieria.clinicagestion.model.ambulancia;
 
+import mdp.ingenieria.clinicagestion.model.Ambulancia;
+
 public class EstadoDisponible extends EstadoAbstracto {
     public EstadoDisponible(Ambulancia ambulancia) {
         super(ambulancia);

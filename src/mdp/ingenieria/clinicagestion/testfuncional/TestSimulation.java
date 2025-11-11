@@ -2,7 +2,7 @@ package mdp.ingenieria.clinicagestion.testfuncional;
 
 import java.util.Random;
 
-import mdp.ingenieria.clinicagestion.model.AmbulanciaMock;
+import mdp.ingenieria.clinicagestion.model.Ambulancia;
 import mdp.ingenieria.clinicagestion.model.data.ActorDTO;
 import mdp.ingenieria.clinicagestion.model.simulation.Simulation;
 import mdp.ingenieria.clinicagestion.model.simulation.TaskInteraction;
@@ -23,10 +23,10 @@ public class TestSimulation {
 
         // --- 3. Obtener la instancia de simulación ---
         Simulation simulation = Simulation.getInstance();
-        AmbulanciaMock ambulancia = new AmbulanciaMock();
+        Ambulancia ambulancia = new Ambulancia();
 
         // --- 4. Iniciar la simulación ---
-        simulation.start(asociados, operario, ambulancia);
+        simulation.start(asociados, operario, ambulancia, 4000);
         System.out.println(">>> Simulación iniciada. Generando batería de acciones...");
 
         // --- 5. Lanzar batería de acciones en hilo separado ---
@@ -59,7 +59,7 @@ public class TestSimulation {
     /**
      * Lanza una batería de acciones aleatorias mientras la simulación está activa.
      */
-    private static void lanzarBateriaDeAcciones(Simulation simulation, AmbulanciaMock ambulancia) {
+    private static void lanzarBateriaDeAcciones(Simulation simulation, Ambulancia ambulancia) {
         Random random = new Random();
 
         int cantidadAcciones = 10; // cantidad total de eventos simulados
@@ -94,7 +94,7 @@ public class TestSimulation {
         System.out.println("🧩 Batería de acciones completada.");
     }
 
-    // Método main para ejecutar directamente
+    // Metodo main para ejecutar directamente
     public static void main(String[] args) {
         ejecutarTest();
     }

@@ -1,13 +1,13 @@
 package mdp.ingenieria.clinicagestion.model.persona;
 
-import mdp.ingenieria.clinicagestion.model.AmbulanciaMock;
+import mdp.ingenieria.clinicagestion.model.Ambulancia;
 import mdp.ingenieria.clinicagestion.model.Domicilio;
 
 public class Operario extends Persona {
 	
-	private AmbulanciaMock ambulancia; // may change when ambulancia implemented
+	private Ambulancia ambulancia; // may change when ambulancia implemented
 	
-	public Operario(String NyA, String dni, Domicilio domicilio, AmbulanciaMock ambulancia) {
+	public Operario(String NyA, String dni, Domicilio domicilio, Ambulancia ambulancia) {
 		super(NyA, dni, domicilio);
 		this.ambulancia = ambulancia;
 	}
@@ -16,12 +16,12 @@ public class Operario extends Persona {
 		super(NyA, dni, domicilio);
 	}
 	
-	public void setAmbulancia(AmbulanciaMock ambulancia)
+	public void setAmbulancia(Ambulancia ambulancia)
 	{
 		this.ambulancia = ambulancia;
 	}
 	
 	public void solicitaMantenimiento() {
-		this.ambulancia.solicitarMantenimiento();
+		this.ambulancia.solicitarMantenimiento(this);
 	}
 }
