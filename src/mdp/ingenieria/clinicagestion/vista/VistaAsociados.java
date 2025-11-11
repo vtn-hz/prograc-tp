@@ -10,7 +10,6 @@ public class VistaAsociados {
     private JTextField textField1;
     private JButton addButton;
     private JButton removeButton;
-    private JLabel label1;
     private JTable table1;
     private JTextField textField2;
     private JTextField textField3;
@@ -20,7 +19,7 @@ public class VistaAsociados {
     private Random random = new Random();
 
     public VistaAsociados() {
-        String[] columnNames = {"Name", "ID", "Address"};
+        String[] columnNames = {"Nombre", "DNI", "Domicilio"};
         Object[][] data = {};
 
         table1.setDefaultEditor(Object.class, null);

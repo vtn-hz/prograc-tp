@@ -13,8 +13,6 @@ import java.awt.event.ActionListener;
 public class ControladorAsociados implements ActionListener {
     private VistaAsociados vista;
 
-    private static int MAX_ASOC = 10;
-
     public void setVista(VistaAsociados vista) {
         this.vista = vista;
         vista.setActionListener(this);
@@ -26,26 +24,24 @@ public class ControladorAsociados implements ActionListener {
 
         if (src == vista.getAddButton() || src == vista.getTextField1() || src == vista.getTextField2() || src == vista.getTextField3()) {
             String name = vista.getTextField1().getText().trim();
-            String surname = vista.getTextField2().getText().trim();
-            String id = vista.getTextField3().getText().trim();
+            String id = vista.getTextField2().getText().trim();
+            String address = vista.getTextField3().getText().trim();
 
             vista.getTextField1().setBorder(BorderFactory.createLineBorder(Color.GRAY));
             vista.getTextField2().setBorder(BorderFactory.createLineBorder(Color.GRAY));
             vista.getTextField3().setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
-            if (name.isEmpty() || surname.isEmpty() || id.isEmpty()) {
+            if (name.isEmpty() || id.isEmpty() || address.isEmpty()) {
                 if (name.isEmpty()) vista.getTextField1().setBorder(BorderFactory.createLineBorder(Color.RED));
-                if (surname.isEmpty()) vista.getTextField2().setBorder(BorderFactory.createLineBorder(Color.RED));
-                if (id.isEmpty()) vista.getTextField3().setBorder(BorderFactory.createLineBorder(Color.RED));
+                if (id.isEmpty()) vista.getTextField2().setBorder(BorderFactory.createLineBorder(Color.RED));
+                if (address.isEmpty()) vista.getTextField3().setBorder(BorderFactory.createLineBorder(Color.RED));
                 popupError("Complete todos los campos");
-            } else if (vista.getModel().getRowCount() < MAX_ASOC) {
-                vista.addAsociado(name, surname, id);
+            } else {
+                vista.addAsociado(name, id, address);
                 vista.getTextField1().setText("");
                 vista.getTextField2().setText("");
                 vista.getTextField3().setText("");
                 vista.getTextField1().requestFocusInWindow();
-            } else {
-                popupError("Limite de usuarios excedido");
             }
         } else if (src == vista.getRemoveButton()) {
             int selectedRow = vista.getTable().getSelectedRow();

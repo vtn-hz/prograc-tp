@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 public class VistaConfiguracion {
     private JPanel mainPanel;
     private JButton startBtn;
-    private JLabel label1;
     private JTextField textField1;
     private JTextField textField2;
 

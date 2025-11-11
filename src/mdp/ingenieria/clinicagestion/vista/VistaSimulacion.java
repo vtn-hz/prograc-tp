@@ -10,7 +10,6 @@ public class VistaSimulacion {
     private JButton stopBtn;
     private JPanel panel1;
     private JPanel panel2;
-    private JLabel label1;
     private JButton maintenanceBtn;
     private JLabel ambulanceLbl;
 
@@ -31,6 +30,10 @@ public class VistaSimulacion {
     public VistaSimulacion() {
         panel1.setLayout(new BoxLayout(panel1, BoxLayout.Y_AXIS));
         panel2.setLayout(new BoxLayout(panel2, BoxLayout.Y_AXIS));
+        ambulanceLbl.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(122, 138, 153), 1),
+                BorderFactory.createEmptyBorder(5, 10, 5, 10)
+        ));
     }
 
     public void setActionListener(ActionListener actionListener) {
@@ -51,7 +54,6 @@ public class VistaSimulacion {
     public void addOperation(String msg) {
         JLabel label = new JLabel(msg);
         label.setAlignmentX(Component.RIGHT_ALIGNMENT);
-        label.setPreferredSize(new Dimension(Integer.MAX_VALUE, 20));
         label.setBorder(new EmptyBorder(5, 5, 5, 5));
         panel2.add(label);
     }
@@ -62,10 +64,6 @@ public class VistaSimulacion {
 
     public JPanel getMainPanel() {
         return mainPanel;
-    }
-
-    public JLabel getAmbulanceLbl() {
-        return ambulanceLbl;
     }
 
     public JButton getMaintenanceBtn() {
