@@ -57,41 +57,9 @@
               <text value="Page 1"/>
             </properties>
           </component>
-          <component id="f14fe" class="javax.swing.JButton" binding="addButton" default-binding="true">
-            <constraints>
-              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-              <gridbag top="5" left="5" bottom="5" right="5" weightx="1.0" weighty="0.0"/>
-            </constraints>
-            <properties>
-              <text value="Añadir"/>
-            </properties>
-          </component>
-          <grid id="58a7c" layout-manager="BorderLayout" hgap="0" vgap="0">
-            <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-              <gridbag weightx="0.0" weighty="0.0"/>
-            </constraints>
-            <properties/>
-            <border type="none"/>
-            <children>
-              <component id="92bd1" class="javax.swing.JLabel">
-                <constraints border-constraint="North"/>
-                <properties>
-                  <text value="Nombre"/>
-                </properties>
-              </component>
-              <component id="33f89" class="javax.swing.JTextField" binding="textField1" default-binding="true">
-                <constraints border-constraint="Center"/>
-                <properties>
-                  <columns value="0"/>
-                  <preferredSize width="150" height="20"/>
-                </properties>
-              </component>
-            </children>
-          </grid>
           <grid id="e1704" layout-manager="BorderLayout" hgap="0" vgap="0">
             <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties/>
@@ -103,7 +71,7 @@
                   <text value="DNI"/>
                 </properties>
               </component>
-              <component id="6e15e" class="javax.swing.JTextField" binding="textField2">
+              <component id="6e15e" class="javax.swing.JTextField" binding="dniField">
                 <constraints border-constraint="Center"/>
                 <properties>
                   <preferredSize width="150" height="20"/>
@@ -111,9 +79,101 @@
               </component>
             </children>
           </grid>
-          <grid id="88b2d" layout-manager="BorderLayout" hgap="0" vgap="0">
+          <grid id="58a7c" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="92bd1" class="javax.swing.JLabel">
+                <constraints border-constraint="North"/>
+                <properties>
+                  <text value="Nombre"/>
+                </properties>
+              </component>
+              <component id="33f89" class="javax.swing.JTextField" binding="nomField">
+                <constraints border-constraint="Center"/>
+                <properties>
+                  <columns value="0"/>
+                  <preferredSize width="150" height="20"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="a11f5" layout-manager="BorderLayout" hgap="0" vgap="0">
             <constraints>
               <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="61a4c" class="javax.swing.JLabel">
+                <constraints border-constraint="North"/>
+                <properties>
+                  <text value="Apellido"/>
+                </properties>
+              </component>
+              <component id="561b5" class="javax.swing.JTextField" binding="apeField">
+                <constraints border-constraint="Center"/>
+                <properties>
+                  <columns value="0"/>
+                  <preferredSize width="150" height="20"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="9f40c" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints>
+              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="38c44" class="javax.swing.JLabel">
+                <constraints border-constraint="North"/>
+                <properties>
+                  <text value="Teléfono"/>
+                </properties>
+              </component>
+              <component id="4e72f" class="javax.swing.JTextField" binding="telField">
+                <constraints border-constraint="Center"/>
+                <properties>
+                  <columns value="0"/>
+                  <preferredSize width="150" height="20"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="4859" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints>
+              <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="38526" class="javax.swing.JLabel">
+                <constraints border-constraint="North"/>
+                <properties>
+                  <text value="Ciudad"/>
+                </properties>
+              </component>
+              <component id="dea8" class="javax.swing.JTextField" binding="ciuField">
+                <constraints border-constraint="Center"/>
+                <properties>
+                  <columns value="0"/>
+                  <preferredSize width="150" height="20"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="88b2d" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints>
+              <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties/>
@@ -122,10 +182,10 @@
               <component id="7e99c" class="javax.swing.JLabel">
                 <constraints border-constraint="North"/>
                 <properties>
-                  <text value="Domicilio"/>
+                  <text value="Dirección"/>
                 </properties>
               </component>
-              <component id="69e00" class="javax.swing.JTextField" binding="textField3">
+              <component id="69e00" class="javax.swing.JTextField" binding="dirField">
                 <constraints border-constraint="Center"/>
                 <properties>
                   <preferredSize width="150" height="20"/>
@@ -133,6 +193,15 @@
               </component>
             </children>
           </grid>
+          <component id="f14fe" class="javax.swing.JButton" binding="addButton" default-binding="true">
+            <constraints>
+              <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag top="5" left="5" bottom="5" right="5" weightx="1.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="Añadir"/>
+            </properties>
+          </component>
         </children>
       </grid>
       <component id="a5f5b" class="javax.swing.JButton" binding="removeButton">

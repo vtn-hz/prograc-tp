@@ -3,17 +3,22 @@ package mdp.ingenieria.clinicagestion.vista;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class VistaAsociados {
     private JPanel mainPanel;
-    private JTextField textField1;
+    private JTextField nomField;
     private JButton addButton;
     private JButton removeButton;
     private JTable table1;
-    private JTextField textField2;
-    private JTextField textField3;
+    private JTextField dniField;
+    private JTextField dirField;
     private JButton generateBtn;
+    private JTextField apeField;
+    private JTextField telField;
+    private JTextField ciuField;
 
     private DefaultTableModel model;
     private Random random = new Random();
@@ -29,16 +34,16 @@ public class VistaAsociados {
     }
 
     public void setActionListener(ActionListener actionListener) {
-        textField1.addActionListener(actionListener);
-        textField2.addActionListener(actionListener);
-        textField3.addActionListener(actionListener);
+        nomField.addActionListener(actionListener);
+        dniField.addActionListener(actionListener);
+        dirField.addActionListener(actionListener);
         addButton.addActionListener(actionListener);
         removeButton.addActionListener(actionListener);
         generateBtn.addActionListener(actionListener);
     }
 
-    public void addAsociado(String name, String surname, String id) {
-        model.addRow(new Object[]{name, surname, id});
+    public void addAsociado(String name, String id, String address) {
+        model.addRow(new Object[]{name, id, address});
     }
 
     public void removeAsociado(int index) {
@@ -56,15 +61,15 @@ public class VistaAsociados {
     }
 
     public JTextField getTextField1() {
-        return textField1;
+        return nomField;
     }
 
     public JTextField getTextField2() {
-        return textField2;
+        return dniField;
     }
 
     public JTextField getTextField3() {
-        return textField3;
+        return dirField;
     }
 
     public JButton getAddButton() {
@@ -83,13 +88,7 @@ public class VistaAsociados {
         return model;
     }
 
-    public String[] generateUser() {
-        char letter = (char) ('A' + random.nextInt(26));
-        String name = "Asociado " + letter;
-        String id = String.format("%08d", random.nextInt(99999999));
-        String city = "" + (char)('A' + random.nextInt(26)) +
-                (char)('A' + random.nextInt(26)) +
-                (char)('A' + random.nextInt(26));
-        return new String[]{name, id, city};
+    public List<JTextField> getAllTextFields() {
+        return Arrays.asList(dniField, nomField, apeField, telField, ciuField, dirField);
     }
 }
