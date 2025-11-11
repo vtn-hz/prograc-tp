@@ -1,14 +1,19 @@
-package PatronStateAmbulancia;
+package mdp.ingenieria.clinicagestion.model.ambulancia;
 
-public class EstadoDisponible extends EstadoAbstracto {
-    public EstadoDisponible(Ambulancia ambulancia) {
+public class EstadoRegresando extends EstadoAbstracto {
+    public EstadoRegresando(Ambulancia ambulancia) {
         super(ambulancia);
     }
 
     @Override
-    public boolean puedeTraslado(){ return true; }
+    public boolean puedeTraslado() {
+        return true;
+    }
+
     @Override
-    public boolean puedeMantenimiento(){ return true; }
+    public boolean puedeAtencionDomicilio() {
+        return true;
+    }
 
     @Override
     public void solicitarAtencionDomicilio() {
@@ -22,12 +27,11 @@ public class EstadoDisponible extends EstadoAbstracto {
 
     @Override
     public void retornoAutomatico() {
-        // permanece en este estado
+        this.ambulancia.setEstado(new EstadoDisponible(this.ambulancia));
     }
+
     @Override
     public void solicitarMantenimiento() {
-        this.ambulancia.setEstado(new EstadoEnTaller(this.ambulancia));
+        // informa que no puede
     }
-
-
 }
