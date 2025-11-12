@@ -1,6 +1,6 @@
-package mdp.ingenieria.clinicagestion.controlador;
+package mdp.ingenieria.clinicagestion.controller;
 
-import mdp.ingenieria.clinicagestion.vista.VistaBase;
+import mdp.ingenieria.clinicagestion.view.VistaBase;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

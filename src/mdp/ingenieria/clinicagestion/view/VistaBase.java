@@ -1,4 +1,4 @@
-package mdp.ingenieria.clinicagestion.vista;
+package mdp.ingenieria.clinicagestion.view;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;

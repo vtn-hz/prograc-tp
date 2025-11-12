@@ -1,4 +1,4 @@
-package mdp.ingenieria.clinicagestion.vista;
+package mdp.ingenieria.clinicagestion.view;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -12,15 +12,15 @@ import java.util.Random;
 public class VistaAsociados {
     private JPanel mainPanel;
     private JTextField nomField;
+    private JTextField apeField;
+    private JTextField dniField;
+    private JTextField telField;
+    private JTextField ciuField;
+    private JTextField dirField;
     private JButton addButton;
     private JButton removeButton;
     private JTable table1;
-    private JTextField dniField;
-    private JTextField dirField;
     private JButton generateBtn;
-    private JTextField apeField;
-    private JTextField telField;
-    private JTextField ciuField;
 
     private DefaultTableModel model;
     private Random random = new Random();
@@ -60,18 +60,6 @@ public class VistaAsociados {
 
     public JTable getTable() {
         return table1;
-    }
-
-    public JTextField getTextField1() {
-        return nomField;
-    }
-
-    public JTextField getTextField2() {
-        return dniField;
-    }
-
-    public JTextField getTextField3() {
-        return dirField;
     }
 
     public JButton getAddButton() {
