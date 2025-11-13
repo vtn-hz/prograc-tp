@@ -1,13 +1,13 @@
-package mdp.ingenieria.clinicagestion.controlador;
+package mdp.ingenieria.clinicagestion.controller;
 
 import java.util.Observable;
 import java.util.Observer;
 
-public class AmbulanceController implements Observer {
+public class ControladorAmbulancia extends Controlador implements Observer {
     private Observable ambulancia;
     private IVista vista;
 
-    public AmbulanceController(Observable ambulancia){
+    public ControladorAmbulancia(Observable ambulancia){
         this.ambulancia = ambulancia;
         this.ambulancia.addObserver(this);
     }

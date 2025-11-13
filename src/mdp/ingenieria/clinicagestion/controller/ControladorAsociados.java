@@ -8,11 +8,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class ControladorAsociados implements ActionListener {
-    private VistaAsociados vista;
+public class ControladorAsociados extends Controlador {
+    private IVistaAsociados vista;
 
-    public void setVista(VistaAsociados vista) {
-        this.vista = vista;
+    public void setVista(IVista vista) {
+        this.vista = (IVistaAsociados) vista;
         vista.setActionListener(this);
     }
 

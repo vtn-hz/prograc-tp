@@ -1,12 +1,15 @@
 package mdp.ingenieria.clinicagestion.view;
 
+import mdp.ingenieria.clinicagestion.controller.IVista;
+import mdp.ingenieria.clinicagestion.controller.IVistaBase;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 
-public class VistaBase {
+public class VistaBase implements IVistaBase {
     private JPanel mainPanel;
     private JButton page1Btn;
     private JButton page2Btn;
@@ -73,15 +76,15 @@ public class VistaBase {
         vista3.getStopBtn().addActionListener(actionListener);
     }
 
-    public VistaAsociados getVista1() {
+    public IVista getVista1() {
         return vista1;
     }
 
-    public VistaConfiguracion getVista2() {
-        return vista2;
+    public IVista getVista2() {
+        return (IVista) vista2;
     }
 
-    public VistaSimulacion getVista3() {
+    public IVista getVista3() {
         return vista3;
     }
 

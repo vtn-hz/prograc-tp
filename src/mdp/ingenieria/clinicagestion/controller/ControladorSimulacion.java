@@ -8,28 +8,28 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ControladorSimulacion implements ActionListener {
-    private VistaConfiguracion vistaConfig;
-    private VistaSimulacion vistaSim;
-    private VistaBase vistaNav;
+public class ControladorSimulacion extends Controlador {
+    private IVistaConfiguracion vistaConfig;
+    private IVistaSimulacion vistaSim;
+    private IVistaBase vistaNav;
 
     private int numAsoc;
     private int numReq;
 
-    public void setVistaConfig(VistaConfiguracion vista) {
-        this.vistaConfig = vista;
+    public void setVistaConfig(IVista vista) {
+        this.vistaConfig = (IVistaConfiguracion) vista;
         vista.setActionListener(this);
     }
 
-    public void setVistaSim(VistaSimulacion vista) {
-        this.vistaSim = vista;
+    public void setVistaSim(IVista vista) {
+        this.vistaSim = (IVistaSimulacion) vista;
         vista.setActionListener(this);
 
         placeholder(); // todo: remove initialization and set it up from the model
     }
 
-    public void setVistaNav(VistaBase vista) {
-        this.vistaNav = vista;
+    public void setVistaNav(IVista vista) {
+        this.vistaNav = (IVistaBase) vista;
         vista.setActionListener(this);
     }
 

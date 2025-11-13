@@ -5,11 +5,11 @@ import mdp.ingenieria.clinicagestion.view.VistaBase;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ControladorNavegacion implements ActionListener {
-    private VistaBase vista;
+public class ControladorNavegacion extends Controlador {
+    private IVistaBase vista;
 
-    public void setVista(VistaBase vista) {
-        this.vista = vista;
+    public void setVista(IVista vista) {
+        this.vista = (IVistaBase) vista;
         vista.setActionListener(this);
     }
 

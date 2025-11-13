@@ -1,11 +1,14 @@
 package mdp.ingenieria.clinicagestion.view;
 
+import mdp.ingenieria.clinicagestion.controller.IVista;
+import mdp.ingenieria.clinicagestion.controller.IVistaConfiguracion;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class VistaConfiguracion {
+public class VistaConfiguracion implements IVistaConfiguracion {
     private JPanel mainPanel;
     private JButton startBtn;
     private JTextField textField1;

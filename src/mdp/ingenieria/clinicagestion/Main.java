@@ -1,14 +1,12 @@
 package mdp.ingenieria.clinicagestion;
 
-import mdp.ingenieria.clinicagestion.controller.ControladorAsociados;
-import mdp.ingenieria.clinicagestion.controller.ControladorNavegacion;
-import mdp.ingenieria.clinicagestion.controller.ControladorSimulacion;
+import mdp.ingenieria.clinicagestion.controller.*;
 import mdp.ingenieria.clinicagestion.view.VistaBase;
 
 public class Main {
     public static void main(String[] args) {
-        ControladorNavegacion controladorNavegacion = new ControladorNavegacion();
-        ControladorAsociados controladorAsociados = new ControladorAsociados();
+        Controlador controladorNavegacion = new ControladorNavegacion();
+        Controlador controladorAsociados = new ControladorAsociados();
         ControladorSimulacion controladorSimulacion = new ControladorSimulacion();
 
         VistaBase vista = new VistaBase();

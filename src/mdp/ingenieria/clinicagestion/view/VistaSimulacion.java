@@ -1,12 +1,15 @@
 package mdp.ingenieria.clinicagestion.view;
 
+import mdp.ingenieria.clinicagestion.controller.IVista;
+import mdp.ingenieria.clinicagestion.controller.IVistaSimulacion;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class VistaSimulacion {
+public class VistaSimulacion implements IVistaSimulacion {
     private JPanel mainPanel;
     private JButton stopBtn;
     private JPanel panel1;

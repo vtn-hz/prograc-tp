@@ -1,6 +1,6 @@
 package mdp.ingenieria.clinicagestion.vista;
 
-import mdp.ingenieria.clinicagestion.controlador.IVista;
+import mdp.ingenieria.clinicagestion.controller.IVista;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

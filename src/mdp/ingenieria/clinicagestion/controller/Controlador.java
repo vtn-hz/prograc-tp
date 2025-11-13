@@ -1,4 +1,4 @@
-package mdp.ingenieria.clinicagestion.controlador;
+package mdp.ingenieria.clinicagestion.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

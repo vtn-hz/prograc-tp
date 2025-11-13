@@ -1,5 +1,8 @@
 package mdp.ingenieria.clinicagestion.view;
 
+import mdp.ingenieria.clinicagestion.controller.IVista;
+import mdp.ingenieria.clinicagestion.controller.IVistaAsociados;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
@@ -9,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class VistaAsociados {
+public class VistaAsociados implements IVistaAsociados {
     private JPanel mainPanel;
     private JTextField nomField;
     private JTextField apeField;
