@@ -1,5 +1,7 @@
 package mdp.ingenieria.clinicagestion.controller;
 
+import mdp.ingenieria.clinicagestion.persistence.AsociadoDAO;
+import mdp.ingenieria.clinicagestion.persistence.AsociadoDTO;
 import mdp.ingenieria.clinicagestion.view.VistaAsociados;
 
 import javax.swing.*;
@@ -20,13 +22,13 @@ public class ControladorAsociados extends Controlador {
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
 
-        if (src == vista.getAddButton()) {
+        if (src == vista.getAddBtn()) {
             List<JTextField> fields = vista.getAllTextFields();
             validateAndAddAsociado(fields);
-        } else if (src == vista.getRemoveButton()) {
+        } else if (src == vista.getRemoveBtn()) {
             int selectedRow = vista.getTable().getSelectedRow();
             if (selectedRow != -1) {
-                // todo: replace removeAsociado with delete from database and refresh view
+                // todo: replace removeAsociado with dao.eliminarAsociado(vista.getIdFromRow(selectedRow)) and call vista.updateAsociados(...)
                 vista.removeAsociado(selectedRow);
             }
         } else if (src == vista.getGenerateBtn()) {
@@ -47,6 +49,10 @@ public class ControladorAsociados extends Controlador {
                     }
                 }
             }
+        } else if (src == vista.getRemoveTableBtn()) {
+            // todo: remove all Asociados from database (¿dao.eliminarTabla(...)?) and call vista.updateAsociados(...)
+        } else if (src == vista.getGenerateTableBtn()) {
+            // todo: generate random Asociados to database (¿dao.añadirTabla(generator.GenerateList(...))?) and call vista.updateAsociados(...)
         }
     }
 
@@ -74,7 +80,7 @@ public class ControladorAsociados extends Controlador {
             String nya = name + " " + surname;
             String loc = address + ", " + city;
 
-            // todo: replace addAsociado with add to database and refresh view
+            // todo: replace addAsociado with dao.agregarAsociado(new AsociadoDTO(...)) and call vista.updateAsociados(...)
             vista.addAsociado(nya, id, loc);
 
             for (JTextField f : fields) f.setText("");

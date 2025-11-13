@@ -2,7 +2,7 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="mdp.ingenieria.clinicagestion.view.VistaAsociados">
   <grid id="27dc6" binding="mainPanel" layout-manager="GridBagLayout">
     <constraints>
-      <xy x="20" y="20" width="515" height="683"/>
+      <xy x="20" y="20" width="515" height="807"/>
     </constraints>
     <properties>
       <name value="Page1"/>
@@ -11,37 +11,9 @@
       <size top="10" left="10" bottom="10" right="10"/>
     </border>
     <children>
-      <component id="4bf62" class="javax.swing.JButton" binding="generateBtn">
-        <constraints>
-          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-          <gridbag top="5" left="5" bottom="5" right="5" weightx="1.0" weighty="0.0"/>
-        </constraints>
-        <properties>
-          <actionCommand value="Generar"/>
-          <label value="Generar"/>
-          <text value="Generar"/>
-        </properties>
-      </component>
-      <scrollpane id="26b9b">
-        <constraints>
-          <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="1.0" weighty="1.0"/>
-        </constraints>
-        <properties>
-          <alignmentX value="1.0"/>
-          <alignmentY value="1.0"/>
-        </properties>
-        <border type="none"/>
-        <children>
-          <component id="2990" class="javax.swing.JTable" binding="table1" default-binding="true">
-            <constraints/>
-            <properties/>
-          </component>
-        </children>
-      </scrollpane>
       <grid id="23ff" layout-manager="GridBagLayout">
         <constraints>
-          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.5" weighty="0.0"/>
         </constraints>
         <properties/>
@@ -193,7 +165,7 @@
               </component>
             </children>
           </grid>
-          <component id="f14fe" class="javax.swing.JButton" binding="addButton" default-binding="true">
+          <component id="f14fe" class="javax.swing.JButton" binding="addBtn">
             <constraints>
               <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
               <gridbag top="5" left="5" bottom="5" right="5" weightx="1.0" weighty="0.0"/>
@@ -204,15 +176,71 @@
           </component>
         </children>
       </grid>
-      <component id="a5f5b" class="javax.swing.JButton" binding="removeButton">
+      <scrollpane id="26b9b">
         <constraints>
-          <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-          <gridbag top="5" left="5" bottom="5" right="5" weightx="1.0" weighty="0.0"/>
+          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="1.0" weighty="1.0"/>
         </constraints>
         <properties>
-          <text value="Eliminar"/>
+          <alignmentX value="1.0"/>
+          <alignmentY value="1.0"/>
         </properties>
-      </component>
+        <border type="none"/>
+        <children>
+          <component id="2990" class="javax.swing.JTable" binding="table1" default-binding="true">
+            <constraints/>
+            <properties/>
+          </component>
+        </children>
+      </scrollpane>
+      <grid id="cb369" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+        <constraints>
+          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="fd4bc" class="javax.swing.JButton" binding="removeBtn">
+            <constraints/>
+            <properties>
+              <text value="Eliminar"/>
+            </properties>
+          </component>
+          <component id="be690" class="javax.swing.JButton" binding="removeTableBtn">
+            <constraints/>
+            <properties>
+              <text value="Eliminar Tabla"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="6b78a" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+        <constraints>
+          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="6fd8f" class="javax.swing.JButton" binding="generateBtn">
+            <constraints/>
+            <properties>
+              <actionCommand value="Generar"/>
+              <label value="Generar"/>
+              <text value="Generar"/>
+            </properties>
+          </component>
+          <component id="90a3b" class="javax.swing.JButton" binding="generateTableBtn">
+            <constraints/>
+            <properties>
+              <actionCommand value="Generar"/>
+              <label value="Generar Tabla"/>
+              <text value="Generar Tabla"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
     </children>
   </grid>
 </form>

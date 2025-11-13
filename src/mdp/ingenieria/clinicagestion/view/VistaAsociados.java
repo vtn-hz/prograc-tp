@@ -1,7 +1,7 @@
 package mdp.ingenieria.clinicagestion.view;
 
-import mdp.ingenieria.clinicagestion.controller.IVista;
 import mdp.ingenieria.clinicagestion.controller.IVistaAsociados;
+import mdp.ingenieria.clinicagestion.persistence.AsociadoDTO;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -20,10 +20,12 @@ public class VistaAsociados implements IVistaAsociados {
     private JTextField telField;
     private JTextField ciuField;
     private JTextField dirField;
-    private JButton addButton;
-    private JButton removeButton;
+    private JButton addBtn;
+    private JButton removeBtn;
     private JTable table1;
     private JButton generateBtn;
+    private JButton removeTableBtn;
+    private JButton generateTableBtn;
 
     private DefaultTableModel model;
     private Random random = new Random();
@@ -42,9 +44,23 @@ public class VistaAsociados implements IVistaAsociados {
         nomField.addActionListener(actionListener);
         dniField.addActionListener(actionListener);
         dirField.addActionListener(actionListener);
-        addButton.addActionListener(actionListener);
-        removeButton.addActionListener(actionListener);
+        addBtn.addActionListener(actionListener);
+        removeBtn.addActionListener(actionListener);
         generateBtn.addActionListener(actionListener);
+    }
+
+    @Override
+    public void updateAsociados(List<AsociadoDTO> lista) {
+        // todo
+        // for (AsociadoDTO a : lista) {
+        //    addAsociado(a.getName, ...)
+        // }
+    }
+
+    @Override
+    public String getIdFromRow(int selectedRow) {
+        // todo
+        return "";
     }
 
     public void addAsociado(String name, String id, String address) {
@@ -65,16 +81,24 @@ public class VistaAsociados implements IVistaAsociados {
         return table1;
     }
 
-    public JButton getAddButton() {
-        return addButton;
+    public JButton getAddBtn() {
+        return addBtn;
     }
 
-    public JButton getRemoveButton() {
-        return removeButton;
+    public JButton getRemoveBtn() {
+        return removeBtn;
     }
 
     public JButton getGenerateBtn() {
         return generateBtn;
+    }
+
+    public JButton getRemoveTableBtn() {
+        return removeTableBtn;
+    }
+
+    public JButton getGenerateTableBtn() {
+        return generateTableBtn;
     }
 
     public DefaultTableModel getModel() {
@@ -104,34 +128,12 @@ public class VistaAsociados implements IVistaAsociados {
         mainPanel.setLayout(new GridBagLayout());
         mainPanel.setName("Page1");
         mainPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
-        generateBtn = new JButton();
-        generateBtn.setActionCommand("Generar");
-        generateBtn.setLabel("Generar");
-        generateBtn.setText("Generar");
-        GridBagConstraints gbc;
-        gbc = new GridBagConstraints();
-        gbc.gridx = 2;
-        gbc.gridy = 1;
-        gbc.weightx = 1.0;
-        gbc.insets = new Insets(5, 5, 5, 5);
-        mainPanel.add(generateBtn, gbc);
-        final JScrollPane scrollPane1 = new JScrollPane();
-        scrollPane1.setAlignmentX(1.0f);
-        scrollPane1.setAlignmentY(1.0f);
-        gbc = new GridBagConstraints();
-        gbc.gridx = 2;
-        gbc.gridy = 3;
-        gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
-        gbc.fill = GridBagConstraints.BOTH;
-        mainPanel.add(scrollPane1, gbc);
-        table1 = new JTable();
-        scrollPane1.setViewportView(table1);
         final JPanel panel1 = new JPanel();
         panel1.setLayout(new GridBagLayout());
+        GridBagConstraints gbc;
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
-        gbc.gridy = 3;
+        gbc.gridy = 1;
         gbc.weightx = 0.5;
         gbc.fill = GridBagConstraints.BOTH;
         mainPanel.add(panel1, gbc);
@@ -227,22 +229,56 @@ public class VistaAsociados implements IVistaAsociados {
         dirField = new JTextField();
         dirField.setPreferredSize(new Dimension(150, 20));
         panel7.add(dirField, BorderLayout.CENTER);
-        addButton = new JButton();
-        addButton.setText("Añadir");
+        addBtn = new JButton();
+        addBtn.setText("Añadir");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 7;
         gbc.weightx = 1.0;
         gbc.insets = new Insets(5, 5, 5, 5);
-        panel1.add(addButton, gbc);
-        removeButton = new JButton();
-        removeButton.setText("Eliminar");
+        panel1.add(addBtn, gbc);
+        final JScrollPane scrollPane1 = new JScrollPane();
+        scrollPane1.setAlignmentX(1.0f);
+        scrollPane1.setAlignmentY(1.0f);
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
-        gbc.gridy = 5;
+        gbc.gridy = 1;
         gbc.weightx = 1.0;
-        gbc.insets = new Insets(5, 5, 5, 5);
-        mainPanel.add(removeButton, gbc);
+        gbc.weighty = 1.0;
+        gbc.fill = GridBagConstraints.BOTH;
+        mainPanel.add(scrollPane1, gbc);
+        table1 = new JTable();
+        scrollPane1.setViewportView(table1);
+        final JPanel panel8 = new JPanel();
+        panel8.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2;
+        gbc.gridy = 2;
+        gbc.fill = GridBagConstraints.BOTH;
+        mainPanel.add(panel8, gbc);
+        removeBtn = new JButton();
+        removeBtn.setText("Eliminar");
+        panel8.add(removeBtn);
+        removeTableBtn = new JButton();
+        removeTableBtn.setText("Eliminar Tabla");
+        panel8.add(removeTableBtn);
+        final JPanel panel9 = new JPanel();
+        panel9.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.BOTH;
+        mainPanel.add(panel9, gbc);
+        generateBtn = new JButton();
+        generateBtn.setActionCommand("Generar");
+        generateBtn.setLabel("Generar");
+        generateBtn.setText("Generar");
+        panel9.add(generateBtn);
+        generateTableBtn = new JButton();
+        generateTableBtn.setActionCommand("Generar");
+        generateTableBtn.setLabel("Generar Tabla");
+        generateTableBtn.setText("Generar Tabla");
+        panel9.add(generateTableBtn);
     }
 
     /**
