@@ -69,7 +69,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>mdp.ingenieria.clinicagestion.Main</mainClass>
+                            <mainClass>mdp.ingenieria.clinicagestion.MainObsolete</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
