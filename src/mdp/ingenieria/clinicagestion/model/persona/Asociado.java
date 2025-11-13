@@ -5,7 +5,7 @@ import mdp.ingenieria.clinicagestion.model.Domicilio;
 
 public class Asociado extends Persona {
 	
-	private Ambulancia ambulancia; // may change when ambulancia implemented
+	private Ambulancia ambulancia;
 	
 	public Asociado(String NyA, String dni, Domicilio domicilio, Ambulancia ambulancia) {
 		super(NyA, dni, domicilio);
