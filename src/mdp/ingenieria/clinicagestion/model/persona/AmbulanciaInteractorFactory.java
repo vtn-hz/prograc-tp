@@ -1,6 +1,6 @@
 package mdp.ingenieria.clinicagestion.model.persona;
 
-import mdp.ingenieria.clinicagestion.model.AmbulanciaMock;
+import mdp.ingenieria.clinicagestion.model.Ambulancia;
 import mdp.ingenieria.clinicagestion.model.Domicilio;
 
 public class AmbulanciaInteractorFactory {
@@ -12,7 +12,7 @@ public class AmbulanciaInteractorFactory {
 	public static Persona create(
 		String personaType, String NyA, String dni,        
 		String telefono, String ciudad, String direccion, 
-		AmbulanciaMock ambulancia
+		Ambulancia ambulancia
 	) {
 		assert personaType != null;
 		assert NyA != null && !NyA.isEmpty();

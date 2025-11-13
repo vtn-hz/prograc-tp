@@ -2,7 +2,7 @@ package mdp.ingenieria.clinicagestion.model.simulation;
 
 import java.util.ArrayList;
 
-import mdp.ingenieria.clinicagestion.model.AmbulanciaMock;
+import mdp.ingenieria.clinicagestion.model.Ambulancia;
 import mdp.ingenieria.clinicagestion.model.data.ActorDTO;
 import mdp.ingenieria.clinicagestion.model.persona.AmbulanciaInteractorFactory;
 import mdp.ingenieria.clinicagestion.model.persona.Persona;
@@ -80,7 +80,7 @@ public class Simulation {
 		this.temporalThreadWorkingCount++;
 	}
 	
-	public void start(ActorDTO[] asociadosDto, ActorDTO operarioDto, AmbulanciaMock ambulancia, int taskTime)
+	public void start(ActorDTO[] asociadosDto, ActorDTO operarioDto, Ambulancia ambulancia, int taskTime)
 	{
 	    ArrayList<Actor> asociadosActores = new ArrayList<>();
 	    Actor operarioActor = null;
@@ -138,7 +138,7 @@ public class Simulation {
 	    asociadosActores.forEach(Actor::start);
 	}
 	
-	public void start(ActorDTO[] asociadosDto, ActorDTO operarioDto, AmbulanciaMock ambulancia)
+	public void start(ActorDTO[] asociadosDto, ActorDTO operarioDto, Ambulancia ambulancia)
 	{
 		this.start(asociadosDto, operarioDto, ambulancia, ThreadUtil.MEDIUM);
 	}
