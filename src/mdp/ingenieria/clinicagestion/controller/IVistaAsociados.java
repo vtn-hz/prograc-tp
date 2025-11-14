@@ -9,9 +9,9 @@ import java.util.List;
 public interface IVistaAsociados extends IVista {
     void updateAsociados(List<AsociadoDTO> lista);
     String getIdFromRow(int selectedRow);
-
-    void addAsociado(String name, String id, String address);
-    void removeAsociado(int index);
+    void deleteAsociados();
+    void addAsociadoRow(AsociadoDTO asociado);
+    void removeAsociadoRow(int index);
 
     JPanel getMainPanel();
     JTable getTable();

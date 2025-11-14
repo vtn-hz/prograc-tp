@@ -31,7 +31,7 @@ public class VistaAsociados implements IVistaAsociados {
     private Random random = new Random();
 
     public VistaAsociados() {
-        String[] columnNames = {"Nombre", "DNI", "Domicilio"};
+        String[] columnNames = {"Nombre", "DNI", "Teléfono", "Domicilio"};
         Object[][] data = {};
 
         table1.setDefaultEditor(Object.class, null);
@@ -47,30 +47,41 @@ public class VistaAsociados implements IVistaAsociados {
         addBtn.addActionListener(actionListener);
         removeBtn.addActionListener(actionListener);
         generateBtn.addActionListener(actionListener);
+        removeTableBtn.addActionListener(actionListener);
+        generateTableBtn.addActionListener(actionListener);
     }
 
     @Override
     public void updateAsociados(List<AsociadoDTO> lista) {
-        // todo
-        // for (AsociadoDTO a : lista) {
-        //    addAsociado(a.getName, ...)
-        // }
+        deleteAsociados();
+        for (AsociadoDTO a : lista) {
+            addAsociadoRow(a);
+        }
     }
 
     @Override
     public String getIdFromRow(int selectedRow) {
-        // todo
-        return "";
+        return model.getValueAt(selectedRow, 1).toString();
     }
 
-    public void addAsociado(String name, String id, String address) {
-        model.addRow(new Object[]{name, id, address});
+    @Override
+    public void deleteAsociados() {
+        model.setRowCount(0);
     }
 
-    public void removeAsociado(int index) {
-        if (index >= 0 && index < model.getRowCount()) {
-            model.removeRow(index);
-        }
+    @Override
+    public void addAsociadoRow(AsociadoDTO dto) {
+        model.addRow(new Object[]{
+                dto.getNya(),
+                dto.getDni(),
+                dto.getTelefono(),
+                dto.getDireccion() + ", " + dto.getCiudad()
+        });
+    }
+
+    @Override
+    public void removeAsociadoRow(int rowNumber) {
+        model.removeRow(rowNumber);
     }
 
     public JPanel getMainPanel() {

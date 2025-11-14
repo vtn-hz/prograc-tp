@@ -1,5 +1,9 @@
 package mdp.ingenieria.clinicagestion.controller;
 
+import mdp.ingenieria.clinicagestion.persistence.AsociadoDTO;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class AsociadoGenerator {
@@ -22,17 +26,62 @@ public class AsociadoGenerator {
 
     private final Random random = new Random();
 
-    public String[] generateUser() {
-        String id = String.format("%08d", random.nextInt(100_000_000));
-        String name = NAMES[random.nextInt(NAMES.length)];
-        String surname = SURNAMES[random.nextInt(SURNAMES.length)];
-        String phone = String.format("%03d %03d-%04d",
+    private String randomPhone() {
+        return String.format("%03d %03d-%04d",
                 random.nextInt(1000),
                 random.nextInt(1000),
                 random.nextInt(10000));
-        String city = CITIES[random.nextInt(CITIES.length)];
-        String address = ADDRESSES[random.nextInt(ADDRESSES.length)];
+    }
 
-        return new String[]{id, name, surname, phone, city, address};
+    private String randomDni() {
+        return String.format("%08d", random.nextInt(100_000_000));
+    }
+
+    private String randomName() {
+        return NAMES[random.nextInt(NAMES.length)];
+    }
+
+    private String randomSurname() {
+        return SURNAMES[random.nextInt(SURNAMES.length)];
+    }
+
+    private String randomCity() {
+        return CITIES[random.nextInt(CITIES.length)];
+    }
+
+    private String randomAddress() {
+        return ADDRESSES[random.nextInt(ADDRESSES.length)];
+    }
+
+    public String[] generateFields() {
+        return new String[]{
+                randomDni(),
+                randomName(),
+                randomSurname(),
+                randomPhone(),
+                randomCity(),
+                randomAddress()
+        };
+    }
+
+    public AsociadoDTO generateUser() {
+        String name = randomName();
+        String surname = randomSurname();
+
+        return new AsociadoDTO(
+                randomDni(),
+                name + " " + surname,
+                randomPhone(),
+                randomCity(),
+                randomAddress()
+        );
+    }
+
+    public List<AsociadoDTO> generateUsers(int count) {
+        List<AsociadoDTO> list = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            list.add(generateUser());
+        }
+        return list;
     }
 }

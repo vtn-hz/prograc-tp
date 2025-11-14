@@ -1,17 +1,16 @@
 package mdp.ingenieria.clinicagestion.controller;
 
-import mdp.ingenieria.clinicagestion.persistence.AsociadoDAO;
 import mdp.ingenieria.clinicagestion.persistence.AsociadoDTO;
-import mdp.ingenieria.clinicagestion.view.VistaAsociados;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.Arrays;
 import java.util.List;
 
 public class ControladorAsociados extends Controlador {
     private IVistaAsociados vista;
+    private AsociadoGenerator generator = new AsociadoGenerator();
 
     public void setVista(IVista vista) {
         this.vista = (IVistaAsociados) vista;
@@ -23,36 +22,47 @@ public class ControladorAsociados extends Controlador {
         Object src = e.getSource();
 
         if (src == vista.getAddBtn()) {
+
             List<JTextField> fields = vista.getAllTextFields();
             validateAndAddAsociado(fields);
+
         } else if (src == vista.getRemoveBtn()) {
+
             int selectedRow = vista.getTable().getSelectedRow();
-            if (selectedRow != -1) {
-                // todo: replace removeAsociado with dao.eliminarAsociado(vista.getIdFromRow(selectedRow)) and call vista.updateAsociados(...)
-                vista.removeAsociado(selectedRow);
+            if (selectedRow >= 0 && selectedRow < vista.getModel().getRowCount()) {
+                // todo: remove one Asociado from database with dao.eliminarAsociado(vista.getIdFromRow(selectedRow))
+                vista.removeAsociadoRow(selectedRow); // or vista.updateAsociados(List<AsociadoDTO>)
             }
+
         } else if (src == vista.getGenerateBtn()) {
-            AsociadoGenerator gen = new AsociadoGenerator();
-            String[] asoc = gen.generateUser();
+
+            String[] asociado = generator.generateFields();
 
             List<JTextField> fields = vista.getAllTextFields();
-
             boolean allFilled = fields.stream().noneMatch(f -> f.getText().trim().isEmpty());
 
             if (allFilled) {
-                validateAndAddAsociado(fields);
+                validateAndAddAsociado(fields); // works the same as addAsociado
             } else {
-                for (int i = 0; i < Math.min(fields.size(), asoc.length); i++) {
+                for (int i = 0; i < Math.min(fields.size(), asociado.length); i++) {
                     JTextField f = fields.get(i);
                     if (f.getText().trim().isEmpty()) {
-                        f.setText(asoc[i]);
+                        f.setText(asociado[i]);
                     }
                 }
             }
+
         } else if (src == vista.getRemoveTableBtn()) {
-            // todo: remove all Asociados from database (¿dao.eliminarTabla(...)?) and call vista.updateAsociados(...)
+
+            // todo: remove all Asociados from database (¿dao.eliminarTabla(...)?)
+            vista.deleteAsociados(); // or vista.updateAsociados(List<AsociadoDTO>)
+
         } else if (src == vista.getGenerateTableBtn()) {
-            // todo: generate random Asociados to database (¿dao.añadirTabla(generator.GenerateList(...))?) and call vista.updateAsociados(...)
+
+            List<AsociadoDTO> lista = generator.generateUsers(20);
+            // todo: add all Asociados to database (¿dao.crearTabla(...)?)
+            vista.updateAsociados(lista);
+
         }
     }
 
@@ -78,10 +88,10 @@ public class ControladorAsociados extends Controlador {
             String address = fields.get(5).getText().trim();
 
             String nya = name + " " + surname;
-            String loc = address + ", " + city;
 
-            // todo: replace addAsociado with dao.agregarAsociado(new AsociadoDTO(...)) and call vista.updateAsociados(...)
-            vista.addAsociado(nya, id, loc);
+            AsociadoDTO asociado = new AsociadoDTO(id, nya, phone, city, address);
+            // todo: add one Asociado to database with dao.agregarAsociado(asociado)
+            vista.addAsociadoRow(asociado); // or vista.updateAsociados(List<AsociadoDTO>)
 
             for (JTextField f : fields) f.setText("");
             fields.get(0).requestFocusInWindow();
