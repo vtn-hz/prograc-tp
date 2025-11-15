@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public interface IVistaConfiguracion extends IVista {
+    int getNumAsoc();
+    int getNumReq();
+    void popupError(String msg);
+
     JPanel getMainPanel();
     JTextField getTextField1();
     JTextField getTextField2();

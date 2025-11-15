@@ -14,10 +14,45 @@ public class VistaConfiguracion implements IVistaConfiguracion {
     private JTextField textField1;
     private JTextField textField2;
 
+    private int numAsoc = -1;
+    private int numReq  = -1;
+
+    @Override
     public void setActionListener(ActionListener actionListener) {
-        startBtn.addActionListener(actionListener);
+        startBtn.addActionListener(e -> {
+            try {
+                numAsoc = Integer.parseInt(textField1.getText().trim());
+                numReq  = Integer.parseInt(textField2.getText().trim());
+
+                actionListener.actionPerformed(e);
+
+            } catch (NumberFormatException exc) {
+                popupError("Números inválidos");
+            }
+        });
+
         textField1.addActionListener(actionListener);
         textField2.addActionListener(actionListener);
+    }
+
+    @Override
+    public void popupError(String message) {
+        JOptionPane.showMessageDialog(
+                null,
+                message,
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+        );
+    }
+
+    @Override
+    public int getNumAsoc() {
+        return numAsoc;
+    }
+
+    @Override
+    public int getNumReq() {
+        return numReq;
     }
 
     public JPanel getMainPanel() {

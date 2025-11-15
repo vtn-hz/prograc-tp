@@ -74,19 +74,16 @@ public class ControladorSimulacion extends Controlador implements Observer {
         String code = e.getActionCommand();
 
         if (src == vistaConfig.getStartBtn()) {
-            try {
-                numAsoc = Integer.parseInt(vistaConfig.getTextField1().getText().trim());
-                numReq = Integer.parseInt(vistaConfig.getTextField2().getText().trim());
-                // check if number is too large
 
-                // todo: configure number of asociados (threads) and requests
+            numAsoc = vistaConfig.getNumAsoc();
+            numReq  = vistaConfig.getNumReq();
 
-                /** simulate simulation call */
-                this.initializeSimulation();
-                vistaNav.showPage(code);
-            } catch (NumberFormatException exc) {
-                popupError("Números inválidos");
-            }
+            // todo: configure number of asociados (threads) and requests
+            /** simulate simulation call */
+            this.initializeSimulation();
+
+            vistaNav.showPage(code);
+
         } else if (src == vistaSim.getStopBtn()){
             // todo: configure soft simulation stop
             vistaSim.popupMessage("Redirigiendo...", 1500);
@@ -121,15 +118,6 @@ public class ControladorSimulacion extends Controlador implements Observer {
                vistaSim.addAsociado(asociado.getNya(), 0);
                this.asociadosDnis.add( asociado.getDni() );
            }
-    }
-
-    private void popupError(String message) {
-        JOptionPane.showMessageDialog(
-                null,
-                message,
-                "Error",
-                JOptionPane.ERROR_MESSAGE
-        );
     }
     
     public void addOperation( String message ) {
