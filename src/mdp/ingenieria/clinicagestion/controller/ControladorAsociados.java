@@ -1,20 +1,22 @@
 package mdp.ingenieria.clinicagestion.controller;
 
 import mdp.ingenieria.clinicagestion.persistence.AsociadoDTO;
+import mdp.ingenieria.clinicagestion.service.AsociadoService;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.Arrays;
 import java.util.List;
 
 public class ControladorAsociados extends Controlador {
     private IVistaAsociados vista;
     private AsociadoGenerator generator = new AsociadoGenerator();
+    private AsociadoService service = new AsociadoService();
 
     public void setVista(IVista vista) {
         this.vista = (IVistaAsociados) vista;
-        vista.setActionListener(this);
+        this.vista.updateAsociados(service.listar());
+        this.vista.setActionListener(this);
     }
 
     @Override
@@ -30,8 +32,8 @@ public class ControladorAsociados extends Controlador {
 
             int selectedRow = vista.getTable().getSelectedRow();
             if (selectedRow >= 0 && selectedRow < vista.getModel().getRowCount()) {
-                // todo: remove one Asociado from database with dao.eliminarAsociado(vista.getIdFromRow(selectedRow))
-                vista.removeAsociadoRow(selectedRow); // or vista.updateAsociados(List<AsociadoDTO>)
+                service.baja(vista.getIdFromRow(selectedRow));
+                vista.removeAsociadoRow(selectedRow); // or vista.vista.updateAsociados(service.listar())
             }
 
         } else if (src == vista.getGenerateBtn()) {
@@ -89,9 +91,9 @@ public class ControladorAsociados extends Controlador {
 
             String nya = name + " " + surname;
 
-            AsociadoDTO asociado = new AsociadoDTO(id, nya, phone, city, address);
-            // todo: add one Asociado to database with dao.agregarAsociado(asociado)
-            vista.addAsociadoRow(asociado); // or vista.updateAsociados(List<AsociadoDTO>)
+            AsociadoDTO newAsociado = new AsociadoDTO(id, nya, phone, city, address);
+            service.alta(newAsociado);
+            vista.updateAsociados(service.listar()); // or vista.addAsociadoRow(newAsociado)
 
             for (JTextField f : fields) f.setText("");
             fields.get(0).requestFocusInWindow();

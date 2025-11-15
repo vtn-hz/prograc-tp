@@ -12,6 +12,10 @@ public class AsociadoService {
         dao.agregarAsociado(AsociadoMapper.toDTO(a));
     }
 
+    public void alta(AsociadoDTO a) {
+        dao.agregarAsociado(a);
+    }
+
     public boolean baja(String dni) {
         return dao.eliminarAsociado(dni);
     }
