@@ -95,7 +95,7 @@ public class ControladorAsociados extends Controlador {
         }
 
         if (emptyFound) {
-            popupError("Complete todos los campos");
+            vista.popupError("Complete todos los campos");
         } else {
             String id = fields.get(0).getText().trim();
             String name = fields.get(1).getText().trim();
@@ -117,14 +117,5 @@ public class ControladorAsociados extends Controlador {
                 vista.popupError(exc.getMessage());
             }
         }
-    }
-
-    private void popupError(String message) {
-        JOptionPane.showMessageDialog(
-                null,
-                message,
-                "Error",
-                JOptionPane.ERROR_MESSAGE
-        );
     }
 }
