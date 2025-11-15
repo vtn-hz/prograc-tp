@@ -9,17 +9,10 @@ import mdp.ingenieria.clinicagestion.model.simulation.SimulationStateMessage;
 import mdp.ingenieria.clinicagestion.persistence.AsociadoDTO;
 import mdp.ingenieria.clinicagestion.persistence.PersonaDTO;
 import mdp.ingenieria.clinicagestion.service.AsociadoService;
-import mdp.ingenieria.clinicagestion.view.VistaBase;
-import mdp.ingenieria.clinicagestion.view.VistaConfiguracion;
-import mdp.ingenieria.clinicagestion.view.VistaSimulacion;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.*;
 
 public class ControladorSimulacion extends Controlador implements Observer {
 	
@@ -78,7 +71,7 @@ public class ControladorSimulacion extends Controlador implements Observer {
             numAsoc = vistaConfig.getNumAsoc();
             numReq  = vistaConfig.getNumReq();
 
-            this.clearSimulation();
+            vistaSim.clearAsociados();
             this.initializeSimulation();
 
             vistaNav.showPage(code);
@@ -90,10 +83,6 @@ public class ControladorSimulacion extends Controlador implements Observer {
         } else if (src == vistaSim.getMaintenanceBtn()) {
             this.controladorAmbulancia.eventOperario(operarioSimulacion);
         }
-    }
-
-    private void clearSimulation() {
-        // todo: reset simulation for rerun
     }
     
     private void initializeSimulation() {
@@ -127,43 +116,19 @@ public class ControladorSimulacion extends Controlador implements Observer {
     	vistaSim.changeAmbulanceState( state );
     }
 
-    private void placeholder() {
-        String[] asoc = {"Alice", "Bruno", "Carla", "Diego", "Elena", "Fabio", "Greta", "Hugo"};
-        String[] acciones = {
-                "Atender a un paciente",
-                "Buscar a Alice",
-                "Ir al taller",
-                "Reabastecer oxígeno",
-                "Llevar paciente al hospital",
-                "Desinfectar la ambulancia",
-                "Revisar equipo médico",
-                "Reportar al centro de control",
-                "Esperar nueva emergencia",
-                "Cargar camilla"
-        };
-
-        for (String a : asoc) {
-            vistaSim.addAsociado(a, 0);
-        }
-
-        for (String a : acciones) {
-            vistaSim.addOperation(a);
-        }  
-    }
-
     @Override
     public void update(Observable o, Object arg) {
         if (o == Simulation.getInstance()) {
         	SimulationStateMessage simulationMessage = (SimulationStateMessage) arg; 
             String status = simulationMessage.getStatus();
         	
-        	if (status != Simulation.STATE_TERMINATED && simulationMessage.hasActorModel()) {
+        	if (!Objects.equals(status, Simulation.STATE_TERMINATED) && simulationMessage.hasActorModel()) {
         		Persona persona = simulationMessage.getActorModel();
         		this.updateAsociadoState(persona.getDni(), Actor.TERMINATED);
         	}
             	
 
-            if (status == Simulation.STATE_TERMINATED) {
+            if (status.equals(Simulation.STATE_TERMINATED)) {
                 System.out.println("Simulation is now TERMINATED");
                 this.asociadosDnis.clear();
                 // end protocol

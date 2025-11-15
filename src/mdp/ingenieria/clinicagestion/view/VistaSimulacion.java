@@ -16,20 +16,6 @@ public class VistaSimulacion implements IVistaSimulacion {
     private JPanel panel2;
     private JButton maintenanceBtn;
     private JLabel ambulanceLbl;
-
-    /*String[] states = {
-    		"Esperando",
-            "Llamando ambulancia",
-            "En traslado",
-            "En tratamiento"
-    };
-
-    Color[] colors = {
-            Color.WHITE,
-            new Color(180, 246, 100),
-            new Color(255, 229, 143),
-            new Color(246, 112, 100)
-    };*/
     
     String[] states = {
     		"Esperando",
@@ -83,6 +69,12 @@ public class VistaSimulacion implements IVistaSimulacion {
         label.setAlignmentX(Component.RIGHT_ALIGNMENT);
         label.setBorder(new EmptyBorder(5, 5, 5, 5));
         panel2.add(label);
+    }
+
+    public void clearAsociados() {
+        panel1.removeAll();
+        panel1.revalidate();
+        panel1.repaint();
     }
 
     public void popupMessage(String msg, int ms) {
