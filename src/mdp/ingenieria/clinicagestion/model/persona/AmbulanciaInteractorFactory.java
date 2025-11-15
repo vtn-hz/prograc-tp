@@ -2,6 +2,7 @@ package mdp.ingenieria.clinicagestion.model.persona;
 
 import mdp.ingenieria.clinicagestion.model.Ambulancia;
 import mdp.ingenieria.clinicagestion.model.Domicilio;
+import mdp.ingenieria.clinicagestion.persistence.PersonaDTO;
 
 public class AmbulanciaInteractorFactory {
 
@@ -10,8 +11,8 @@ public class AmbulanciaInteractorFactory {
 	public static final String OPERARIO = "OPERARIO";
 
 	public static Persona create(
-		String personaType, String NyA, String dni,        
-		String telefono, String ciudad, String direccion, 
+		String personaType, String NyA, String dni,
+		String telefono, String ciudad, String direccion,
 		Ambulancia ambulancia
 	) {
 		assert personaType != null;
@@ -24,7 +25,7 @@ public class AmbulanciaInteractorFactory {
 
 		Persona persona = null;
 		Domicilio domicilio = new Domicilio(telefono, ciudad, direccion);
-		
+
 		switch(personaType)
 		{
 			case ASOCIADO:
@@ -37,5 +38,21 @@ public class AmbulanciaInteractorFactory {
 		}
 
 		return persona;
+	}
+
+	public static Persona create(
+		String personaType,
+		PersonaDTO dto,
+		Ambulancia ambulancia
+	) {
+		return create(
+			personaType,
+			dto.getNyA(),
+			dto.getDni(),
+			dto.getTelefono(),
+			dto.getCiudad(),
+			dto.getDireccion(),
+			ambulancia
+		);
 	}
 }
