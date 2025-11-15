@@ -17,8 +17,8 @@ public class VistaSimulacion implements IVistaSimulacion {
     private JButton maintenanceBtn;
     private JLabel ambulanceLbl;
 
-    String[] states = {
-            "Tranquilito en casa",
+    /*String[] states = {
+    		"Esperando",
             "Llamando ambulancia",
             "En traslado",
             "En tratamiento"
@@ -29,7 +29,20 @@ public class VistaSimulacion implements IVistaSimulacion {
             new Color(180, 246, 100),
             new Color(255, 229, 143),
             new Color(246, 112, 100)
+    };*/
+    
+    String[] states = {
+    		"Esperando",
+            "Utilizando",
+            "Terminó"
     };
+    
+    Color[] colors = {
+    	    new Color(220, 220, 220),  
+    	    new Color(255, 229, 143),  
+    	    new Color(180, 246, 100)   
+    	};
+    
 
     public VistaSimulacion() {
         panel1.setLayout(new BoxLayout(panel1, BoxLayout.Y_AXIS));
