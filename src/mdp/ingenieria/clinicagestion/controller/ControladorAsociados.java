@@ -34,8 +34,12 @@ public class ControladorAsociados extends Controlador {
 
             int selectedRow = vista.getTable().getSelectedRow();
             if (selectedRow >= 0 && selectedRow < vista.getModel().getRowCount()) {
-                service.baja(vista.getIdFromRow(selectedRow));
-                vista.removeAsociadoRow(selectedRow); // or vista.vista.updateAsociados(service.listar())
+                try {
+                    service.baja(vista.getIdFromRow(selectedRow));
+                    vista.removeAsociadoRow(selectedRow); // or vista.vista.updateAsociados(service.listar())
+                } catch (RuntimeException exc) {
+                    vista.popupError(exc.getMessage());
+                }
             }
 
         } else if (src == vista.getGenerateBtn()) {
@@ -63,14 +67,18 @@ public class ControladorAsociados extends Controlador {
                     service.bajaTabla();
                     vista.deleteAsociados(); // or vista.updateAsociados(service.listar())
                 } catch (RuntimeException exc) {
-                    vista.popupError("Error eliminando la tabla:\n" + exc.getMessage());
+                    vista.popupError(exc.getMessage());
                 }
 
         } else if (src == vista.getGenerateTableBtn()) {
 
-            List<AsociadoDTO> lista = generator.generateUsers(10);
-            service.altaTabla(lista);
-            vista.updateAsociados(service.listar());
+            try {
+                List<AsociadoDTO> lista = generator.generateUsers(10);
+                service.altaTabla(lista);
+                vista.updateAsociados(service.listar());
+            } catch (RuntimeException exc) {
+                vista.popupError(exc.getMessage());
+            }
 
         }
     }
@@ -98,12 +106,16 @@ public class ControladorAsociados extends Controlador {
 
             String nya = name + " " + surname;
 
-            AsociadoDTO newAsociado = new AsociadoDTO(id, nya, phone, city, address);
-            service.alta(newAsociado);
-            vista.updateAsociados(service.listar()); // or vista.addAsociadoRow(newAsociado)
+            try {
+                AsociadoDTO newAsociado = new AsociadoDTO(id, nya, phone, city, address);
+                service.alta(newAsociado);
+                vista.updateAsociados(service.listar()); // or vista.addAsociadoRow(newAsociado)
 
-            for (JTextField f : fields) f.setText("");
-            fields.get(0).requestFocusInWindow();
+                for (JTextField f : fields) f.setText("");
+                fields.get(0).requestFocusInWindow();
+            } catch (RuntimeException exc) {
+                vista.popupError(exc.getMessage());
+            }
         }
     }
 
