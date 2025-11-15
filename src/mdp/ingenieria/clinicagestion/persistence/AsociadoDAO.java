@@ -68,39 +68,6 @@ public class AsociadoDAO implements IAsociadoDAO {
     }
 
     @Override
-    public boolean existeAsociado(String dni) {
-        String sql = "SELECT 1 FROM asociado WHERE dni = ?";
-        try (Connection c = cm.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setString(1, dni);
-            try (ResultSet rs = ps.executeQuery()) { return rs.next(); }
-        } catch (SQLException e) {
-            throw new RuntimeException("Error verificando asociado " + dni, e);
-        }
-    }
-
-    @Override
-    public AsociadoDTO obtenerAsociado(String dni) {
-        String sql = "SELECT dni, nya, telefono, ciudad, direccion FROM asociado WHERE dni = ?";
-        try (Connection c = cm.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setString(1, dni);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return new AsociadoDTO(
-                        rs.getString("dni"),
-                        rs.getString("nya"),
-                        rs.getString("telefono"),
-                        rs.getString("ciudad"),
-                        rs.getString("direccion")
-                    );
-                }
-                return null;
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("Error obteniendo asociado " + dni, e);
-        }
-    }
-
-    @Override
     public List<AsociadoDTO> listarAsociados() {
         String sql = "SELECT dni, nya, telefono, ciudad, direccion FROM asociado ORDER BY nya";
         List<AsociadoDTO> list = new ArrayList<>();
@@ -142,6 +109,52 @@ public class AsociadoDAO implements IAsociadoDAO {
             throw new RuntimeException("Error listando asociados", e);
         }
         return list;
+    }
+
+    @Override
+    public int contarAsociados() {
+        String sql = "SELECT COUNT(*) FROM asociado";
+        try (Connection c = cm.getConnection(); PreparedStatement ps = c.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error contando asociados", e);
+        }
+        return 0;
+    }
+
+    @Override
+    public boolean existeAsociado(String dni) {
+        String sql = "SELECT 1 FROM asociado WHERE dni = ?";
+        try (Connection c = cm.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setString(1, dni);
+            try (ResultSet rs = ps.executeQuery()) { return rs.next(); }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error verificando asociado " + dni, e);
+        }
+    }
+
+    @Override
+    public AsociadoDTO obtenerAsociado(String dni) {
+        String sql = "SELECT dni, nya, telefono, ciudad, direccion FROM asociado WHERE dni = ?";
+        try (Connection c = cm.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setString(1, dni);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return new AsociadoDTO(
+                        rs.getString("dni"),
+                        rs.getString("nya"),
+                        rs.getString("telefono"),
+                        rs.getString("ciudad"),
+                        rs.getString("direccion")
+                    );
+                }
+                return null;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error obteniendo asociado " + dni, e);
+        }
     }
 
     @Override

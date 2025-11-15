@@ -12,6 +12,8 @@ public interface IAsociadoDAO {
     List<AsociadoDTO> listarAsociados();
     List<AsociadoDTO> listarAsociadosRnd(int limit);
 
+    int contarAsociados();
+
     AsociadoDTO obtenerAsociado(String dni);
     boolean existeAsociado(String dni);
     boolean actualizarAsociado(AsociadoDTO asociado);

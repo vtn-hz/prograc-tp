@@ -41,7 +41,7 @@ public class ControladorSimulacion extends Controlador implements Observer {
         
         this.operarioSimulacion = (Operario) AmbulanciaInteractorFactory.create(
         		AmbulanciaInteractorFactory.OPERARIO,
-        		"Operario Simulado", "-", "-","-", "-",
+        		"Operario Usuario", "-", "-","-", "-",
         		Simulation.getInstance().getAmbulancia()
         );
     }
@@ -71,10 +71,16 @@ public class ControladorSimulacion extends Controlador implements Observer {
             numAsoc = vistaConfig.getNumAsoc();
             numReq  = vistaConfig.getNumReq();
 
-            vistaSim.clearAsociados();
-            this.initializeSimulation();
+            if (numReq > 10)
+                vistaConfig.popupError("Número de pedidos por asociado excedido");
+            else if (numAsoc > service.contar())
+                vistaConfig.popupError("Número de asociados disponibles excedido");
+            else {
+                vistaSim.clearAsociados();
+                this.initializeSimulation();
 
-            vistaNav.showPage(code);
+                vistaNav.showPage(code);
+            }
 
         } else if (src == vistaSim.getStopBtn()){
             // todo: configure soft simulation stop

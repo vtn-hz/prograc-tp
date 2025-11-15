@@ -24,7 +24,10 @@ public class VistaConfiguracion implements IVistaConfiguracion {
                 numAsoc = Integer.parseInt(textField1.getText().trim());
                 numReq  = Integer.parseInt(textField2.getText().trim());
 
-                actionListener.actionPerformed(e);
+                if (numAsoc <= 0 || numReq <= 0)
+                    popupError("Los números deben ser positivos");
+                else
+                    actionListener.actionPerformed(e);
 
             } catch (NumberFormatException exc) {
                 popupError("Números inválidos");

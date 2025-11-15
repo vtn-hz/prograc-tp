@@ -44,6 +44,10 @@ public class AsociadoService {
         return dao.listarAsociadosRnd(limit);
     }
 
+    public int contar() {
+        return dao.contarAsociados();
+    }
+
     public boolean actualizar(Asociado a) {
         return dao.actualizarAsociado(AsociadoMapper.toDTO(a));
     }
