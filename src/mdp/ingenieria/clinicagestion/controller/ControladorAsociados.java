@@ -50,10 +50,15 @@ public class ControladorAsociados extends Controlador {
             boolean allFilled = fields.stream().noneMatch(f -> f.getText().trim().isEmpty());
 
             if (allFilled) {
-                validateAndAddAsociado(fields); // works the same as addAsociado
+                // validateAndAddAsociado(fields); // works the same as addAsociado
+                for (int i = 0; i < Math.min(fields.size(), asociado.length); i++) {
+                    JTextField f = fields.get(i);
+                    f.setText(asociado[i]);
+                }
             } else {
                 for (int i = 0; i < Math.min(fields.size(), asociado.length); i++) {
                     JTextField f = fields.get(i);
+                    f.setBorder(BorderFactory.createLineBorder(Color.GRAY));
                     if (f.getText().trim().isEmpty()) {
                         f.setText(asociado[i]);
                     }
