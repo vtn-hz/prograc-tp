@@ -89,6 +89,7 @@ public class ControladorSimulacion extends Controlador implements Observer {
             }
         } else if (src == vistaSim.getStopBtn()){
             // todo: configure soft simulation stop
+            vistaSim.popupMessage("Redirigiendo...", 1500);
             vistaNav.showPage(code);
         } else if (src == vistaSim.getMaintenanceBtn()) {
             this.controladorAmbulancia.eventOperario(operarioSimulacion);

@@ -55,7 +55,16 @@ public class VistaSimulacion implements IVistaSimulacion {
 
     public void setActionListener(ActionListener actionListener) {
         maintenanceBtn.addActionListener(actionListener);
-        stopBtn.addActionListener(actionListener);
+
+        stopBtn.addActionListener(e -> {
+            stopBtn.setEnabled(false);
+            stopBtn.setText("Finalizando");
+
+            actionListener.actionPerformed(e);
+
+            stopBtn.setText("Finalizar");
+            stopBtn.setEnabled(true);
+        });
     }
 
     public void addAsociado(String nya, int state) {
@@ -74,6 +83,12 @@ public class VistaSimulacion implements IVistaSimulacion {
         label.setAlignmentX(Component.RIGHT_ALIGNMENT);
         label.setBorder(new EmptyBorder(5, 5, 5, 5));
         panel2.add(label);
+    }
+
+    public void popupMessage(String msg, int ms) {
+        JDialog dialog = new JOptionPane(msg).createDialog("Mensaje");
+        new javax.swing.Timer(ms, e -> dialog.dispose()).start();
+        dialog.setVisible(true);
     }
 
     public void changeAmbulanceState(String state) {
