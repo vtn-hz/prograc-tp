@@ -9,6 +9,8 @@ public interface IVistaSimulacion extends IVista {
     void changeAmbulanceState(String state);
     void clearSimulation();
     void popupMessage(String msg, int ms);
+    
+    String getStopSimulatioActionCommand();
 
     JPanel getMainPanel();
     JButton getMaintenanceBtn();

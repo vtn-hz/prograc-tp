@@ -9,6 +9,7 @@ import mdp.ingenieria.clinicagestion.model.simulation.SimulationStateMessage;
 import mdp.ingenieria.clinicagestion.persistence.AsociadoDTO;
 import mdp.ingenieria.clinicagestion.persistence.PersonaDTO;
 import mdp.ingenieria.clinicagestion.service.AsociadoService;
+import mdp.ingenieria.clinicagestion.util.ThreadUtil;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -86,16 +87,21 @@ public class ControladorSimulacion extends Controlador implements Observer {
                 vistaNav.showPage(code);
             }
 
-        } else if (src == vistaSim.getStopBtn()){
-            // todo: configure soft simulation stop
-            vistaSim.popupMessage("Redirigiendo...", 1500);
-            vistaNav.showPage(code);
+        } else if (src == vistaSim.getStopBtn()) {
+            this.startEndSimulationProtocol();
         } else if (src == vistaSim.getMaintenanceBtn()) {
             this.controladorAmbulancia.eventOperario(operarioSimulacion);
         }
     }
     
+    private void startEndSimulationProtocol() {
+    	Simulation.getInstance().setTaskTime( 250 );
+    	Simulation.getInstance().setStatus( Simulation.STATE_FINALIZING );
+    }
+    
     private void initializeSimulation() {
+    	Simulation.getInstance().setTaskTime( ThreadUtil.MEDIUM );
+    	
         List<AsociadoDTO> asociados;
         if (isGenerated)
             asociados = generator.generateUsers(numAsoc);
@@ -143,8 +149,9 @@ public class ControladorSimulacion extends Controlador implements Observer {
             	
 
             if (status.equals(Simulation.STATE_TERMINATED)) {
-                System.out.println("Simulation is now TERMINATED");
+                vistaSim.popupMessage("Redirigiendo...", 1500);
                 this.asociadosDnis.clear();
+                vistaNav.showPage( this.vistaSim.getStopSimulatioActionCommand() );
                 // end protocol
             }
         }

@@ -21,9 +21,9 @@ public class AmbulanciaSimulationWatcher extends SimulationWatcher {
 
 	@Override
 	public void runTask() {
-		ThreadUtil.simulateTime( this.getAverageTaskTime() );
+		ThreadUtil.simulateTime( this.getAverageTaskTime() * 2 );
 		Simulation.getInstance().getAmbulancia().retornoAutomatico();
-		ThreadUtil.simulateTime( this.getAverageTaskTime() );
+		ThreadUtil.simulateTime( this.getAverageTaskTime() * 2 );
 	}
 
 }

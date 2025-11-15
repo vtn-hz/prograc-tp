@@ -47,9 +47,6 @@ public class VistaSimulacion implements IVistaSimulacion {
             stopBtn.setText("Finalizando");
 
             actionListener.actionPerformed(e);
-
-            stopBtn.setText("Finalizar");
-            stopBtn.setEnabled(true);
         });
     }
 
@@ -72,7 +69,10 @@ public class VistaSimulacion implements IVistaSimulacion {
     }
 
     public void clearSimulation() {
-        panel1.removeAll();
+        stopBtn.setText("Finalizar");
+        stopBtn.setEnabled(true);
+    	
+    	panel1.removeAll();
         panel1.revalidate();
         panel1.repaint();
 
@@ -101,6 +101,10 @@ public class VistaSimulacion implements IVistaSimulacion {
 
     public JButton getStopBtn() {
         return stopBtn;
+    }
+    
+    public String getStopSimulatioActionCommand() {
+		return "PAGE2";
     }
 
     {
@@ -199,7 +203,7 @@ public class VistaSimulacion implements IVistaSimulacion {
         ambulanceLbl.setMaximumSize(new Dimension(33, 34));
         ambulanceLbl.setOpaque(true);
         ambulanceLbl.setPreferredSize(new Dimension(33, 34));
-        ambulanceLbl.setText("Label");
+        ambulanceLbl.setText("...");
         panel4.add(ambulanceLbl, BorderLayout.CENTER);
     }
 

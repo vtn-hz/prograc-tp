@@ -9,11 +9,11 @@ public class ThreadUtil {
 	
 	static { random = new Random(); }
 	
-	public static int SHORT 	= 2000;
+	public static int SHORT 	= 1000;
 	
-	public static int MEDIUM 	= 5000;
+	public static int MEDIUM 	= 1500;
 
-	public static int LONG 		= 10000;
+	public static int LONG 		= 3000;
 	
 	public static void simulateTime ( int millis ) {
 		assert millis > 0;
@@ -32,7 +32,7 @@ public class ThreadUtil {
 	public static void simulateTimeMedio ( int millis ) {
 		assert millis > 0;
 		try {
-			Thread.sleep( (millis + random.nextInt(millis))/2 );
+			Thread.sleep( (millis + random.nextInt(millis)) / 2 );
 		} catch (InterruptedException e) {}
 	}
 	

@@ -38,6 +38,8 @@ public class TaskInteraction extends Thread {
 	}
 	
 	public void runTask () {
+		ThreadUtil.simulateTimeMedio( Simulation.getInstance().getTaskTime() / 4 );
+
 		switch( this.actionTagTask ) {
 			case TaskInteraction.TASK_SOLICITA_AMBULANCIA: 
 				this.ambulancia.solicitarTraslado((Asociado) this.persona);
@@ -52,6 +54,6 @@ public class TaskInteraction extends Thread {
 			break;
 		}
 		
-		ThreadUtil.simulateTimeMedio( Simulation.getInstance().getTaskTime()/4 );
+		ThreadUtil.simulateTimeMedio( Simulation.getInstance().getTaskTime() / 4 );
 	}
 }

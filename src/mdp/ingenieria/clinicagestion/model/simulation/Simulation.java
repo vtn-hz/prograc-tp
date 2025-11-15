@@ -6,6 +6,7 @@ import java.util.Observable;
 import mdp.ingenieria.clinicagestion.model.Ambulancia;
 import mdp.ingenieria.clinicagestion.persistence.AsociadoDTO;
 import mdp.ingenieria.clinicagestion.persistence.PersonaDTO;
+import mdp.ingenieria.clinicagestion.util.ThreadUtil;
 import mdp.ingenieria.clinicagestion.model.persona.AmbulanciaInteractorFactory;
 import mdp.ingenieria.clinicagestion.model.persona.Persona;
 
@@ -30,7 +31,7 @@ public class Simulation extends Observable {
 	private Simulation () {
 		this.status = Simulation.STATE_TERMINATED;
 		this.temporalThreadWorkingCount = 0;
-		this.taskTime = 2000;
+		this.taskTime = ThreadUtil.MEDIUM;
 		this.ambulancia = new Ambulancia();
 	}
 

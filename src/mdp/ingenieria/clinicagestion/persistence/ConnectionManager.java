@@ -28,7 +28,7 @@ public class ConnectionManager {
             this.url  = getenvOrDefault("DB_URL",  p.getProperty("db.url"));
             this.user = getenvOrDefault("DB_USER", p.getProperty("db.user"));
             this.pass = getenvOrDefault("DB_PASS", p.getProperty("db.pass"));
-
+            
             if (url == null || user == null || pass == null)
                 throw new IllegalStateException("Faltan propiedades de conexión (url/user/pass)");
         } catch (Exception e) {
