@@ -32,7 +32,7 @@ public class ThreadUtil {
 	public static void simulateTimeMedio ( int millis ) {
 		assert millis > 0;
 		try {
-			Thread.sleep( millis + random.nextInt(millis) );
+			Thread.sleep( (millis + random.nextInt(millis))/2 );
 		} catch (InterruptedException e) {}
 	}
 	
