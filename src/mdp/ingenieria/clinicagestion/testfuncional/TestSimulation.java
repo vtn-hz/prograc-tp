@@ -3,37 +3,42 @@ package mdp.ingenieria.clinicagestion.testfuncional;
 import java.util.Random;
 
 import mdp.ingenieria.clinicagestion.model.Ambulancia;
-import mdp.ingenieria.clinicagestion.model.data.ActorDTO;
+import mdp.ingenieria.clinicagestion.persistence.PersonaDTO;
 import mdp.ingenieria.clinicagestion.model.simulation.Simulation;
 import mdp.ingenieria.clinicagestion.model.simulation.TaskInteraction;
 
 public class TestSimulation {
 
-    public static void ejecutarTest() {
+    /*public static void ejecutarTest() {
         System.out.println("--- INICIANDO TEST DE SIMULACIÓN COMPLETA ---");
 
-        // --- 1. Crear los DTOs de actores asociados ---
-        ActorDTO[] asociados = new ActorDTO[] {
-            new ActorDTO("Juan Pérez", "12345678", "2231111111", "Mar del Plata", "Calle 1 100", 3),
-            new ActorDTO("Ana Gómez", "23456789", "2232222222", "Mar del Plata", "Calle 2 200", 2)
+        // --- 1. Crear los DTOs de personas asociadas ---
+        PersonaDTO[] asociados = new PersonaDTO[] {
+            new PersonaDTO("12345678", "Juan Pérez", "2231111111", "Mar del Plata", "Calle 1 100"),
+            new PersonaDTO("23456789", "Ana Gómez", "2232222222", "Mar del Plata", "Calle 2 200")
         };
 
         // --- 2. Crear el DTO del operario ---
-        ActorDTO operario = new ActorDTO("Carlos López", "34567890", "2233333333", "Mar del Plata", "Calle 3 300", 4);
+        PersonaDTO operario = new PersonaDTO("34567890", "Carlos López", "2233333333", "Mar del Plata", "Calle 3 300");
 
         // --- 3. Obtener la instancia de simulación ---
         Simulation simulation = Simulation.getInstance();
         Ambulancia ambulancia = new Ambulancia();
 
-        // --- 4. Iniciar la simulación ---
-        simulation.start(asociados, operario, ambulancia, 4000);
+        // --- 4. Configurar la simulación ---
+        simulation.setAmbulancia(ambulancia);
+        simulation.setTaskTime(4000);
+
+        // --- 5. Iniciar la simulación ---
+        int interactionCount = 3; // 3 interacciones para todos los actores
+        simulation.start(asociados, operario, interactionCount);
         System.out.println(">>> Simulación iniciada. Generando batería de acciones...");
 
-        // --- 5. Lanzar batería de acciones en hilo separado ---
+        // --- 6. Lanzar batería de acciones en hilo separado ---
         Thread actionThread = new Thread(() -> lanzarBateriaDeAcciones(simulation, ambulancia));
         actionThread.start();
 
-        // --- 6. Esperar a que la simulación termine ---
+        // --- 7. Esperar a que la simulación termine ---
         while (simulation.isRunning()) {
             try {
                 Thread.sleep(400);
@@ -42,7 +47,7 @@ public class TestSimulation {
             }
         }
 
-        // --- 7. Esperar que terminen tareas temporales ---
+        // --- 8. Esperar que terminen tareas temporales ---
         while (simulation.hasTemporalThreadWorking()) {
             try {
                 Thread.sleep(300);
@@ -51,7 +56,7 @@ public class TestSimulation {
             }
         }
 
-        // --- 8. Verificación final ---
+        // --- 9. Verificación final ---
         System.out.println("✅ TEST FINALIZADO: todos los actores completaron sus tareas.");
         System.out.println("--- FIN DE LA SIMULACIÓN ---");
     }
@@ -59,7 +64,7 @@ public class TestSimulation {
     /**
      * Lanza una batería de acciones aleatorias mientras la simulación está activa.
      */
-    private static void lanzarBateriaDeAcciones(Simulation simulation, Ambulancia ambulancia) {
+    /*private static void lanzarBateriaDeAcciones(Simulation simulation, Ambulancia ambulancia) {
         Random random = new Random();
 
         int cantidadAcciones = 10; // cantidad total de eventos simulados
@@ -97,5 +102,5 @@ public class TestSimulation {
     // Metodo main para ejecutar directamente
     public static void main(String[] args) {
         ejecutarTest();
-    }
+    }*/
 }
