@@ -72,8 +72,6 @@ public class VistaBase implements IVistaBase {
     public void setActionListener(ActionListener actionListener) {
         page1Btn.addActionListener(actionListener);
         page2Btn.addActionListener(actionListener);
-
-        vista3.getStopBtn().addActionListener(actionListener);
     }
 
     public IVista getVista1() {

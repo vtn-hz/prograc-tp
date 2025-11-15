@@ -55,6 +55,7 @@ public class VistaSimulacion implements IVistaSimulacion {
 
     public void setActionListener(ActionListener actionListener) {
         maintenanceBtn.addActionListener(actionListener);
+        stopBtn.addActionListener(actionListener);
     }
 
     public void addAsociado(String nya, int state) {

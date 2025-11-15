@@ -80,16 +80,17 @@ public class ControladorSimulacion extends Controlador implements Observer {
                 // check if number is too large
 
                 // todo: configure number of asociados (threads) and requests
-                
+
                 /** simulate simulation call */
                 this.initializeSimulation();
                 vistaNav.showPage(code);
-            } catch(NumberFormatException exc) {
+            } catch (NumberFormatException exc) {
                 popupError("Números inválidos");
             }
-        }
-
-        if (src == vistaSim.getMaintenanceBtn()) {
+        } else if (src == vistaSim.getStopBtn()){
+            // todo: configure soft simulation stop
+            vistaNav.showPage(code);
+        } else if (src == vistaSim.getMaintenanceBtn()) {
             this.controladorAmbulancia.eventOperario(operarioSimulacion);
         }
     }
