@@ -25,6 +25,8 @@ public class EstadoRegresandoTaller extends EstadoAbstracto{
     public void solicitarMantenimiento() {
         // informa que no puede
     }
-
-
+	@Override
+	public String toString() {
+		return "Regresando taller";
+	}
 }

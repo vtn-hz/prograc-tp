@@ -22,4 +22,7 @@ public abstract class EstadoAbstracto {
     public abstract void solicitarMantenimiento();
 
     public abstract void solicitarAtencionDomicilio();
+    
+    @Override
+    public abstract String toString();
 }

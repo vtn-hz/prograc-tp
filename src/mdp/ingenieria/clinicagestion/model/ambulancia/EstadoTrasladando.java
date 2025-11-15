@@ -25,4 +25,8 @@ public class EstadoTrasladando extends EstadoAbstracto{
     public void solicitarMantenimiento() {
         // infroma que no puede
     }
+	@Override
+	public String toString() {
+		return "Trasladando";
+	}   
 }

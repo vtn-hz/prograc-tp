@@ -31,4 +31,9 @@ public class EstadoEnTaller extends EstadoAbstracto{
     public void solicitarMantenimiento() {
         this.ambulancia.setEstado(new EstadoRegresandoTaller(this.ambulancia));
     }
+
+	@Override
+	public String toString() {
+		return "En taller";
+	}
 }
