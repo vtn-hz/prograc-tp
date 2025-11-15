@@ -71,10 +71,14 @@ public class VistaSimulacion implements IVistaSimulacion {
         panel2.add(label);
     }
 
-    public void clearAsociados() {
+    public void clearSimulation() {
         panel1.removeAll();
         panel1.revalidate();
         panel1.repaint();
+
+        panel2.removeAll();
+        panel2.revalidate();
+        panel2.repaint();
     }
 
     public void popupMessage(String msg, int ms) {

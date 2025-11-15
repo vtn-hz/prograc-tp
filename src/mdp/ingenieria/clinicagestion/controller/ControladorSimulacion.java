@@ -80,7 +80,7 @@ public class ControladorSimulacion extends Controlador implements Observer {
             } else if (!isGenerated && numAsoc > service.contar()) {
                 vistaConfig.popupError("Número de asociados disponibles excedido");
             } else {
-                vistaSim.clearAsociados();
+                vistaSim.clearSimulation();
                 this.initializeSimulation();
 
                 vistaNav.showPage(code);
