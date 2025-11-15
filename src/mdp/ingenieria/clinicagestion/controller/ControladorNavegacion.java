@@ -16,7 +16,6 @@ public class ControladorNavegacion extends Controlador {
     @Override
     public void actionPerformed(ActionEvent e) {
         String code = e.getActionCommand();
-
         this.vista.showPage(code);
     }
 }
