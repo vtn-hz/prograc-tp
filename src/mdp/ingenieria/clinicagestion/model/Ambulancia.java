@@ -5,6 +5,7 @@ import mdp.ingenieria.clinicagestion.model.ambulancia.EstadoAbstracto;
 import mdp.ingenieria.clinicagestion.model.ambulancia.EstadoDisponible;
 import mdp.ingenieria.clinicagestion.model.persona.Asociado;
 import mdp.ingenieria.clinicagestion.model.persona.Operario;
+import mdp.ingenieria.clinicagestion.model.simulation.Actor;
 
 import java.util.Observable;
 
@@ -18,8 +19,13 @@ public class Ambulancia extends Observable {
     public synchronized void solicitarAtencionDomicilio(Asociado asociado){
         while( !estado.puedeAtencionDomicilio() ){
             try{
-
-                this.notifyObservers(new AmbulanceStateMessage("No se puede atender a domicilio en este momento", asociado) );
+            	setChanged();
+                this.notifyObservers(
+                	new AmbulanceStateMessage(
+                		"No se puede atender a domicilio en este momento", 
+                		Actor.PENDING, asociado
+                	) 
+                );
                 wait();
 
             } catch (InterruptedException e){
@@ -28,14 +34,15 @@ public class Ambulancia extends Observable {
         }
         this.estado.solicitarAtencionDomicilio();
         setChanged();
-        notifyObservers( new AmbulanceStateMessage("Se solicito atencion a domicilio", asociado));
+        notifyObservers( new AmbulanceStateMessage("Se solicito atencion a domicilio", Actor.RUNNING, asociado));
         notifyAll();
     }
 
     public synchronized void solicitarTraslado(Asociado asociado){
         while (!estado.puedeTraslado()) {
             try {
-                this.notifyObservers( new AmbulanceStateMessage("No se puede realizar el traslado en este momento", asociado));
+            	setChanged();
+                this.notifyObservers( new AmbulanceStateMessage("No se puede realizar el traslado en este momento", Actor.PENDING, asociado));
                 wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -43,14 +50,15 @@ public class Ambulancia extends Observable {
         }
         this.estado.solicitarTraslado();
         setChanged();
-        notifyObservers(new AmbulanceStateMessage("Se solicito traslado", asociado));
+        notifyObservers(new AmbulanceStateMessage("Se solicito traslado", Actor.RUNNING, asociado));
         notifyAll();
     }
 
     public synchronized void solicitarMantenimiento(Operario operario){
         while (!estado.puedeMantenimiento()) {
             try {
-                this.notifyObservers(new AmbulanceStateMessage("No se puede realizar el mantenimiento en este momento", operario));
+            	setChanged();
+                this.notifyObservers(new AmbulanceStateMessage("No se puede realizar el mantenimiento en este momento", Actor.PENDING, operario));
                 wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -58,14 +66,14 @@ public class Ambulancia extends Observable {
         }
         this.estado.solicitarMantenimiento();
         setChanged();
-        notifyObservers(new AmbulanceStateMessage("Se solicito mantenimiento", operario));
+        notifyObservers(new AmbulanceStateMessage("Se solicito mantenimiento", Actor.RUNNING, operario));
         notifyAll();
     }
 
     public synchronized void retornoAutomatico(){
         this.estado.retornoAutomatico();
         setChanged();
-        notifyObservers( new AmbulanceStateMessage("Ambulancia en retorno automatico") );
+        notifyObservers( new AmbulanceStateMessage("Ambulancia en retorno automatico", Actor.RUNNING) );
         notifyAll();
     }
 
@@ -73,5 +81,9 @@ public class Ambulancia extends Observable {
         this.estado = estado;
         notifyAll();
     }
-
+    
+    public synchronized EstadoAbstracto getEstado() 
+    {
+    	return this.estado;
+    }
 }

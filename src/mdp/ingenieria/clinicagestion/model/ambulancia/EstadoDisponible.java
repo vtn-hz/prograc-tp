@@ -42,4 +42,9 @@ public class EstadoDisponible extends EstadoAbstracto {
         this.ambulancia.setEstado(new EstadoEnTaller(this.ambulancia) );
     }
 
+	@Override
+	public String toString() {
+		return "Disponible";
+	}
+    
 }

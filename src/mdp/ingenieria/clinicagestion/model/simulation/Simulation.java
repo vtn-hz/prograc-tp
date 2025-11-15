@@ -1,106 +1,133 @@
 package mdp.ingenieria.clinicagestion.model.simulation;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
 import mdp.ingenieria.clinicagestion.model.Ambulancia;
-import mdp.ingenieria.clinicagestion.model.data.ActorDTO;
+import mdp.ingenieria.clinicagestion.persistence.AsociadoDTO;
+import mdp.ingenieria.clinicagestion.persistence.PersonaDTO;
 import mdp.ingenieria.clinicagestion.model.persona.AmbulanciaInteractorFactory;
 import mdp.ingenieria.clinicagestion.model.persona.Persona;
-import mdp.ingenieria.clinicagestion.util.ThreadUtil;
 
-public class Simulation {
-	
+public class Simulation extends Observable {
+
 	public static final String STATE_RUNNING = "running";
-	
+
 	public static final String STATE_FINALIZING = "finalizing";
-	
+
 	public static final String STATE_TERMINATED =  "terminated";
-	
+
 	private static Simulation _instance;
-	
-	private String status; 
-	
+
+	private String status;
+
+	private Ambulancia ambulancia;
+
+	private int taskTime;
+
 	private int temporalThreadWorkingCount;
-	
+
 	private Simulation () {
 		this.status = Simulation.STATE_TERMINATED;
 		this.temporalThreadWorkingCount = 0;
+		this.taskTime = 2000;
+		this.ambulancia = new Ambulancia();
 	}
-	
-	public static Simulation getInstance() 
+
+	public static Simulation getInstance()
 	{
 		if (_instance == null)
 			_instance = new Simulation();
-		
+
 		return _instance;
 	}
-	
+
 	/**
 	 * <b>pre: </b> solo se deberian utilizar estados que existan
 	 * @param status
 	 */
-	public void setStatus ( String status ) {
+	public synchronized void  setStatus ( String status ) {
 		this.status = status;
+		setChanged();
+		notifyObservers(new SimulationStateMessage(this.status));
 	}
-	
+
 	public boolean isRunning() {
 		return this.status == Simulation.STATE_RUNNING;
 	}
-	
+
 	public boolean isFinalizing() {
 		return this.status == Simulation.STATE_FINALIZING;
 	}
 
 	/**
-	 * <b>pre:</b> la unica entidad que deberia llamar a terminated es un persistentthread, <br>
-	 * en este caso seria la ambulancia
+	 * <b>pre:</b> la unica entidad que deberia llamar a terminated es un SimulationWatcher, <br>
+	 * en este caso seria la AmbulanciaSimulationWatcher
 	 * @return boolean
 	 */
 	public boolean isTerminated() {
 		return this.status == Simulation.STATE_TERMINATED;
 	}
-	
+
 	public void setThreadWorkingCount( int count )
 	{
 		this.temporalThreadWorkingCount = count;
 	}
-	
+
 	public synchronized boolean hasTemporalThreadWorking()
 	{
 		return this.temporalThreadWorkingCount > 0;
 	}
-	
-	public synchronized void temporalThreadFinalized() 
+
+	public synchronized void temporalThreadFinalized()
 	{
 		this.temporalThreadWorkingCount--;
 	}
 	
-	public synchronized void temporalThreadStarted() 
+	public synchronized void temporalThreadFinalized(Persona persona)
+	{
+		this.temporalThreadWorkingCount--;
+		setChanged();
+		notifyObservers(new SimulationStateMessage(this.status, persona));
+	}
+
+	public synchronized void temporalThreadStarted()
 	{
 		this.temporalThreadWorkingCount++;
 	}
-	
-	public void start(ActorDTO[] asociadosDto, ActorDTO operarioDto, Ambulancia ambulancia, int taskTime)
+
+	public Ambulancia getAmbulancia() {
+		return ambulancia;
+	}
+
+	public void setAmbulancia(Ambulancia ambulancia) {
+		this.ambulancia = ambulancia;
+	}
+
+	public int getTaskTime() {
+		return taskTime;
+	}
+
+	public void setTaskTime(int taskTime) {
+		this.taskTime = taskTime;
+	}
+
+	public void start(AsociadoDTO[] asociadosDto, PersonaDTO operarioDto, int interactionCount)
 	{
 	    ArrayList<Actor> asociadosActores = new ArrayList<>();
 	    Actor operarioActor = null;
-	    Actor ambulanciaActor = null;
+	    SimulationWatcher ambulanciaWatcher = null;
 
-	    for (ActorDTO dto : asociadosDto) {
+	    for (PersonaDTO dto : asociadosDto) {
 	        Persona asociado = AmbulanciaInteractorFactory.create(
 	            AmbulanciaInteractorFactory.ASOCIADO,
-	            dto.getNyA(),
-	            dto.getDni(),
-	            dto.getTelefono(),
-	            dto.getCiudad(),
-	            dto.getDireccion(),
-	            ambulancia
+	            dto,
+	            this.ambulancia
 	        );
-	        
+
 	        Actor actor = ActorFactory.createTemporallActor(
 	            ActorFactory.ASOCIADO_ACTOR,
-	            taskTime,
-	            dto.getInteractionCount(),
+	            interactionCount,
 	            asociado
 	        );
 
@@ -109,39 +136,27 @@ public class Simulation {
 
 	    Persona operario = AmbulanciaInteractorFactory.create(
 	        AmbulanciaInteractorFactory.OPERARIO,
-	        operarioDto.getNyA(),
-	        operarioDto.getDni(),
-	        operarioDto.getTelefono(),
-	        operarioDto.getCiudad(),
-	        operarioDto.getDireccion(),
-	        ambulancia
+	        operarioDto,
+	        this.ambulancia
 	    );
 
 	    operarioActor = ActorFactory.createTemporallActor(
 	        ActorFactory.OPERARIO_ACTOR,
-	        taskTime,
-            operarioDto.getInteractionCount(),
+            interactionCount,
             operario
 	    );
 
-	    ambulanciaActor = ActorFactory.createPersistentActor(
-	        ActorFactory.AMBULANCIA_ACTOR,
-	        taskTime,
-	        ambulancia
+	    ambulanciaWatcher = SimulationWatcherFactory.create(
+	        SimulationWatcherFactory.AMBULANCIA_WATCHER
 	    );
 
 	    this.setThreadWorkingCount(asociadosActores.size() + 1);
 	    this.setStatus( Simulation.STATE_RUNNING );
 
-	    ambulanciaActor.start();
+	    ambulanciaWatcher.start();
 	    operarioActor.start();
 	    asociadosActores.forEach(Actor::start);
 	}
-	
-	public void start(ActorDTO[] asociadosDto, ActorDTO operarioDto, Ambulancia ambulancia)
-	{
-		this.start(asociadosDto, operarioDto, ambulancia, ThreadUtil.MEDIUM);
-	}
-	
-	
+
+
 }

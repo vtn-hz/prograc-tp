@@ -7,14 +7,18 @@ public class AmbulanceStateMessage {
     private Persona solicitante;
 
     private String message;
+    
+    private int status;
 
-    public AmbulanceStateMessage(String message, Persona solicitante) {
+    public AmbulanceStateMessage(String message, int status, Persona solicitante) {
         this.message = message;
+        this.status = status;
         this.solicitante = solicitante;
     }
 
-    public AmbulanceStateMessage(String message){
+    public AmbulanceStateMessage(String message, int status){
         this.message = message;
+        this.status = status;
     }
 
     public boolean hasSolicitante() {
@@ -27,5 +31,9 @@ public class AmbulanceStateMessage {
 
     public String getMessage() {
         return message;
+    }
+    
+    public int getState () {
+    	return status;
     }
 }

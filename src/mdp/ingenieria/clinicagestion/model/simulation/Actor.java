@@ -1,19 +1,22 @@
 package mdp.ingenieria.clinicagestion.model.simulation;
 
 public abstract class Actor extends Thread {
+	
+	public static final int PENDING = 0;
+	
+	public static final int RUNNING = 1;
+	
+	public static final int TERMINATED = 2;
 
-	private int averageTaskTime;
-	
-	public Actor( int averageTaskTime ){
-		this.averageTaskTime = averageTaskTime;
+	public Actor() {
 	}
-	
+
 	@Override
 	public abstract void run() ;
-	
+
 	public abstract void runTask() ;
 
-	public int getAverageTaskTime() {
-		return averageTaskTime;
+	protected int getAverageTaskTime() {
+		return Simulation.getInstance().getTaskTime();
 	}
 }
