@@ -1,6 +1,5 @@
 package mdp.ingenieria.clinicagestion.view;
 
-import mdp.ingenieria.clinicagestion.controller.IVista;
 import mdp.ingenieria.clinicagestion.controller.IVistaConfiguracion;
 
 import javax.swing.*;
@@ -13,16 +12,19 @@ public class VistaConfiguracion implements IVistaConfiguracion {
     private JButton startBtn;
     private JTextField textField1;
     private JTextField textField2;
+    private JCheckBox generarCheckBox;
 
     private int numAsoc = -1;
     private int numReq  = -1;
+    private boolean isGenerated = false;
 
     @Override
     public void setActionListener(ActionListener actionListener) {
         startBtn.addActionListener(e -> {
             try {
                 numAsoc = Integer.parseInt(textField1.getText().trim());
-                numReq  = Integer.parseInt(textField2.getText().trim());
+                numReq = Integer.parseInt(textField2.getText().trim());
+                isGenerated = generarCheckBox.isSelected();
 
                 if (numAsoc <= 0 || numReq <= 0)
                     popupError("Los números deben ser positivos");
@@ -56,6 +58,11 @@ public class VistaConfiguracion implements IVistaConfiguracion {
     @Override
     public int getNumReq() {
         return numReq;
+    }
+
+    @Override
+    public boolean getIsGenerated() {
+        return isGenerated;
     }
 
     public JPanel getMainPanel() {
@@ -109,7 +116,7 @@ public class VistaConfiguracion implements IVistaConfiguracion {
         startBtn.setText("Simular");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         gbc.weightx = 1.0;
         gbc.insets = new Insets(5, 5, 5, 5);
         mainPanel.add(startBtn, gbc);
@@ -139,6 +146,12 @@ public class VistaConfiguracion implements IVistaConfiguracion {
         textField2 = new JTextField();
         textField2.setPreferredSize(new Dimension(150, 20));
         panel2.add(textField2, BorderLayout.CENTER);
+        generarCheckBox = new JCheckBox();
+        generarCheckBox.setText("Generar");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        mainPanel.add(generarCheckBox, gbc);
     }
 
     /**

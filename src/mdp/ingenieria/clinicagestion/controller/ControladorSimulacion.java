@@ -27,11 +27,12 @@ public class ControladorSimulacion extends Controlador implements Observer {
 
     private int numAsoc;
     private int numReq;
+    private boolean isGenerated;
 
     private Operario operarioSimulacion;
 
     private ArrayList<String> asociadosDnis;
-    
+
     private ControladorAmbulancia controladorAmbulancia;
 
     public ControladorSimulacion() {
@@ -69,13 +70,16 @@ public class ControladorSimulacion extends Controlador implements Observer {
         if (src == vistaConfig.getStartBtn()) {
 
             numAsoc = vistaConfig.getNumAsoc();
-            numReq  = vistaConfig.getNumReq();
+            numReq = vistaConfig.getNumReq();
+            isGenerated = vistaConfig.getIsGenerated();
 
             if (numReq > 10)
                 vistaConfig.popupError("Número de pedidos por asociado excedido");
-            else if (numAsoc > service.contar())
+            else if (isGenerated && numAsoc > 50) {
+                vistaConfig.popupError("Número de asociados excedido");
+            } else if (!isGenerated && numAsoc > service.contar()) {
                 vistaConfig.popupError("Número de asociados disponibles excedido");
-            else {
+            } else {
                 vistaSim.clearAsociados();
                 this.initializeSimulation();
 
@@ -92,8 +96,12 @@ public class ControladorSimulacion extends Controlador implements Observer {
     }
     
     private void initializeSimulation() {
-    	// List<AsociadoDTO> asociados = generator.generateUsers(numAsoc);
-    	List<AsociadoDTO> asociados = service.listarRnd(numAsoc);
+        List<AsociadoDTO> asociados;
+        if (isGenerated)
+            asociados = generator.generateUsers(numAsoc);
+    	else
+            asociados = service.listarRnd(numAsoc);
+
         PersonaDTO operario = new PersonaDTO("40000111", "Operario Simulado", "2234000000", "Mar del Plata", "Colón 3000");
     
         this.addAsociados( asociados );

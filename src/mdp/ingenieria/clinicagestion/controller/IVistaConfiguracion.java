@@ -7,6 +7,7 @@ public interface IVistaConfiguracion extends IVista {
     int getNumAsoc();
     int getNumReq();
     void popupError(String msg);
+    boolean getIsGenerated();
 
     JPanel getMainPanel();
     JTextField getTextField1();
