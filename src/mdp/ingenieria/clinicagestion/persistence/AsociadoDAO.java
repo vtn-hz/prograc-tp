@@ -25,6 +25,27 @@ public class AsociadoDAO implements IAsociadoDAO {
     }
 
     @Override
+    public void agregarAsociados(List<AsociadoDTO> lista) {
+        String sql = "INSERT INTO asociado(dni, nya, telefono, ciudad, direccion) VALUES(?,?,?,?,?)";
+
+        try (Connection c = cm.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            for (AsociadoDTO a : lista) {
+                ps.setString(1, a.getDni());
+                ps.setString(2, a.getNya());
+                ps.setString(3, a.getTelefono());
+                ps.setString(4, a.getCiudad());
+                ps.setString(5, a.getDireccion());
+                ps.addBatch();
+            }
+            ps.executeBatch();
+        } catch (BatchUpdateException e) {
+            throw new RuntimeException("Error en inserción por lote (posible DNI duplicado)", e);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error insertando lista de asociados", e);
+        }
+    }
+
+    @Override
     public boolean eliminarAsociado(String dni) {
         String sql = "DELETE FROM asociado WHERE dni = ?";
         try (Connection c = cm.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
@@ -32,6 +53,17 @@ public class AsociadoDAO implements IAsociadoDAO {
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new RuntimeException("Error eliminando asociado " + dni, e);
+        }
+    }
+
+    @Override
+    public void eliminarTodos() {
+        String sql = "DELETE FROM asociado";
+        try (Connection c = cm.getConnection();
+            PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error eliminando todos los asociados", e);
         }
     }
 

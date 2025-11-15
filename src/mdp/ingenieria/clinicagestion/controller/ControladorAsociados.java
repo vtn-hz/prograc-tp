@@ -15,7 +15,9 @@ public class ControladorAsociados extends Controlador {
 
     public void setVista(IVista vista) {
         this.vista = (IVistaAsociados) vista;
+        this.vista.enableButtons(false);
         this.vista.updateAsociados(service.listar());
+        this.vista.enableButtons(true);
         this.vista.setActionListener(this);
     }
 
@@ -56,14 +58,19 @@ public class ControladorAsociados extends Controlador {
 
         } else if (src == vista.getRemoveTableBtn()) {
 
-            // todo: remove all Asociados from database (¿dao.eliminarTabla(...)?)
-            vista.deleteAsociados(); // or vista.updateAsociados(List<AsociadoDTO>)
+            if (vista.confirmDeleteAll())
+                try {
+                    service.bajaTabla();
+                    vista.deleteAsociados(); // or vista.updateAsociados(service.listar())
+                } catch (RuntimeException exc) {
+                    vista.popupError("Error eliminando la tabla:\n" + exc.getMessage());
+                }
 
         } else if (src == vista.getGenerateTableBtn()) {
 
-            List<AsociadoDTO> lista = generator.generateUsers(20);
-            // todo: add all Asociados to database (¿dao.crearTabla(...)?)
-            vista.updateAsociados(lista);
+            List<AsociadoDTO> lista = generator.generateUsers(10);
+            service.altaTabla(lista);
+            vista.updateAsociados(service.listar());
 
         }
     }

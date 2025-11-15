@@ -26,6 +26,7 @@ public class VistaAsociados implements IVistaAsociados {
     private JButton generateBtn;
     private JButton removeTableBtn;
     private JButton generateTableBtn;
+    private JScrollPane scrollPane;
 
     private DefaultTableModel model;
     private Random random = new Random();
@@ -82,6 +83,37 @@ public class VistaAsociados implements IVistaAsociados {
     @Override
     public void removeAsociadoRow(int rowNumber) {
         model.removeRow(rowNumber);
+    }
+
+    @Override
+    public void popupError(String message) {
+        JOptionPane.showMessageDialog(
+                null,
+                message,
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+        );
+    }
+
+    @Override
+    public boolean confirmDeleteAll() {
+        int r = JOptionPane.showConfirmDialog(
+                scrollPane,
+                "¿Eliminar todos los asociados?",
+                "Confirmar eliminación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE
+        );
+        return r == JOptionPane.YES_OPTION;
+    }
+
+    @Override
+    public void enableButtons(boolean enabled) {
+        addBtn.setEnabled(enabled);
+        generateBtn.setEnabled(enabled);
+        generateTableBtn.setEnabled(enabled);
+        removeBtn.setEnabled(enabled);
+        removeTableBtn.setEnabled(enabled);
     }
 
     public JPanel getMainPanel() {
@@ -248,18 +280,18 @@ public class VistaAsociados implements IVistaAsociados {
         gbc.weightx = 1.0;
         gbc.insets = new Insets(5, 5, 5, 5);
         panel1.add(addBtn, gbc);
-        final JScrollPane scrollPane1 = new JScrollPane();
-        scrollPane1.setAlignmentX(1.0f);
-        scrollPane1.setAlignmentY(1.0f);
+        scrollPane = new JScrollPane();
+        scrollPane.setAlignmentX(1.0f);
+        scrollPane.setAlignmentY(1.0f);
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 1;
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.BOTH;
-        mainPanel.add(scrollPane1, gbc);
+        mainPanel.add(scrollPane, gbc);
         table1 = new JTable();
-        scrollPane1.setViewportView(table1);
+        scrollPane.setViewportView(table1);
         final JPanel panel8 = new JPanel();
         panel8.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         gbc = new GridBagConstraints();

@@ -16,8 +16,16 @@ public class AsociadoService {
         dao.agregarAsociado(a);
     }
 
+    public void altaTabla(List<AsociadoDTO> l) {
+        dao.agregarAsociados(l);
+    }
+
     public boolean baja(String dni) {
         return dao.eliminarAsociado(dni);
+    }
+
+    public void bajaTabla() {
+        dao.eliminarTodos();
     }
 
     public boolean existe(String dni) {

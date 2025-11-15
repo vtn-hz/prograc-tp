@@ -12,6 +12,9 @@ public interface IVistaAsociados extends IVista {
     void deleteAsociados();
     void addAsociadoRow(AsociadoDTO asociado);
     void removeAsociadoRow(int index);
+    void popupError(String msg);
+    boolean confirmDeleteAll();
+    void enableButtons(boolean enabled);
 
     JPanel getMainPanel();
     JTable getTable();
