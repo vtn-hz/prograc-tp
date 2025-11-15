@@ -8,6 +8,7 @@ import mdp.ingenieria.clinicagestion.model.simulation.Simulation;
 import mdp.ingenieria.clinicagestion.model.simulation.SimulationStateMessage;
 import mdp.ingenieria.clinicagestion.persistence.AsociadoDTO;
 import mdp.ingenieria.clinicagestion.persistence.PersonaDTO;
+import mdp.ingenieria.clinicagestion.service.AsociadoService;
 import mdp.ingenieria.clinicagestion.view.VistaBase;
 import mdp.ingenieria.clinicagestion.view.VistaConfiguracion;
 import mdp.ingenieria.clinicagestion.view.VistaSimulacion;
@@ -16,6 +17,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -26,6 +28,9 @@ public class ControladorSimulacion extends Controlador implements Observer {
     private IVistaSimulacion vistaSim;
     
     private IVistaBase vistaNav;
+
+    private AsociadoGenerator generator = new AsociadoGenerator();
+    private AsociadoService service = new AsociadoService();
 
     private int numAsoc;
     private int numReq;
@@ -46,7 +51,6 @@ public class ControladorSimulacion extends Controlador implements Observer {
         		"Operario Simulado", "-", "-","-", "-",
         		Simulation.getInstance().getAmbulancia()
         );
-        
     }
 
     public void setVistaConfig(IVista vista) {
@@ -57,11 +61,7 @@ public class ControladorSimulacion extends Controlador implements Observer {
     public void setVistaSim(IVista vista) {
         this.vistaSim = (IVistaSimulacion) vista;
         vista.setActionListener(this);
-
-        // placeholder(); // todo: remove initialization and set it up from the model
     }
-    
-    
 
     public void setVistaNav(IVista vista) {
         this.vistaNav = (IVistaBase) vista;
@@ -78,8 +78,7 @@ public class ControladorSimulacion extends Controlador implements Observer {
             numAsoc = vistaConfig.getNumAsoc();
             numReq  = vistaConfig.getNumReq();
 
-            // todo: configure number of asociados (threads) and requests
-            /** simulate simulation call */
+            this.clearSimulation();
             this.initializeSimulation();
 
             vistaNav.showPage(code);
@@ -92,28 +91,21 @@ public class ControladorSimulacion extends Controlador implements Observer {
             this.controladorAmbulancia.eventOperario(operarioSimulacion);
         }
     }
-    
-    private ArrayList<AsociadoDTO> getSampleData () {
-        ArrayList<AsociadoDTO> asociados = new ArrayList<>();
 
-        asociados.add(new AsociadoDTO("30111222", "Juan Pérez", "2235123456", "Mar del Plata", "San Juan 123"));
-        asociados.add(new AsociadoDTO("28999888", "María Gómez", "2234234567", "Mar del Plata", "Rivadavia 456"));
-        asociados.add(new AsociadoDTO("33444555", "Carlos López", "2235345678", "Batán", "Mitre 789"));
-        asociados.add(new AsociadoDTO("27777111", "Laura Fernández", "2235456789", "Mar del Plata", "Independencia 2500"));
-        asociados.add(new AsociadoDTO("31222999", "Diego Martínez", "2235567890", "Sierra de los Padres", "Los Pinos 55"));
-        
-        return asociados;
+    private void clearSimulation() {
+        // todo: reset simulation for rerun
     }
     
     private void initializeSimulation() {
-    	ArrayList<AsociadoDTO> asociados = this.getSampleData(); 
+    	// List<AsociadoDTO> asociados = generator.generateUsers(numAsoc);
+    	List<AsociadoDTO> asociados = service.listarRnd(numAsoc);
         PersonaDTO operario = new PersonaDTO("40000111", "Operario Simulado", "2234000000", "Mar del Plata", "Colón 3000");
     
         this.addAsociados( asociados );
         Simulation.getInstance().start(asociados.toArray(new AsociadoDTO[0]), operario, numReq);
     }
     
-    private void addAsociados(ArrayList<AsociadoDTO> asociados) {
+    private void addAsociados(List<AsociadoDTO> asociados) {
     	   for (AsociadoDTO asociado : asociados) {
                vistaSim.addAsociado(asociado.getNya(), 0);
                this.asociadosDnis.add( asociado.getDni() );

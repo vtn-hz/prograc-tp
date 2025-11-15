@@ -121,6 +121,30 @@ public class AsociadoDAO implements IAsociadoDAO {
     }
 
     @Override
+    public List<AsociadoDTO> listarAsociadosRnd(int limit) {
+        String sql = "SELECT dni, nya, telefono, ciudad, direccion FROM asociado ORDER BY RAND() LIMIT ?";
+        List<AsociadoDTO> list = new ArrayList<>();
+        try (Connection c = cm.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, limit);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    list.add(new AsociadoDTO(
+                        rs.getString("dni"),
+                        rs.getString("nya"),
+                        rs.getString("telefono"),
+                        rs.getString("ciudad"),
+                        rs.getString("direccion")
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error listando asociados", e);
+        }
+        return list;
+    }
+
+    @Override
     public boolean actualizarAsociado(AsociadoDTO a) {
         String sql = "UPDATE asociado SET nya = ?, telefono = ?, ciudad = ?, direccion = ? WHERE dni = ?";
         try (Connection c = cm.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {

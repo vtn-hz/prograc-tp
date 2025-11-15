@@ -40,6 +40,10 @@ public class AsociadoService {
         return dao.listarAsociados();
     }
 
+    public List<AsociadoDTO> listarRnd(int limit) {
+        return dao.listarAsociadosRnd(limit);
+    }
+
     public boolean actualizar(Asociado a) {
         return dao.actualizarAsociado(AsociadoMapper.toDTO(a));
     }
