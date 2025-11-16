@@ -6,6 +6,7 @@ import mdp.ingenieria.clinicagestion.model.ambulancia.EstadoDisponible;
 import mdp.ingenieria.clinicagestion.model.persona.Asociado;
 import mdp.ingenieria.clinicagestion.model.persona.Operario;
 import mdp.ingenieria.clinicagestion.model.simulation.Actor;
+import mdp.ingenieria.clinicagestion.model.simulation.Simulation;
 
 import java.util.Observable;
 
@@ -17,14 +18,14 @@ public class Ambulancia extends Observable {
     }
 
     public synchronized void solicitarAtencionDomicilio(Asociado asociado){
-        while( !estado.puedeAtencionDomicilio() ){
+        while( Simulation.getInstance().isRunning() && !estado.puedeAtencionDomicilio() ){
             try{
             	setChanged();
                 this.notifyObservers(
                 	new AmbulanceStateMessage(
-                		"No se puede atender a domicilio en este momento", 
+                		"No se puede atender a domicilio en este momento",
                 		Actor.PENDING, asociado
-                	) 
+                	)
                 );
                 wait();
 
@@ -39,7 +40,7 @@ public class Ambulancia extends Observable {
     }
 
     public synchronized void solicitarTraslado(Asociado asociado){
-        while (!estado.puedeTraslado()) {
+        while ( Simulation.getInstance().isRunning() && !estado.puedeTraslado()) {
             try {
             	setChanged();
                 this.notifyObservers( new AmbulanceStateMessage("No se puede realizar el traslado en este momento", Actor.PENDING, asociado));
@@ -55,7 +56,7 @@ public class Ambulancia extends Observable {
     }
 
     public synchronized void solicitarMantenimiento(Operario operario){
-        while (!estado.puedeMantenimiento()) {
+        while ( Simulation.getInstance().isRunning() && !estado.puedeMantenimiento()) {
             try {
             	setChanged();
                 this.notifyObservers(new AmbulanceStateMessage("No se puede realizar el mantenimiento en este momento", Actor.PENDING, operario));
