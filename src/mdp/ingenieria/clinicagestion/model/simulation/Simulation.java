@@ -20,7 +20,7 @@ public class Simulation extends Observable {
 
 	private static Simulation _instance;
 
-	private String status;
+	private volatile String status;
 
 	private Ambulancia ambulancia;
 
@@ -35,7 +35,7 @@ public class Simulation extends Observable {
 		this.ambulancia = new Ambulancia();
 	}
 
-	public static Simulation getInstance()
+	public static synchronized Simulation getInstance()
 	{
 		if (_instance == null)
 			_instance = new Simulation();
