@@ -10,6 +10,22 @@ public class AmbulanciaInteractorFactory {
 
 	public static final String OPERARIO = "OPERARIO";
 
+    /**
+     * Crea una instancia de Persona del tipo solicitado, asociada a una ambulancia.
+     *
+     * <b>pre:</b> personaType, NyA, dni, telefono, ciudad, direccion y ambulancia
+     * no deben ser nulos ni vacíos; personaType debe ser ASOCIADO u OPERARIO <br>
+     * <b>post:</b> se devuelve una instancia de Asociado u Operario según el tipo
+     *
+     * @param personaType tipo de persona a crear
+     * @param NyA nombre y apellido
+     * @param dni documento identificatorio
+     * @param telefono teléfono de contacto
+     * @param ciudad ciudad del domicilio
+     * @param direccion dirección específica del domicilio
+     * @param ambulancia ambulancia asociada a la persona
+     * @return instancia creada según el tipo indicado
+     */
 	public static Persona create(
 		String personaType, String NyA, String dni,
 		String telefono, String ciudad, String direccion,
@@ -40,6 +56,17 @@ public class AmbulanciaInteractorFactory {
 		return persona;
 	}
 
+    /**
+     * Crea una persona a partir de un DTO, asociándola a una ambulancia.
+     *
+     * <b>pre:</b> dto y ambulancia no deben ser nulos; personaType debe ser válido <br>
+     * <b>post:</b> se crea una instancia equivalente a partir del DTO
+     *
+     * @param personaType tipo de persona a crear
+     * @param dto datos de la persona
+     * @param ambulancia ambulancia asociada a la persona
+     * @return instancia creada según los datos del DTO
+     */
 	public static Persona create(
 		String personaType,
 		PersonaDTO dto,
