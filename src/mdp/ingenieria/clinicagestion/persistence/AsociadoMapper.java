@@ -6,6 +6,15 @@ import mdp.ingenieria.clinicagestion.model.Domicilio;
 public final class AsociadoMapper {
     private AsociadoMapper() {}
 
+    /**
+     * Convierte un objeto Asociado del modelo a su versión DTO.
+     *
+     * <b>pre:</b> a no debe ser nulo <br>
+     * <b>post:</b> se devuelve un DTO con los datos del asociado,
+     *
+     * @param a objeto Asociado del modelo
+     * @return instancia de AsociadoDTO con los datos equivalentes
+     */
     public static AsociadoDTO toDTO(Asociado a) {
         String dni = a.getDni();                // de Persona
         String nya = a.getNyA();                // de Persona

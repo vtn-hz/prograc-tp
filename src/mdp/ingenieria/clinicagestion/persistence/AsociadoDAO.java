@@ -7,6 +7,14 @@ import java.util.List;
 public class AsociadoDAO implements IAsociadoDAO {
     private final ConnectionManager cm = ConnectionManager.getInstance();
 
+    /**
+     * Inserta un nuevo asociado en la base de datos.
+     *
+     * <b>pre:</b> a no debe ser nulo y debe contener campos válidos (dni único) <br>
+     * <b>post:</b> se inserta un registro en la tabla asociado; si el DNI existe, se lanza una excepción
+     *
+     * @param a datos del asociado a agregar
+     */
     @Override
     public void agregarAsociado(AsociadoDTO a) {
         String sql = "INSERT INTO asociado(dni, nya, telefono, ciudad, direccion) VALUES(?,?,?,?,?)";
@@ -24,6 +32,15 @@ public class AsociadoDAO implements IAsociadoDAO {
         }
     }
 
+    /**
+     * Inserta una lista de asociados usando un batch.
+     *
+     * <b>pre:</b> lista no debe ser nula ni vacía; cada asociado debe tener DNI válido <br>
+     * <b>post:</b> se intentan insertar todos los registros; si hay conflicto (por ejemplo, DNI duplicado),
+     * se lanza una excepción
+     *
+     * @param lista lista de asociados a insertar
+     */
     @Override
     public void agregarAsociados(List<AsociadoDTO> lista) {
         String sql = "INSERT INTO asociado(dni, nya, telefono, ciudad, direccion) VALUES(?,?,?,?,?)";
@@ -45,6 +62,15 @@ public class AsociadoDAO implements IAsociadoDAO {
         }
     }
 
+    /**
+     * Elimina un asociado por DNI.
+     *
+     * <b>pre:</b> dni no debe ser nulo ni vacío <br>
+     * <b>post:</b> si existía, se elimina el registro y se devuelve true; en caso contrario se devuelve false
+     *
+     * @param dni identificador del asociado
+     * @return true si se eliminó algún registro, false si no existía
+     */
     @Override
     public boolean eliminarAsociado(String dni) {
         String sql = "DELETE FROM asociado WHERE dni = ?";
@@ -56,6 +82,11 @@ public class AsociadoDAO implements IAsociadoDAO {
         }
     }
 
+    /**
+     * Elimina todos los asociados de la tabla.
+     *
+     * <b>post:</b> la tabla asociado queda vacía
+     */
     @Override
     public void eliminarTodos() {
         String sql = "DELETE FROM asociado";
@@ -67,6 +98,13 @@ public class AsociadoDAO implements IAsociadoDAO {
         }
     }
 
+    /**
+     * Lista todos los asociados ordenados por nombre y apellido.
+     *
+     * <b>post:</b> se devuelve una lista (posiblemente vacía) con todos los registros de la tabla
+     *
+     * @return lista de AsociadoDTO
+     */
     @Override
     public List<AsociadoDTO> listarAsociados() {
         String sql = "SELECT dni, nya, telefono, ciudad, direccion FROM asociado ORDER BY nya";
@@ -87,6 +125,15 @@ public class AsociadoDAO implements IAsociadoDAO {
         return list;
     }
 
+    /**
+     * Lista asociados en orden aleatorio, limitado por el parámetro.
+     *
+     * <b>pre:</b> limit >= 0 <br>
+     * <b>post:</b> se devuelve una lista de longitud menor o igual a limit
+     *
+     * @param limit cantidad máxima de registros a devolver
+     * @return lista de AsociadoDTO en orden aleatorio
+     */
     @Override
     public List<AsociadoDTO> listarAsociadosRnd(int limit) {
         String sql = "SELECT dni, nya, telefono, ciudad, direccion FROM asociado ORDER BY RAND() LIMIT ?";
@@ -111,6 +158,13 @@ public class AsociadoDAO implements IAsociadoDAO {
         return list;
     }
 
+    /**
+     * Cuenta la cantidad total de asociados.
+     *
+     * <b>post:</b> se devuelve la cantidad de registros; en caso de error se devuelve 0
+     *
+     * @return número de filas en la tabla asociado
+     */
     @Override
     public int contarAsociados() {
         String sql = "SELECT COUNT(*) FROM asociado";
@@ -124,6 +178,15 @@ public class AsociadoDAO implements IAsociadoDAO {
         return 0;
     }
 
+    /**
+     * Verifica si existe un asociado con el DNI dado.
+     *
+     * <b>pre:</b> dni no debe ser nulo ni vacío <br>
+     * <b>post:</b> se devuelve true si hay al menos un registro con ese DNI
+     *
+     * @param dni identificador a verificar
+     * @return true si existe, false en caso contrario
+     */
     @Override
     public boolean existeAsociado(String dni) {
         String sql = "SELECT 1 FROM asociado WHERE dni = ?";
@@ -135,6 +198,15 @@ public class AsociadoDAO implements IAsociadoDAO {
         }
     }
 
+    /**
+     * Obtiene un asociado a partir de su DNI.
+     *
+     * <b>pre:</b> dni no debe ser nulo ni vacío <br>
+     * <b>post:</b> se devuelve un AsociadoDTO si existe, o null si no se encontró ningún registro
+     *
+     * @param dni identificador del asociado a buscar
+     * @return asociado encontrado o null
+     */
     @Override
     public AsociadoDTO obtenerAsociado(String dni) {
         String sql = "SELECT dni, nya, telefono, ciudad, direccion FROM asociado WHERE dni = ?";
@@ -157,6 +229,15 @@ public class AsociadoDAO implements IAsociadoDAO {
         }
     }
 
+    /**
+     * Actualiza los datos de un asociado ya existente.
+     *
+     * <b>pre:</b> a no debe ser nulo y su DNI debe existir en la base <br>
+     * <b>post:</b> se actualizan los campos no clave; se devuelve true si se modificó algún registro
+     *
+     * @param a datos del asociado a actualizar
+     * @return true si se actualizó, false si no se encontró el DNI
+     */
     @Override
     public boolean actualizarAsociado(AsociadoDTO a) {
         String sql = "UPDATE asociado SET nya = ?, telefono = ?, ciudad = ?, direccion = ? WHERE dni = ?";
