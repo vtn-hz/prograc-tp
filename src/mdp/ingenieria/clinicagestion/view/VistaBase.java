@@ -21,6 +21,12 @@ public class VistaBase implements IVistaBase {
     private VistaSimulacion vista3;
     private CardLayout cardLayout;
 
+    /**
+     * Construye la vista base, inicializando el JFrame principal
+     * y cargando las vistas internas.
+     *
+     * <b>post:</b> la ventana queda visible y en la página inicial
+     */
     public VistaBase() {
         JFrame frame = new JFrame("Clinica GUI");
 
@@ -30,10 +36,23 @@ public class VistaBase implements IVistaBase {
         frame.setVisible(true);
     }
 
+    /**
+     * Devuelve el panel contenedor donde se muestran las distintas páginas.
+     *
+     * @return panel central administrado por CardLayout
+     */
     public JPanel getContentPanel() {
         return contentPanel;
     }
 
+    /**
+     * Configura el JFrame principal usando el mainPanel como contenido.
+     *
+     * <b>pre:</b> frame no debe ser null <br>
+     * <b>post:</b> el frame queda inicializado con tamaño, cierre y contenido
+     *
+     * @param frame ventana principal de la aplicación
+     */
     private void setupFrame(JFrame frame) {
         frame.setContentPane(mainPanel); // agrega la base al JFrame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,6 +61,11 @@ public class VistaBase implements IVistaBase {
         frame.setLocationRelativeTo(null);
     }
 
+    /**
+     * Crea las vistas internas y las registra en el panel de contenido.
+     *
+     * <b>post:</b> PAGE1, PAGE2 y PAGE3 quedan agregadas al CardLayout y se muestra PAGE1
+     */
     private void setupContent() {
         vista1 = new VistaAsociados();
         vista2 = new VistaConfiguracion();
@@ -57,6 +81,15 @@ public class VistaBase implements IVistaBase {
         showPage("PAGE1"); // muestra la primera página
     }
 
+    /**
+     * Muestra la página indicada en el panel de contenido.
+     * Además, deshabilita los botones de navegación cuando se está en PAGE3.
+     *
+     * <b>pre:</b> page debe coincidir con alguna de las páginas registradas <br>
+     * <b>post:</b> la vista solicitada queda visible en contentPanel
+     *
+     * @param page código de la página a mostrar (por ejemplo, "PAGE1", "PAGE2", "PAGE3")
+     */
     public void showPage(String page) {
         cardLayout.show(contentPanel, page);
 
@@ -69,19 +102,42 @@ public class VistaBase implements IVistaBase {
         }
     }
 
+    /**
+     * Registra un ActionListener para los botones de navegación.
+     *
+     * <b>pre:</b> actionListener no debe ser null <br>
+     * <b>post:</b> el listener queda asociado a page1Btn y page2Btn
+     *
+     * @param actionListener manejador de acciones de los botones
+     */
     public void setActionListener(ActionListener actionListener) {
         page1Btn.addActionListener(actionListener);
         page2Btn.addActionListener(actionListener);
     }
 
+    /**
+     * Devuelve la vista correspondiente a la primera página (asociados).
+     *
+     * @return vista 1 como IVista
+     */
     public IVista getVista1() {
         return vista1;
     }
 
+    /**
+     * Devuelve la vista correspondiente a la segunda página (configuración).
+     *
+     * @return vista 2 como IVista
+     */
     public IVista getVista2() {
         return (IVista) vista2;
     }
 
+    /**
+     * Devuelve la vista correspondiente a la tercera página (simulación).
+     *
+     * @return vista 3 como IVista
+     */
     public IVista getVista3() {
         return vista3;
     }

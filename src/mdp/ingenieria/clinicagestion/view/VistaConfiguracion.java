@@ -18,6 +18,16 @@ public class VistaConfiguracion implements IVistaConfiguracion {
     private int numReq  = -1;
     private boolean isGenerated = false;
 
+    /**
+     * Registra el ActionListener que se ejecutará cuando se presione el botón de inicio
+     * o cuando se interactúe con los campos de texto.
+     * En el caso del botón, antes de delegar al listener, se validan y parsean los valores.
+     *
+     * <b>pre:</b> actionListener no debe ser null <br>
+     * <b>post:</b> el listener queda asociado a startBtn y a los campos de texto
+     *
+     * @param actionListener manejador de acciones que se invocará al iniciar la simulación
+     */
     @Override
     public void setActionListener(ActionListener actionListener) {
         startBtn.addActionListener(e -> {
@@ -40,6 +50,11 @@ public class VistaConfiguracion implements IVistaConfiguracion {
         textField2.addActionListener(actionListener);
     }
 
+    /**
+     * Muestra un mensaje emergente de error.
+     *
+     * @param message texto a mostrar
+     */
     @Override
     public void popupError(String message) {
         JOptionPane.showMessageDialog(
@@ -50,33 +65,56 @@ public class VistaConfiguracion implements IVistaConfiguracion {
         );
     }
 
+    /**
+     * @return número de asociados ingresados
+     */
     @Override
     public int getNumAsoc() {
         return numAsoc;
     }
 
+    /**
+     * @return número de acciones por asociado
+     */
     @Override
     public int getNumReq() {
         return numReq;
     }
 
+    /**
+     * Indica si se seleccionó la opción de generar asociados automáticamente.
+     *
+     * @return true si se generarán asociados aleatorios, false en caso contrario
+     */
     @Override
     public boolean getIsGenerated() {
         return isGenerated;
     }
 
+    /**
+     * @return panel prinicpal de la vista de configuración
+     */
     public JPanel getMainPanel() {
         return mainPanel;
     }
 
+    /**
+     * @return primer campo de texto (número de asociados)
+     */
     public JTextField getTextField1() {
         return textField1;
     }
 
+    /**
+     * @return segundo campo de texto (número de acciones)
+     */
     public JTextField getTextField2() {
         return textField2;
     }
 
+    /**
+     * @return botón que dispara el inicio de la simulación
+     */
     public JButton getStartBtn() {
         return startBtn;
     }

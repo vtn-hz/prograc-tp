@@ -186,8 +186,18 @@ public class RegistroPacienteService {
 		
 		return factura;
 	}
-	
-	
+
+    /**
+     * Egresar al paciente generando su factura, sin especificar días manualmente.
+     * La cantidad de días se deduce del propio registro de ingreso.
+     *
+     * <b>pre:</b> el paciente está registrado y tiene un ingreso activo <br>
+     * <b>post:</b> se finaliza el ingreso, se genera la factura y se actualizan las consultas de los médicos
+     *
+     * @param paciente paciente a egresar
+     * @return factura generada o null si el paciente no fue atendido
+     * @throws PacienteException si el paciente no está registrado o no tiene ingreso activo
+     */
 	public Factura egresaPaciente( Paciente paciente ) throws PacienteException
 	{
 		RegistroPaciente registroPaciente = this.buscarPaciente(paciente);

@@ -31,6 +31,11 @@ public class VistaAsociados implements IVistaAsociados {
     private DefaultTableModel model;
     private Random random = new Random();
 
+    /**
+     * Inicializa la vista, configurando el modelo de la tabla y sus columnas.
+     *
+     * <b>post:</b> la tabla queda lista para recibir filas de asociados
+     */
     public VistaAsociados() {
         String[] columnNames = {"Nombre", "DNI", "Teléfono", "Domicilio"};
         Object[][] data = {};
@@ -41,6 +46,11 @@ public class VistaAsociados implements IVistaAsociados {
         table1.setModel(model);
     }
 
+    /**
+     * Registra un ActionListener para los botones y campos interactivos.
+     *
+     * @param actionListener listener a asociar a los componentes de la vista
+     */
     public void setActionListener(ActionListener actionListener) {
         nomField.addActionListener(actionListener);
         dniField.addActionListener(actionListener);
@@ -52,6 +62,14 @@ public class VistaAsociados implements IVistaAsociados {
         generateTableBtn.addActionListener(actionListener);
     }
 
+    /**
+     * Actualiza la tabla de asociados reemplazando completamente su contenido.
+     *
+     * <b>pre:</b> lista no debe ser null <br>
+     * <b>post:</b> la tabla muestra exactamente los elementos de lista
+     *
+     * @param lista lista de asociados a mostrar
+     */
     @Override
     public void updateAsociados(List<AsociadoDTO> lista) {
         deleteAsociados();
@@ -60,16 +78,38 @@ public class VistaAsociados implements IVistaAsociados {
         }
     }
 
+    /**
+     * Obtiene el DNI de la fila seleccionada.
+     *
+     * <b>pre:</b> selectedRow es un índice válido de la tabla <br>
+     * <b>post:</b> se devuelve el DNI correspondiente
+     *
+     * @param selectedRow índice de la fila seleccionada
+     * @return DNI contenido en la fila
+     */
     @Override
     public String getIdFromRow(int selectedRow) {
         return model.getValueAt(selectedRow, 1).toString();
     }
 
+    /**
+     * Elimina todas las filas de la tabla.
+     *
+     * <b>post:</b> la tabla queda vacía
+     */
     @Override
     public void deleteAsociados() {
         model.setRowCount(0);
     }
 
+    /**
+     * Agrega una fila a la tabla con la información del asociado.
+     *
+     * <b>pre:</b> dto no debe ser null <br>
+     * <b>post:</b> la tabla contiene una nueva fila con los datos del asociado
+     *
+     * @param dto datos del asociado a insertar
+     */
     @Override
     public void addAsociadoRow(AsociadoDTO dto) {
         model.addRow(new Object[]{
@@ -80,11 +120,24 @@ public class VistaAsociados implements IVistaAsociados {
         });
     }
 
+    /**
+     * Elimina una fila específica de la tabla.
+     *
+     * <b>pre:</b> rowNumber es un índice válido <br>
+     * <b>post:</b> esa fila ya no existe en la tabla
+     *
+     * @param rowNumber índice de la fila a eliminar
+     */
     @Override
     public void removeAsociadoRow(int rowNumber) {
         model.removeRow(rowNumber);
     }
 
+    /**
+     * Muestra un mensaje emergente de error.
+     *
+     * @param message texto del error a mostrar
+     */
     @Override
     public void popupError(String message) {
         JOptionPane.showMessageDialog(
@@ -95,6 +148,11 @@ public class VistaAsociados implements IVistaAsociados {
         );
     }
 
+    /**
+     * Solicita confirmación del usuario para eliminar todos los asociados.
+     *
+     * @return true si el usuario confirma; false en caso contrario
+     */
     @Override
     public boolean confirmDeleteAll() {
         int r = JOptionPane.showConfirmDialog(
@@ -107,6 +165,11 @@ public class VistaAsociados implements IVistaAsociados {
         return r == JOptionPane.YES_OPTION;
     }
 
+    /**
+     * Habilita o deshabilita todos los botones de la vista.
+     *
+     * @param enabled estado deseado de los botones
+     */
     @Override
     public void enableButtons(boolean enabled) {
         addBtn.setEnabled(enabled);
@@ -116,38 +179,67 @@ public class VistaAsociados implements IVistaAsociados {
         removeTableBtn.setEnabled(enabled);
     }
 
+    /**
+     * @return tabla donde se visualizan los asociados.
+     */
     public JPanel getMainPanel() {
         return mainPanel;
     }
 
+    /**
+     * @return tabla donde se visualizan los asociados.
+     */
     public JTable getTable() {
         return table1;
     }
 
+    /**
+     * @return botón para agregar un asociado.
+     */
     public JButton getAddBtn() {
         return addBtn;
     }
 
+    /**
+     * @return botón para eliminar un asociado seleccionado.
+     */
     public JButton getRemoveBtn() {
         return removeBtn;
     }
 
+    /**
+     * @return botón para generar campos de asociado aleatorios.
+     */
     public JButton getGenerateBtn() {
         return generateBtn;
     }
 
+    /**
+     * @return botón para eliminar toda la tabla.
+     */
     public JButton getRemoveTableBtn() {
         return removeTableBtn;
     }
 
+    /**
+     * @return botón para generar una tabla completa aleatoria.
+     */
     public JButton getGenerateTableBtn() {
         return generateTableBtn;
     }
 
+    /**
+     * @return modelo asociado a la tabla.
+     */
     public DefaultTableModel getModel() {
         return model;
     }
 
+    /**
+     * Obtiene todos los campos de texto del formulario.
+     *
+     * @return lista de JTextField en orden lógico de uso
+     */
     public List<JTextField> getAllTextFields() {
         return Arrays.asList(dniField, nomField, apeField, telField, ciuField, dirField);
     }
