@@ -20,7 +20,17 @@ public class TaskInteraction extends Thread {
 	
 	private Persona persona;
 
-	public TaskInteraction(int actionTagTask, Persona persona, Ambulancia ambulancia)
+    /**
+     * Crea una nueva interacción y la inicia automáticamente.
+     *
+     * <b>pre:</b> ambulancia y persona no deben ser nulos; actionTagTask debe ser válido <br>
+     * <b>post:</b> se incrementa el contador de hilos de la simulación y comienza la ejecución
+     *
+     * @param actionTagTask tipo de acción a realizar
+     * @param persona persona que realiza la solicitud
+     * @param ambulancia ambulancia a la que se dirige la solicitud
+     */
+    public TaskInteraction(int actionTagTask, Persona persona, Ambulancia ambulancia)
 	{
 		super();
 		this.actionTagTask = actionTagTask;
@@ -31,12 +41,20 @@ public class TaskInteraction extends Thread {
 		this.start();
 	}
 
+    /**
+     * Ejecuta la interacción completa y notifica a la simulación al finalizar.
+     */
 	@Override
 	public void run () {
 		this.runTask();	
 		Simulation.getInstance().temporalThreadFinalized();
 	}
-	
+
+    /**
+     * Realiza la acción correspondiente al tipo indicado.
+     *
+     * <b>post:</b> se simula tiempo antes y después de ejecutar la acción
+     */
 	public void runTask () {
 		ThreadUtil.simulateTimeMedio( Simulation.getInstance().getTaskTime() / 4 );
 

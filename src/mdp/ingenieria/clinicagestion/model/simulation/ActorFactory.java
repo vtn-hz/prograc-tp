@@ -13,6 +13,18 @@ public class ActorFactory {
 
 	public static final String OPERARIO_ACTOR = "OPERARIO_ACTOR";
 
+    /**
+     * Crea un actor temporal según el tipo solicitado.
+     *
+     * <b>pre:</b> actorType y persona no deben ser nulos; persona debe coincidir
+     * con el tipo de actor solicitado <br>
+     * <b>post:</b> se devuelve un actor configurado con la persona indicada
+     *
+     * @param actorType tipo de actor a crear
+     * @param interactionCount cantidad de tareas a ejecutar
+     * @param persona persona asociada al actor
+     * @return instancia del actor correspondiente
+     */
 	public static Actor createTemporallActor(String actorType, int interactionCount, Persona persona) {
 		assert actorType != null;
 		assert persona != null;

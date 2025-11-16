@@ -19,6 +19,15 @@ public class OperarioActor extends Actor {
 
     private int interactionCount;
 
+    /**
+     * Crea un OperarioActor.
+     *
+     * <b>pre:</b> interactionCount >= 0 y operario no debe ser nulo <br>
+     * <b>post:</b> el actor queda listo para ejecutar solicitudes de mantenimiento
+     *
+     * @param interactionCount cantidad de interacciones a ejecutar
+     * @param operario operario que realiza las solicitudes
+     */
     public OperarioActor(int interactionCount, Operario operario) {
         super();
         this.operario = operario;
@@ -26,6 +35,12 @@ public class OperarioActor extends Actor {
         this.random = new Random();
     }
 
+    /**
+     * Ciclo principal del actor: ejecuta tareas mientras queden interacciones
+     * pendientes y la simulación siga activa.
+     *
+     * <b>post:</b> al terminar, notifica a la simulación que este actor finalizó
+     */
     @Override
     public void run() {
         while (this.interactionCount > 0 && Simulation.getInstance().isRunning())
@@ -37,6 +52,12 @@ public class OperarioActor extends Actor {
         Simulation.getInstance().temporalThreadFinalized();
     }
 
+    /**
+     * Ejecuta una acción de mantenimiento seleccionada aleatoriamente.
+     *
+     * <b>pre:</b> la simulación debe estar en ejecución <br>
+     * <b>post:</b> el operario realiza la solicitud y se simula el tiempo asociado
+     */
     @Override
     public void runTask() {
         int actionSelected = this.random.nextInt(AVAILABLE_ACTION_AMOUNT);

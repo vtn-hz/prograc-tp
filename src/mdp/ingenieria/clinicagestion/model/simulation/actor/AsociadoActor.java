@@ -22,14 +22,29 @@ public class AsociadoActor extends Actor {
 
 	private int interactionCount;
 
+    /**
+     * Crea el actor de un asociado.
+     *
+     * <b>pre:</b> interactionCount >= 0 y asociado no debe ser nulo <br>
+     * <b>post:</b> el actor queda preparado para ejecutar acciones aleatorias
+     *
+     * @param interactionCount cantidad de acciones a realizar
+     * @param asociado objeto asociado que realizará las solicitudes
+     */
 	public AsociadoActor(int interactionCount, Asociado asociado) {
 		super();
 		this.asociado = asociado;
 		this.interactionCount = interactionCount;
 		this.random = new Random();
 	}
-	
-	@Override
+
+    /**
+     * Ciclo principal del actor: ejecuta acciones mientras tenga interacciones pendientes
+     * y la simulación continúe activa.
+     *
+     * <b>post:</b> al finalizar, notifica a la simulación que terminó su ejecución
+     */
+    @Override
 	public void run() {
 		while (this.interactionCount > 0 && Simulation.getInstance().isRunning())
 		{	
@@ -40,6 +55,12 @@ public class AsociadoActor extends Actor {
 		Simulation.getInstance().temporalThreadFinalized( this.asociado );
 	}
 
+    /**
+     * Ejecuta una acción aleatoria (solicitar domicilio o solicitar ambulancia).
+     *
+     * <b>pre:</b> la simulación debe estar en ejecución <br>
+     * <b>post:</b> el asociado realiza una solicitud y se simula el tiempo correspondiente
+     */
 	@Override
 	public void runTask() {
 		int actionSelected = this.random.nextInt(AVAILABLE_ACTION_AMOUNT);
