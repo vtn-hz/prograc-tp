@@ -13,6 +13,16 @@ public class ControladorAsociados extends Controlador {
     private AsociadoGenerator generator = new AsociadoGenerator();
     private AsociadoService service = new AsociadoService();
 
+    /**
+     * Configura la vista asociada a este controlador y realiza una carga inicial
+     * de los datos de asociados.
+     *
+     * <b>pre:</b> vista no debe ser nula y debe ser una instancia compatible con IVistaAsociados <br>
+     * <b>post:</b> se inicializa la vista con la lista de asociados existente,
+     * se habilitan los botones y se registra este controlador como ActionListener
+     *
+     * @param vista vista genérica a asociar con este controlador, esperada como IVistaAsociados
+     */
     public void setVista(IVista vista) {
         this.vista = (IVistaAsociados) vista;
         this.vista.enableButtons(false);
@@ -21,6 +31,18 @@ public class ControladorAsociados extends Controlador {
         this.vista.setActionListener(this);
     }
 
+    /**
+     * Maneja los eventos de la interfaz de usuario asociados a los botones de la vista.
+     * Según el origen del evento, realiza operaciones de alta, baja, generación de datos
+     * individuales o masivos, y actualización de la tabla de asociados.
+     *
+     * <b>pre:</b> la vista debe estar configurada mediante setVista y el evento
+     * debe provenir de un componente conocido por la vista <br>
+     * <b>post:</b> se ejecuta la acción correspondiente al botón presionado,
+     * pudiendo modificar la tabla de asociados y la base de datos asociada
+     *
+     * @param e evento de acción disparado por la interfaz gráfica
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
@@ -88,6 +110,18 @@ public class ControladorAsociados extends Controlador {
         }
     }
 
+    /**
+     * Valida el contenido de los campos de texto de la vista y, si son válidos,
+     * crea un nuevo asociado y lo da de alta mediante el servicio.
+     *
+     * <b>pre:</b> fields debe contener al menos los campos:
+     * DNI, nombre, apellido, teléfono, ciudad y dirección, en ese orden <br>
+     * <b>post:</b> si todos los campos están completos y son válidos, se crea
+     * un nuevo AsociadoDTO, se registra mediante el servicio y se actualiza la vista;
+     * en caso contrario se informa el error y no se modifica la lista de asociados
+     *
+     * @param fields lista de campos de texto que contienen los datos del asociado a crear
+     */
     private void validateAndAddAsociado(List<JTextField> fields) {
         boolean emptyFound = false;
 
