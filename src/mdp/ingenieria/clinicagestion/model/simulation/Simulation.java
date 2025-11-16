@@ -10,6 +10,11 @@ import mdp.ingenieria.clinicagestion.util.ThreadUtil;
 import mdp.ingenieria.clinicagestion.model.persona.AmbulanciaInteractorFactory;
 import mdp.ingenieria.clinicagestion.model.persona.Persona;
 
+/**
+ * Tiene como invariante de clase que ningun actor de la simulacion puede ejecutarse sin ser registrado por el temporalThreadWorkingCount.
+ * Las únicas entidades autorizadas para cambiar el estado de la simulacion a TERMINATED son los simulationWatcher o la misma Simulacion
+ */
+
 public class Simulation extends Observable {
 
 	public static final String STATE_RUNNING = "running";

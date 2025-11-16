@@ -61,8 +61,7 @@ public class OperarioActor extends Actor {
     @Override
     public void runTask() {
         int actionSelected = this.random.nextInt(AVAILABLE_ACTION_AMOUNT);
-        assert actionSelected > 0;
-        
+
         ThreadUtil.simulateTimeMedio( this.getAverageTaskTime() );
         
         switch(actionSelected)

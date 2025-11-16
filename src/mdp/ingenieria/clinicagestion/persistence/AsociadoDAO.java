@@ -73,6 +73,7 @@ public class AsociadoDAO implements IAsociadoDAO {
      */
     @Override
     public boolean eliminarAsociado(String dni) {
+        assert dni != null && !dni.isEmpty();
         String sql = "DELETE FROM asociado WHERE dni = ?";
         try (Connection c = cm.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setString(1, dni);
@@ -136,6 +137,7 @@ public class AsociadoDAO implements IAsociadoDAO {
      */
     @Override
     public List<AsociadoDTO> listarAsociadosRnd(int limit) {
+        assert limit >= 0;
         String sql = "SELECT dni, nya, telefono, ciudad, direccion FROM asociado ORDER BY RAND() LIMIT ?";
         List<AsociadoDTO> list = new ArrayList<>();
         try (Connection c = cm.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
@@ -189,6 +191,7 @@ public class AsociadoDAO implements IAsociadoDAO {
      */
     @Override
     public boolean existeAsociado(String dni) {
+        assert dni != null && !dni.isEmpty();
         String sql = "SELECT 1 FROM asociado WHERE dni = ?";
         try (Connection c = cm.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setString(1, dni);
@@ -209,6 +212,7 @@ public class AsociadoDAO implements IAsociadoDAO {
      */
     @Override
     public AsociadoDTO obtenerAsociado(String dni) {
+        assert dni != null && !dni.isEmpty();
         String sql = "SELECT dni, nya, telefono, ciudad, direccion FROM asociado WHERE dni = ?";
         try (Connection c = cm.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setString(1, dni);
@@ -240,6 +244,7 @@ public class AsociadoDAO implements IAsociadoDAO {
      */
     @Override
     public boolean actualizarAsociado(AsociadoDTO a) {
+        assert a != null;
         String sql = "UPDATE asociado SET nya = ?, telefono = ?, ciudad = ?, direccion = ? WHERE dni = ?";
         try (Connection c = cm.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setString(1, a.getNya());

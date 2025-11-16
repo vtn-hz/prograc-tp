@@ -64,8 +64,7 @@ public class AsociadoActor extends Actor {
 	@Override
 	public void runTask() {
 		int actionSelected = this.random.nextInt(AVAILABLE_ACTION_AMOUNT);
-		assert actionSelected > 1;
-		
+
 		ThreadUtil.simulateTimeMedio( this.getAverageTaskTime() );
 		
 		switch(actionSelected) 

@@ -21,6 +21,7 @@ public class AmbulanceStateMessage {
      * @param solicitante persona relacionada con la acción
      */
     public AmbulanceStateMessage(String message, int status, Persona solicitante) {
+        assert message != null;
         this.message = message;
         this.status = status;
         this.solicitante = solicitante;
@@ -36,6 +37,7 @@ public class AmbulanceStateMessage {
      * @param status  estado numérico
      */
     public AmbulanceStateMessage(String message, int status){
+        assert message != null;
         this.message = message;
         this.status = status;
     }

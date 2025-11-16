@@ -10,28 +10,31 @@ public class AsociadoService {
 
     /**
      * Da de alta un asociado del modelo convirtiéndolo a DTO.
-     *
+     * <b>pre:</b> a no debe ser nulo <br>
      * @param a objeto Asociado a registrar
      */
     public void alta(Asociado a) {
+        assert a != null;
         dao.agregarAsociado(AsociadoMapper.toDTO(a));
     }
 
     /**
      * Da de alta un asociado recibidos directamente como DTO.
-     *
+     * <b>pre:</b> a no debe ser nulo <br>
      * @param a asociado a registrar
      */
     public void alta(AsociadoDTO a) {
+        assert a != null;
         dao.agregarAsociado(a);
     }
 
     /**
      * Inserta un conjunto de asociados en bloque.
-     *
+     * <b>pre:</b> la lista List<AsociadoDTO> no debe estar vacia <br>
      * @param l lista de asociados a registrar
      */
     public void altaTabla(List<AsociadoDTO> l) {
+        assert !l.isEmpty();
         dao.agregarAsociados(l);
     }
 

@@ -68,6 +68,8 @@ public class ControladorSimulacion extends Controlador implements Observer {
      * @param vista vista genérica que se interpreta como IVistaConfiguracion
      */
     public void setVistaConfig(IVista vista) {
+        assert vista != null;
+        assert vista instanceof IVistaConfiguracion;
         this.vistaConfig = (IVistaConfiguracion) vista;
         vista.setActionListener(this);
     }
@@ -82,6 +84,8 @@ public class ControladorSimulacion extends Controlador implements Observer {
      * @param vista vista genérica que se interpreta como IVistaSimulacion
      */
     public void setVistaSim(IVista vista) {
+        assert vista != null;
+        assert vista instanceof IVistaSimulacion;
         this.vistaSim = (IVistaSimulacion) vista;
         vista.setActionListener(this);
     }
@@ -96,6 +100,8 @@ public class ControladorSimulacion extends Controlador implements Observer {
      * @param vista vista genérica que se interpreta como IVistaBase
      */
     public void setVistaNav(IVista vista) {
+        assert vista != null;
+        assert vista instanceof IVistaBase;
         this.vistaNav = (IVistaBase) vista;
         vista.setActionListener(this);
     }

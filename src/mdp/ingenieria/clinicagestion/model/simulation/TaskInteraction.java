@@ -22,7 +22,6 @@ public class TaskInteraction extends Thread {
 
     /**
      * Crea una nueva interacción y la inicia automáticamente.
-     *
      * <b>pre:</b> ambulancia y persona no deben ser nulos; actionTagTask debe ser válido <br>
      * <b>post:</b> se incrementa el contador de hilos de la simulación y comienza la ejecución
      *

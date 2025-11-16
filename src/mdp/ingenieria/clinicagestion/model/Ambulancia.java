@@ -68,6 +68,7 @@ public class Ambulancia extends Observable {
      * @param asociado asociado que solicita el traslado
      */
     public synchronized void solicitarTraslado(Asociado asociado){
+        assert asociado != null;
         while ( Simulation.getInstance().isRunning() && !estado.puedeTraslado()) {
             try {
             	setChanged();
